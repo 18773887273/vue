@@ -22,11 +22,13 @@
 
 </template>
 <script>
-import MenuVue from "../components/menu";
-import Userlist from "../components/userlist";
-import Deptlist from "../components/deptlist";
+import Menu from "../components/menu.vue";
+import Userlist from "../components/userlist.vue";
+import Deptlist from "../components/deptlist.vue";
+import Shouye from "../components/shouye.vue";
 
 export default {
+
   name: 'app',
   data () {
     return {
@@ -52,9 +54,10 @@ export default {
     }
   },*/
   components:{
-    menuvue:MenuVue,
-    userlist:Userlist,
-    deptlist:Deptlist
+    "Menu":Menu,
+    "userlist":Userlist,
+    "deptlist":Deptlist,
+    "shoye":Shouye
   },
   }
 </script>
