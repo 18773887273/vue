@@ -1,60 +1,61 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <div style="height:200px">
+    <el-form ref="form" label-width="80px">
+      <el-form-item label="用户名">
+        <el-input v-model="username"></el-input>
+      </el-form-item>
+      <el-form-item label="密码">
+        <el-input v-model="userpass"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary">
+          登陆
+        </el-button>
+      </el-form-item>
+    </el-form>
+    </div>
   </div>
-</template>
 
+</template>
 <script>
+import MenuVue from "../components/menu";
+import Userlist from "../components/userlist";
+import Deptlist from "../components/deptlist";
+
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+            username: '',
+            userpass: ''
     }
+    },
+  /*methods: {
+    denglu(){
+      var _this = this;
+
+      var params = new URLSearchParams();
+      params.append("username", this.froms.username);
+      params.append("password", this.froms.userpass);
+
+      this.$axios.post("/login.action",params).
+      then(function(result) {
+
+      }).
+      catch(function(error) {
+        alert(error)
+      });
+    }
+  },*/
+  components:{
+    menuvue:MenuVue,
+    userlist:Userlist,
+    deptlist:Deptlist
+  },
   }
-}
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>
