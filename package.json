@@ -5,8 +5,9 @@
   "author": "18773887273 <2113249768@qq.com>",
   "license": "MIT",
   "private": true,
+
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --port 9090",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --port 10086",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
