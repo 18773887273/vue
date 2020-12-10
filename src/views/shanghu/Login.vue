@@ -13,7 +13,7 @@
                   <div style="margin-top: 20px">
                     <div id="mylogondiv1"><h1 style=" color: white;margin:20px ">商户</h1></div>
                     <div id="logo">
-                      <img id="img1" alt="logo" src="../src/assets/logo.png">
+                      <img id="img1" alt="logo" src="../../images/shanghu/logo.png">
                     </div>
                     <div id="mylogodivright" class="mylogoli">
                       <ul>
@@ -33,7 +33,7 @@
                             </el-carousel-item>
                         </el-carousel>
                     </div>
-                    <div id="loginmydiv" style="background: url('../src/assets/loginback.png')">
+                    <div id="loginmydiv" style="background: url('../../images/shanghu/loginback.png')">
                         <div style="text-align: center;font-size: 20px;">
                             商户登录
                         </div>
@@ -70,13 +70,13 @@
                 loginnametype:{},
                 imgList:[
                     {
-                        url:require('../src/assets/zmd1.jpg') //url: '../src../src/assets/lake.jpg'
+                        url:require('../../images/shanghu/zmd1.jpg') //url: '../src../src/assets/lake.jpg'
                     },
                     {
-                        url:require('../src/assets/zmd2.png') //url: '../src../src/assets/build.jpg'
+                        url:require('../../images/shanghu/zmd2.png') //url: '../src../src/assets/build.jpg'
                     },
                     {
-                        url:require('../src/assets/zmd3.png') //url: '../src../src/assets/road.jpg'
+                        url:require('../../images/shanghu/zmd3.png') //url: '../src../src/assets/road.jpg'
                     }
                 ]
             }
@@ -120,7 +120,7 @@
   .loginpass{
     width: 202px;
     height: 35px;
-    background-image: url(../src/assets/login_text_mm.png);
+    background-image: url(../../images/shanghu/login_text_mm.png);
     margin-bottom: 5px;
     border: 0px;
     padding-left: 40px;
@@ -131,7 +131,7 @@
   .loginname{
     width: 202px;
     height: 35px;
-    background-image: url(../src/assets/login_text_yhm_item.png);
+    background-image: url(../../images/shanghu/login_text_yhm_item.png);
     margin-bottom: 5px;
     border: 0px;
     padding-left: 40px;

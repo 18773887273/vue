@@ -7,7 +7,7 @@ import Qiantai from '../router/qiantai/router.config'
 import Shanghu from '../router/shanghu/router.config'
 import  Qiantaishouye from '../views/qiantai/deptlist.vue'
 import  Houtaishouye from '../views/houtai/menu.vue'
-import  Shanghushouye from '../views/shanghu/menu.vue'
+import  Shanghushouye from '../views/shanghu/Login.vue'
 Vue.use(VueRouter)
 
 /**
