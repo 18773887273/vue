@@ -1,0 +1,107 @@
+<template>
+  <div>
+    <el-menu
+      :default-active="activeIndex2"
+      class="el-menu-demo"
+      mode="horizontal"
+      @select="handleSelect"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b">
+      <el-submenu index="1">
+        <template slot="title"><vab-colorful-icon icon-class="file" /><i class="el-icon-sell"></i>订单管理</template>
+        <el-menu-item index="1-1">全部订单</el-menu-item>
+        <el-menu-item index="1-2">待收货订单</el-menu-item>
+        <el-menu-item index="1-3">待提货订单</el-menu-item>
+        <el-menu-item index="1-4">已提货订单</el-menu-item>
+      </el-submenu>
+      <el-submenu index="2">
+        <template slot="title"><i class="el-icon-postcard"></i>资料维护</template>
+        <el-menu-item index="2-1">个人资料维护</el-menu-item>
+        <el-menu-item index="2-2">门店资料维护</el-menu-item>
+      </el-submenu>
+      <el-menu-item index="3"><i class="el-icon-s-data"></i>统计营收</el-menu-item>
+      <el-menu-item index="4"><i class="el-icon-chat-dot-square"></i>消息中心</el-menu-item>
+      <el-col :span="8" style="float: right;margin-top: 10px">
+        <div id="clock">
+          <p class="date">{{ date }}</p>
+          <p class="time">{{ time }}</p>
+        </div>
+      </el-col>
+        <div style="margin-top: 20px;margin-left: 100px;color: #daf6ff;float: left;font-size: 14px">欢迎:
+      <label>用户名</label>
+      </div>
+    </el-menu>
+  </div>
+</template>
+
+<script>
+    export default {
+        name: "shmenu.vue",
+      data() {
+        return {
+          activeIndex: '1',
+          activeIndex2: '1',
+          date:'',
+          time:'',
+          week : ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+        };
+      },
+      mounted:function(){//定时执行更新时间的方法
+        let _this = this ;
+        _this.$nextTick(function () {
+          setInterval(_this.updateTime, 1000);
+        })
+      },
+      methods: {
+        handleSelect(key, keyPath) {
+          console.log(key, keyPath);
+        },
+        //更新时间的方法
+        updateTime:function () {
+          let _this = this ;
+          let cd = new Date();
+          //this.date;
+          _this.time = _this.zeroPadding(cd.getHours(), 2) + ':'
+            + _this.zeroPadding(cd.getMinutes(), 2) + ':'
+            + _this.zeroPadding(cd.getSeconds(), 2);
+          _this.date = _this.zeroPadding(cd.getFullYear(), 4) + '-'
+            + _this.zeroPadding(cd.getMonth()+1, 2) + '-'
+            + _this.zeroPadding(cd.getDate(), 2) + ' '
+            + _this.week[cd.getDay()];
+        },
+        //更新时间的辅助方法
+        zeroPadding:function(num, digit) {
+          let zero = '';
+          for(let i = 0; i < digit; i++) {
+            zero += '0';
+          }
+          return (zero + num).slice(-digit);
+        }
+      }
+    }
+</script>
+
+<style scoped>
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  #clock {
+    font-family: 'Microsoft YaHei','Lantinghei SC','Open Sans',Arial,'Hiragino Sans GB','STHeiti','WenQuanYi Micro Hei','SimSun',sans-serif;
+    color: #daf6ff;
+  }
+
+  #clock .time {
+    letter-spacing: 0.05em;
+    font-size: 14px;
+    padding: 5px 0;
+    text-align: center;
+  }
+  #clock .date {
+    text-align: center;
+    letter-spacing: 0.1em;
+    font-size: 14px;
+  }
+
+</style>
