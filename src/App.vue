@@ -48,7 +48,7 @@ export default {
             })
             setTimeout(function () {
               if(result.data.code==1) {
-                _this.$router.push({path: '/userlist'})
+                _this.$router.push({path: '/menu'})
                 document.getElementById("date").style.display = "none";
               }
             },2000)

@@ -1,45 +1,113 @@
 
 
 <template>
+  <div>
+  <el-row class="tac">
+    <el-col :span="12">
+      <h5>自定义颜色</h5>
+      <el-menu
+        default-active="2"
+        class="el-menu-vertical-demo"
+        @open="handleOpen"
+        @close="handleClose"
+        background-color="#545c64"
+        text-color="#fff"
+        active-text-color="#ffd04b">
+        <el-submenu index="1">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>导航一</span>
+          </template>
+          <el-menu-item-group>
+            <template slot="title">分组一</template>
+            <el-menu-item index="1-1">选项1</el-menu-item>
+            <el-menu-item index="1-2">选项2</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group title="分组2">
+            <el-menu-item index="1-3">选项3</el-menu-item>
+          </el-menu-item-group>
+          <el-submenu index="1-4">
+            <template slot="title"  >选项4</template>
+            <el-menu-item index="1-4-1"  v-model="zhi" @click="addTab(editableTabsValue)">选项1</el-menu-item>
+          </el-submenu>
+        </el-submenu>
+      </el-menu>
+    </el-col>
+  </el-row>
 
-<!--导航菜单-折叠后-->
-<ul class="el-menu el-menu-vertical-demo collapsed" v-show="collapsed" ref="menuCollapsed">
-  <li v-for="(item,index) in $router.options.routes" v-if="!item.hidden" class="el-submenu item">
-    <template v-if="!item.leaf">
-      <div class="el-submenu__title" style="padding-left: 20px;" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)"><i :class="item.iconCls"></i></div>
-      <ul class="el-menu submenu" :class="'submenu-hook-'+index" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)">
-        <li v-for="child in item.children" v-if="!child.hidden" :key="child.path" class="el-menu-item" style="padding-left: 40px;" :class="$route.path==child.path?'is-active':''" @click="$router.push(child.path)">{{child.name}}</li>
-      </ul>
-    </template>
+    <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
+      <el-tab-pane
+        v-for="(item, index) in editableTabs"
+        :key="item.name"
+        :label="item.title"
+        :name="item.name"
+      >
+        {{item.content}}
+      </el-tab-pane>
+    </el-tabs>
 
-</li>
-</ul>
+  </div>
 </template>
-
-
-
-<script>
-  export default {
-    name: 'app',
-    data() {
-      return {
-        menus: [] //当前登录用户所能看到的菜单
+  <script>
+    export default {
+      data() {
+        return {
+          menu:[{}],
+          zhi:"",
+          editableTabsValue: '2',
+          editableTabs: [{
+            title: 'Tab 1',
+            name: '1',
+            content: 'Tab 1 content'
+          }, {
+            title: 'Tab 2',
+            name: '2',
+            content: 'Tab 2 content'
+          }],
+          tabIndex: 2
+        }
       }
-    },
+      ,
+      methods: {
+        handleOpen(key, keyPath) {
+          console.log(key, keyPath);
+        },
+        handleClose(key, keyPath) {
+          console.log(key, keyPath);
+        },
+      addTab(targetName) {
+        let newTabName = ++this.tabIndex + '';
+        this.editableTabs.push({
+          title: this.zhi,
+          name: newTabName,
+          content: this.zhi
+        });
+        this.editableTabsValue = newTabName;
+      },
+      removeTab(targetName) {
+        let tabs = this.editableTabs;
+        let activeName = this.editableTabsValue;
+        if (activeName === targetName) {
+          tabs.forEach((tab, index) => {
+            if (tab.name === targetName) {
+              let nextTab = tabs[index + 1] || tabs[index - 1];
+              if (nextTab) {
+                activeName = nextTab.name;
+              }
+            }
+          });
+        }
 
-    mounted() {
-      var user = sessionStorage.getItem('user');
-      if (user) {
-        user = JSON.parse(user);
-        this.sysUserName = user.name || '';
-        // this.sysUserAvatar = user.avatar || '';  avatar//图片路径
+        this.editableTabsValue = activeName;
+        this.editableTabs = tabs.filter(tab => tab.name !== targetName);
       }
-     // 取出当前用户能看到的所有菜单, 并赋值
-      let item = sessionStorage.getItem("menus");
-      this.menus = JSON.parse(item);
+
     }
-  }
-</script>
+    }
+  </script>
+
+
+
 
 <style scoped>
 
