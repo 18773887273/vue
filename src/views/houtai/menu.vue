@@ -1,220 +1,225 @@
 <template>
-  <el-container>
-    <el-header>
-      <div style="float: left; cursor:pointer" @click="isOpen">
-        <i :class="{'el-icon-s-fold': isCollapse == false?true:false, 'el-icon-s-unfold': isCollapse == true?true:false}"></i>
-      </div>
-      <el-dropdown trigger="click" style="cursor: pointer; float: right">
-        <i class="fa fa-ellipsis-v fa-lg"></i>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>关闭全部页面</el-dropdown-item>
-          <el-dropdown-item>刷新页面</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </el-header>
-    <el-container :style="{height: setHeight+'px'}">
-      <el-aside style="width: auto">
-        <el-menu :default-active="String(activeNav)" router class="el-menu-vertical-demo" :collapse="isCollapse">
-          <el-submenu index="1">
-            <template slot="title">
-              <i class="el-icon-setting"></i>
-              <span slot="title">基础设置</span>
-            </template>
-            <el-menu-item index="/shop">导航</el-menu-item>
-            <el-menu-item index="/">个人信息</el-menu-item>
-          </el-submenu>
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="fa fa-book"></i>
-              <span slot="title">文章管理</span>
-            </template>
-            <el-menu-item index="/fuillEditor">fuillEditor</el-menu-item>
-            <el-menu-item index="/category">分类管理</el-menu-item>
-          </el-submenu>
-        </el-menu>
-      </el-aside>
-      <el-main :style="{height: setHeight+'px', padding: 0}">
-        <el-tabs v-model="activeTab" type="card" @tab-remove="removeTab" @tab-click="tabClick">
-          <el-tab-pane v-for="(item, index) in tabsItem"
-                       :key="item.name"
-                       :label="item.title"
-                       :name="item.name"
-                       :closable="item.closable"
-                       :ref="item.ref">
-            <component :is="item.content"></component>
-          </el-tab-pane>
-        </el-tabs>
-      </el-main>
+  <div id="app">
+    <!-- @click="drawer = true" -->
+    <el-container>
+      <!-- 头部区域 -->
+      <el-header>
+
+
+      </el-header>
+      <el-container>
+        <!-- 左边区域 -->
+        <el-aside :width="isCollapse  ? '65px' : '210px'">
+          <!--  <el-menu style="height: 900px;"  @select="childMenuSelect"> -->
+          <div class="toggle-button" @click="toggleCollapse">|||</div>
+          <el-menu style="height: 880px;" :default-openeds="['1']" :collapse="isCollapse" :unique-opened="true"
+                   :default-active="activationInedx" :collapse-transition="false" background-color="#fff" @select="handleSelect">
+            <el-submenu :index="item.id" v-for="item in menus" :key="item.path">
+              <template slot="title">
+                <i :class="iconsObj[item.id]"></i>
+                <span>{{ item.name }}</span>
+              </template>
+              <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.childMenu" :key="subItem.path">
+                <template slot="title">
+                  <i class="el-icon-menu" style="font-size: 15px"></i>
+                  <span>{{ subItem.name }}</span>
+                </template>
+              </el-menu-item>
+            </el-submenu>
+          </el-menu>
+
+        </el-aside>
+        <!-- 中间区域 -->
+        <el-main>
+          <el-tabs v-model="editableTabsValue" type="card" closable="closable" @tab-remove="removeTab" @tab-click="tab_click(editableTabsValue)">
+            <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
+            </el-tab-pane>
+
+          </el-tabs>
+          <!--<el-tabs>
+
+            <el-tab-pane label="用户管理">
+              <el-input style="width: 250px;" clearable v-model="search" placeholder="输入关键字搜索">
+                <el-button @click="addUser" slot="append">添加</el-button>
+              </el-input>
+              <br /><br />
+
+              <el-table :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                border>
+                <el-table-column type="selection" width="55">
+                </el-table-column>
+                <el-table-column prop="name" label="姓名">
+                </el-table-column>
+                <el-table-column prop="date" label="日期">
+                </el-table-column>
+                <el-table-column prop="address" label="地址">
+                </el-table-column>
+                <el-table-column label="操作">
+                  <el-button type="warning" icon="el-icon-edit" plain circle></el-button>
+                  <el-button type="danger" icon="el-icon-delete" plain circle @click="del"></el-button>
+                </el-table-column>
+              </el-table>
+            </el-tab-pane>
+
+            <el-tab-pane label="员工管理">
+            </el-tab-pane>
+
+          </el-tabs>-->
+          <!-- 分页 -->
+
+
+
+        </el-main>
+      </el-container>
     </el-container>
-  </el-container>
+  </div>
 </template>
 
 <script>
-  import welcome from '../houtai/deptlist'
-  import setNav from '../houtai/userlist'
-  import mineInfo from '../houtai/userlist'
-  import fuillEditor from "../houtai/userlist";
-  import category from "../houtai/userlist";
 
   export default {
-    name: "Home",
+    name: 'app',
     data() {
       return {
-        isCollapse: false,  //false为展开 true为收缩
-        activeTab: '1', //默认显示的tab
-        tabIndex: 1, //tab目前显示数
-        tabsItem: [
-          {
-            title: '首页',
-            name: '1',
-            closable: false,
-            ref: 'tabs',
-            content: welcome
-          }
-        ],
-        tabsPath: [{
-          name: "1",
-          path: '/welcome'
-        }]
+        iconsObj: {
+          '101': "el-icon-coin",
+          '102': "el-icon-house",
+          '103': "el-icon-search",
+          '104': "el-icon-setting",
+        },
+        //菜单数据 数组对象
+        menus: [],
+        editableTabsValue: "welcome",
+        activationInedx: "0 ",
+        isCollapse: false,
+        collapse: true,
+        search: '',
+        flag: true,
+        addDialogVisible: false,
+        editableTabs: [{
+          title: "首页",
+          name: "homepage",
+          //closable: false,
+          content: "首页",
+        }],
       }
     },
-    computed: {
-      setHeight() {
-        return document.documentElement.clientHeight - 65
-      },
-      activeNav() { //当前激活的导航
-        return this.$route.path
-      }
-    },
-    watch: {
-      '$route': function (to) {  //监听路由的变化，动态生成tabs
-        let flag = true //判断是否需要新增页面
-        const path = to.path
-        if (Object.keys(to.meta).length != 0) {
-          for (let i = 0; i < this.$refs.tabs.length; i++) {
-            if (i != 0) { //首页不判断 如果页面已存在，则直接定位当页面，否则新增tab页面
-              if (this.$refs.tabs[i].label == to.meta.name) {
-                this.activeTab = this.$refs.tabs[i].name  //定位到已打开页面
-                flag = false
-                break
-              }
-            }
-          }
-          //新增页面
-          if (flag) {
-            //获得路由元数据的name和组件名
-            const thisName = to.meta.name
-            const thisComp = to.meta.comp
-            //对tabs的当前激活下标和tabs数量进行自加
-            let newActiveIndex = ++this.tabIndex + ''
-            //动态双向追加tabs
-            this.tabsItem.push({
-              title: thisName,
-              name: String(newActiveIndex),
-              closable: true,
-              ref: 'tabs',
-              content: thisComp
-            })
-            this.activeTab = newActiveIndex
-            /*
-            * 当添加tabs的时候，把当前tabs的name作为key，path作为value存入tabsPath数组中
-            * key:tabs的name
-            * value:tabs的path
-            * {
-            *   key: name,
-            *   value: path
-            * }
-            * ///后面需要得到当前tabs的时候可以通过当前tabs的name获得path
-            * */
-            if (this.tabsPath.indexOf(path) == -1) {
-              this.tabsPath.push({
-                name: newActiveIndex,
-                path: path
-              })
-            }
-          }
-        }
-      }
-    },
-    methods: {
-      isOpen() { //判断左侧栏是否展开或收缩
-        if (this.isCollapse == false) {
-          this.isCollapse = true
-        } else {
-          this.isCollapse = false
-        }
-      },
-      removeTab(targetName) { //删除Tab
-        let tabs = this.tabsItem; //当前显示的tab数组
-        let activeName = this.activeTab; //点前活跃的tab
 
-        //如果当前tab正活跃 被删除时执行
+
+      methods: {
+
+      //异步加载数据
+      getdata(){
+        var _this=this;
+        this.$axios.post("/menu/queryallmenus.action",
+          {emulateJSON:true}).
+        then(function(result) {
+          //alert(result.data)
+          _this.menus=result.data;
+          //console.log(_this.data)
+        }.bind(this)).
+        catch(function(error) {
+          alert("error")
+        });
+      },
+
+      //折叠菜单栏
+      toggleCollapse() {
+        this.isCollapse = !this.isCollapse;
+      },
+      //选中tab菜单触发事件
+      tab_click(index) {
+        // 对子菜单的联动
+        this.activationInedx = "/" + index;
+      },
+      //点击菜单项触发事件
+      handleSelect(key, keyPath) {
+        const keys = key.split("/")[1];
+        var _this = this;
+        for (let s = 0; s < this.editableTabs.length; s++) {
+
+          this.editableTabs.map((tabs) => {
+            if (tabs.name == keys) {
+              _this.editableTabsValue = keys;
+              _this.activationInedx = "/" + keys;
+              _this.flag = false;
+            }
+          })
+        }
+        var _this = this;
+        if (this.flag) {
+          this.menus.map((item) => {
+            const itemList = item.childMenu;
+            itemList.map((res) => {
+              if (res.path == keys) {
+                _this.editableTabs.push({
+                  title: res.name,
+                  name: keys,
+                  content: res.name,
+                });
+                _this.editableTabsValue = keys;
+                _this.activationInedx = "/" + keys;
+              }
+            });
+          });
+        }
+        this.flag = true;
+      },
+      removeTab(targetName) {
+        let tabs = this.editableTabs;
+        let activeName = this.editableTabsValue;
+        if (targetName === "homepage") {
+          return;
+        }
         if (activeName === targetName) {
           tabs.forEach((tab, index) => {
             if (tab.name === targetName) {
               let nextTab = tabs[index + 1] || tabs[index - 1];
               if (nextTab) {
                 activeName = nextTab.name;
-                this.tabClick(nextTab)
               }
             }
           });
         }
-        this.activeTab = activeName;
-        this.tabsItem = tabs.filter(tab => tab.name !== targetName);
-        //在tabsPath中删除当前被删除tab的path
-        this.tabsPath = this.tabsPath.filter(item => item.name !== targetName)
-      },
-      tabClick(thisTab) {
-        /*
-        * thisTab:当前选中的tabs的实例
-        * 通过当前选中tabs的实例获得当前实例的path 重新定位路由
-        * */
-        let val = this.tabsPath.filter(item => thisTab.name == item.name)
-        this.$router.push({
-          path: val[0].path
-        })
+        this.editableTabsValue = activeName;
+        this.editableTabs = tabs.filter((tab) => tab.name !== targetName);
       }
-    },
-    mounted() {
-      /*
-      * 监听页面刷新事件
-      * 页面刷新前 需要保存当前打开的tabs的位置，刷新后按刷新前的顺序展示
-      * 使用js的sessionStorage保存刷新页面前的数据
-      * */
-      window.addEventListener('beforeunload', e => {
-        sessionStorage.setItem("tabsItem", JSON.stringify({
-          currTabsItem: this.tabsItem.filter(item => item.name !== "1"),
-          currTabsPath: this.tabsPath.filter(item => item.name !== "1"),
-          currActiveTabs: this.activeTab,
-          currIndex: this.tabIndex
-        }))
-      });
-    },
-    components: {
-      welcome,
-      setNav,
-      mineInfo,
-      fuillEditor,
-      category
+      },
+    created() {
+      this.getdata();
     }
+
+
   }
 </script>
 
-<style scoped>
-
-  .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
-    min-height: 400px;
-    height: 100%;
+<style>
+  * {
+    margin: 0px;
+    padding: 0px;
   }
 
-  .el-menu--collapse {
-    height: 100%;
+  .el-tabs__nav .el-tabs__item:nth-child(1) span {
+    display: none;
+  }
+
+  .toggle-button {
+    background-color: #409eff;
+    font-size: 10px;
+    line-height: 24px;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+  }
+
+  .el-main {
+    text-align: center;
   }
 
   .el-header {
-    background-color: #B3C0D1;
+    text-align: center;
+    border-bottom: 1px solid #E6E6E6;
     color: #333;
     line-height: 60px;
   }
@@ -222,13 +227,4 @@
   .el-aside {
     color: #333;
   }
-
-  .el-submenu [class^=fa] {
-    vertical-align: middle;
-    margin-right: 5px;
-    width: 24px;
-    text-align: center;
-    font-size: 16px;
-  }
-
 </style>
