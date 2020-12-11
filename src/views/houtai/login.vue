@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!--<div style="height:200px; width: 200px" id="date">
+    <div style="height:200px; width: 200px" id="date">
       <el-form label-width="80px">
         <el-form-item>
           <h1>用户登录</h1>
@@ -17,13 +17,12 @@
           </el-button>
         </el-form-item>
       </el-form>
-    </div>-->
-    <router-view></router-view>
+    </div>
   </div>
 
 </template>
 <script>
- /* export default {
+  export default {
     name: 'app',
     data () {
       return {
@@ -41,12 +40,15 @@
         this.$axios.post("/employ/login.action",params,
           {emulateJSON:true}).
         then(function(result) {
+          alert(result.data.code)
           if(result.data.code==1){
+
             _this.$message({
               message:result.data.msg,
               type:"success"
             })
             setTimeout(function () {
+
               if(result.data.code==1) {
                 _this.$router.push({path: '/'})
                 document.getElementById("date").style.display = "none";
@@ -65,11 +67,11 @@
           }
         }.bind(this)).
         catch(function(error) {
-          alert(error)
+          alert("error")
         });
       }
     }
-  }*/
+  }
 </script>
 
 <style>

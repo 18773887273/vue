@@ -10,6 +10,7 @@ import  Shouyetest from '../views/houtai/shoplist.vue'
 
 
 import  Houtaishouye from '../views/houtai/menu.vue'
+import  Login from '../views/houtai/login'
 import  Shanghushouye from '../views/shanghu/Login.vue'
 
 Vue.use(VueRouter)
@@ -24,6 +25,10 @@ const routes = [
   {
     path: '/',
     component: Houtaishouye
+  },
+  {
+    path: '/login',
+    component: Login
   },
   /**
    * 后台路由,访问地址 /back/.....
