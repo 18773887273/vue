@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div style="height:200px; width: 200px" id="date">
+    <!--<div style="height:200px; width: 200px" id="date">
       <el-form label-width="80px">
         <el-form-item>
           <h1>用户登录</h1>
@@ -17,13 +17,13 @@
           </el-button>
         </el-form-item>
       </el-form>
-    </div>
+    </div>-->
     <router-view></router-view>
   </div>
 
 </template>
 <script>
-  export default {
+ /* export default {
     name: 'app',
     data () {
       return {
@@ -69,7 +69,7 @@
         });
       }
     }
-  }
+  }*/
 </script>
 
 <style>

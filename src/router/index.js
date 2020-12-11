@@ -5,9 +5,13 @@ import VueRouter from "vue-router";
 import Houtai from '../router/houtai/router.config'
 import Qiantai from '../router/qiantai/router.config'
 import Shanghu from '../router/shanghu/router.config'
-import  Qiantaishouye from '../views/qiantai/deptlist.vue'
+import  Qiantaishouye from '../views/qiantai/shouye.vue'
+import  Shouyetest from '../views/houtai/shoplist.vue'
+
+
 import  Houtaishouye from '../views/houtai/menu.vue'
 import  Shanghushouye from '../views/shanghu/Login.vue'
+
 Vue.use(VueRouter)
 
 /**
@@ -34,6 +38,11 @@ const routes = [
     component: Shanghushouye,
    //children: Shanghu
    },
+  {
+    path: '/shouyetest',
+    component: Shouyetest,
+    //children: Shanghu
+  },
   /**
    * 前台路由, 访问地址 /.....
    */

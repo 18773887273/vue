@@ -10,7 +10,7 @@ import Axios from 'axios'
 import Router from './router/index'
 
 
-Axios.defaults.baseURL = "http://127.0.0.1:8080/Buysystem"
+Axios.defaults.baseURL = "http://localhost:8088/Buysystem"
 // 将API方法绑定到全局
 Vue.prototype.$axios = Axios
 
