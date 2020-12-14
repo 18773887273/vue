@@ -40,7 +40,7 @@
         this.$axios.post("/employ/login.action",params,
           {emulateJSON:true}).
         then(function(result) {
-          alert(result.data.code)
+          //alert(result.data.code)
           if(result.data.code==1){
 
             _this.$message({
@@ -50,7 +50,7 @@
             setTimeout(function () {
 
               if(result.data.code==1) {
-                _this.$router.push({path: '/'})
+                _this.$router.push({path: '/caidan'})
                 document.getElementById("date").style.display = "none";
               }
             },2000)

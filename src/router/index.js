@@ -8,7 +8,7 @@ import Shanghu from '../router/shanghu/router.config'
 import  Qiantaishouye from '../views/qiantai/shouye.vue'
 import  Shouyetest from '../views/houtai/shoplist.vue'
 
-
+import Yonghu from '../components/houtai/yuangong'
 import  Houtaishouye from '../views/houtai/menu.vue'
 import  Login from '../views/houtai/login'
 import  Shanghushouye from '../views/shanghu/Login.vue'
@@ -23,11 +23,15 @@ const routes = [
    * 首页路由
    */
   {
-    path: '/',
-    component: Houtaishouye
+    path: '/caidan',
+    component: Houtaishouye,
+     children:[
+       {path:'/yonghu',
+         component: Yonghu}
+     ]
   },
   {
-    path: '/login',
+    path: '/',
     component: Login
   },
   /**

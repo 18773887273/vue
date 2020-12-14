@@ -1,16 +1,13 @@
 import Vue from 'vue'
 import VueRouter from "vue-router";
 
-/*import Userlist from "../../components/houtai/userlist";
-import Deptlist from "../../components/houtai/deptlist";
-import Menu from "../../components/houtai/menu";*/
+import Yuangonglist from "../../components/houtai/yuangong";
+
 
 Vue.use(VueRouter)
 
   var routes=[
-  /*  {path:"/userlist",component:Userlist},
-    {path:"/deptlist",component:Deptlist},
-    {path:"/menu",component:Menu},*/
+   {path:"/caidan/yonghu/yuangonglist",component:Yuangonglist}
   ]
 
 

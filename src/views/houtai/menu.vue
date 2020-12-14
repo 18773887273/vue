@@ -12,8 +12,14 @@
         <el-aside :width="isCollapse  ? '65px' : '210px'">
           <!--  <el-menu style="height: 900px;"  @select="childMenuSelect"> -->
           <div class="toggle-button" @click="toggleCollapse">|||</div>
-          <el-menu style="height: 880px;" :default-openeds="['1']" :collapse="isCollapse" :unique-opened="true"
-                   :default-active="activationInedx" :collapse-transition="false" background-color="#fff" @select="handleSelect">
+          <el-menu style="height: 880px;"
+                    router
+                   :collapse="isCollapse"
+                   :unique-opened="true"
+                   :default-active="activationInedx"
+                   :collapse-transition="false"
+                   background-color="#fff"
+                   @select="handleSelect">
             <el-submenu :index="item.id" v-for="item in menus" :key="item.path">
               <template slot="title">
                 <i :class="iconsObj[item.id]"></i>
@@ -22,7 +28,7 @@
               <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.childMenu" :key="subItem.path">
                 <template slot="title">
                   <i class="el-icon-menu" style="font-size: 15px"></i>
-                  <span>{{ subItem.name }}</span>
+                  <span>{{ subItem.name}}</span>
                 </template>
               </el-menu-item>
             </el-submenu>
@@ -32,40 +38,14 @@
         <!-- 中间区域 -->
         <el-main>
           <el-tabs v-model="editableTabsValue" type="card" closable="closable" @tab-remove="removeTab" @tab-click="tab_click(editableTabsValue)">
-            <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
-            </el-tab-pane>
+            <el-tab-pane v-for="item in editableTabs"
+                         :key="item.name"
+                         :label="item.title"
+                         :name="item.name">
 
+            </el-tab-pane>
+            <router-view></router-view>
           </el-tabs>
-          <!--<el-tabs>
-
-            <el-tab-pane label="用户管理">
-              <el-input style="width: 250px;" clearable v-model="search" placeholder="输入关键字搜索">
-                <el-button @click="addUser" slot="append">添加</el-button>
-              </el-input>
-              <br /><br />
-
-              <el-table :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-                border>
-                <el-table-column type="selection" width="55">
-                </el-table-column>
-                <el-table-column prop="name" label="姓名">
-                </el-table-column>
-                <el-table-column prop="date" label="日期">
-                </el-table-column>
-                <el-table-column prop="address" label="地址">
-                </el-table-column>
-                <el-table-column label="操作">
-                  <el-button type="warning" icon="el-icon-edit" plain circle></el-button>
-                  <el-button type="danger" icon="el-icon-delete" plain circle @click="del"></el-button>
-                </el-table-column>
-              </el-table>
-            </el-tab-pane>
-
-            <el-tab-pane label="员工管理">
-            </el-tab-pane>
-
-          </el-tabs>-->
-          <!-- 分页 -->
 
 
 
@@ -90,7 +70,7 @@
         //菜单数据 数组对象
         menus: [],
         editableTabsValue: "welcome",
-        activationInedx: "0 ",
+        activationInedx: "0",
         isCollapse: false,
         collapse: true,
         search: '',
@@ -99,8 +79,7 @@
         editableTabs: [{
           title: "首页",
           name: "homepage",
-          //closable: false,
-          content: "首页",
+          content: "首页"
         }],
       }
     },
@@ -188,7 +167,6 @@
     created() {
       this.getdata();
     }
-
 
   }
 </script>
