@@ -26,7 +26,7 @@ const routes = [
     path: '/caidan',
     component: Houtaishouye,
      children:[
-       {path:'/yonghu',
+      {path:'/yonghu',
          component: Yonghu}
      ]
   },

@@ -42,9 +42,9 @@
                          :key="item.name"
                          :label="item.title"
                          :name="item.name">
-
+            <component :is="item.content"></component>
             </el-tab-pane>
-            <router-view></router-view>
+
           </el-tabs>
 
 
@@ -56,9 +56,11 @@
 </template>
 
 <script>
-
+  import  Yonghu from '../../components/houtai/yuangong'
   export default {
-    name: 'app',
+    components:{
+      yonghu:Yonghu,
+    },
     data() {
       return {
         iconsObj: {
@@ -79,11 +81,11 @@
         editableTabs: [{
           title: "首页",
           name: "homepage",
-          content: "首页"
+          content: "首页",
         }],
       }
     },
-
+  /*,*/
 
       methods: {
 
@@ -125,16 +127,17 @@
             }
           })
         }
-        var _this = this;
         if (this.flag) {
           this.menus.map((item) => {
             const itemList = item.childMenu;
             itemList.map((res) => {
               if (res.path == keys) {
+                //alert(res.path)
                 _this.editableTabs.push({
+
                   title: res.name,
                   name: keys,
-                  content: res.name,
+                  content:res.path
                 });
                 _this.editableTabsValue = keys;
                 _this.activationInedx = "/" + keys;

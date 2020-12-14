@@ -5,7 +5,7 @@
       <el-col :span="20" :offset="2">
         <div>
           <el-table border :data="tableData" :row-class-name="tableRowClassName">
-            <el-table-column prop="id" label="ID" width="180">
+            <el-table-column prop="userid" label="ID" width="180">
             </el-table-column>
             <el-table-column prop="zhucetime" label="注册时间" width="180">
             </el-table-column>
@@ -21,7 +21,7 @@
             </el-table-column>
             <el-table-column prop="usercard" label="省份证号码">
             </el-table-column>
-            <el-table-column prop="hyid" label="会员">
+            <el-table-column prop="hyid.hyname" label="会员">
             </el-table-column>
             <el-table-column label="操作">
               <template slot-scope="scope">
