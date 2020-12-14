@@ -1,11 +1,18 @@
 <template>
   <div id="app">
+    <el-form label-width="100px">
+      <el-form-item label="商品名:">
+        <el-input v-model="queryshopname"></el-input>
+      </el-form-item>
+      <el-button type="info" plain @click="queryrole()">查询</el-button>
+      <el-button type="primary" plain @click="addshop()">添加</el-button>
+    </el-form>
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column prop="shopid" label="ID" width="180">
       </el-table-column>
       <el-table-column prop="shopname" label="商品名" width="180">
       </el-table-column>
-      <el-table-column prop="shoptyid" label="类型">
+      <el-table-column prop="shoptyid.shoptyname" label="类型">
       </el-table-column>
       <el-table-column prop="shopmiaoshu" label="描述">
       </el-table-column>
@@ -18,25 +25,27 @@
 
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="success" @click="edituser(scope.row.id)">编辑</el-button>
-
-          <el-popconfirm title="确定删除这条记录吗？" @confirm="deluser(scope.row.id)">
-            <el-button type="danger" slot="reference">删除</el-button>
+          <el-button type="success" @click="editrole(scope.row)" plain circle>编辑</el-button>
+          <el-popconfirm title="确定删除这条记录吗？" @confirm="delrole(scope.row)">
+            <el-button type="danger" slot="reference" plain circle>删除</el-button>
           </el-popconfirm>
+
         </template>
       </el-table-column>
     </el-table>
 
-    <el-pagination @current-change="pagechange" layout="prev, pager, next" :total="total" :page-size="5">
-    </el-pagination>
+    <el-tree :data="data" show-checkbox node-key="id" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]">
+    </el-tree>
 
-    <el-dialog title="编辑页面" :visible.sync="dialogFormVisible">
-      <h1>加载添加页面/编辑页面</h1>
-      <edituser></edituser>
+
+
+    <el-dialog title="添加页面" :visible.sync="addshopdialogFormVisible">
+
+      <addshop ref="addshopchild"></addshop>
       <!--将编辑页面子组件加入到列表页面 -->
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button @click="addshopdialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addshopdialogFormVisible = false">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -44,12 +53,15 @@
 </template>
 
 <script>
+
+  import Addshop from "../../components/houtai/shop/addshop.vue"
+
   export default {
     name: 'app',
     data() {
       return {
         tableData: [],
-        dialogFormVisible: false,
+        addshopdialogFormVisible: false,
         total:1,
         page:1,
         minprice:0,
@@ -75,48 +87,42 @@
         });
 
       },
-      deluser(val) { //删除数据
+      addshop() {
+        //index 索引  row对象 修改该条记录对象
+        this.addshopdialogFormVisible = true;
+      },
+      addshopquxiao() {
+        this.addshopdialogFormVisible = false;
+        this.$refs.addshopchild.addshop = {};
+      },
+      shopadd() {
+        var addshop = this.$refs.addshopchild.addshop;
         var _this = this;
-        var params = new URLSearchParams();
-        params.append("id", val);
-
-        this.$axios.post("deteleuser.action", params).
-        then(function(result) {
+        var shops = new URLSearchParams();
+        /*roles.append("rname", addrole.rname);
+        roles.append("rremart", addrole.rremart);*/
+        this.$axios.post("role/editshop.action", roles).then(function(result) {
           _this.$message({
             message: result.data.msg,
             type: 'success'
           });
-
-          //刷新数据
           _this.getData();
-
-        }).
-        catch(function() {
-          _this.$message({
-            message: '删除失败',
-            type: 'success'
+        })
+          .catch(function(error) {
+            _this.$message({
+              message: '添加失败',
+              type: 'error'
+            });
           });
-        });
-
+        this.$refs.addshopchild.addshop = {};
+        this.addshopdialogFormVisible = false;
       },
-      edituser(val) { //编辑按钮按下  打开编辑模态框
-        //获取到要编辑的巨记录  通过val（id）
-        this.dialogFormVisible = true;
-
-      },
-      pagechange(pageindex){  //页码变更时
-        //console.log(pageindex)
-        this.page = pageindex;
-        //根据pageindex  获取数据
-        this.getData();
-
-      }
     },
     created() { //钩子函数  vue对象初始化完成后  执行
       this.getData();
     },
     components: { //子组件
-
+      addshop: Addshop,
     }
   }
 </script>
@@ -131,22 +137,6 @@
   margin-top: 60px;
 }
 
-h1,
-h2 {
-  font-weight: normal;
-}
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
 
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>

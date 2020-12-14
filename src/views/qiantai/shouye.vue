@@ -1,9 +1,10 @@
 <template>
   <div id="app">
+
     <el-menu :default-active="activeIndex" class="el-menu-demo" style="height:65px;" mode="horizontal" @select="handleSelect">
       <el-menu-item style="width: 100px"></el-menu-item>
       <el-menu-item>
-        <el-image style="width: 100px; height: 50px" :src=require('@/images/qianduan/mxt.png') :fit="scale-down"></el-image>
+        <el-image style="width: 100px; height: 50px" src="" :fit="scale-down"></el-image>
       </el-menu-item>
       <el-menu-item>
         <el-button size="mini" circle><i class="el-icon-location-outline"></i></el-button>
@@ -22,7 +23,7 @@
 
       </el-menu-item>
       <el-menu-item>
-        <el-button size="mini" circle style="background-color: #F8F9FA; "> <i class="el-icon-user"></i></el-button>
+        <el-button size="mini" @click="dialog = true" circle style="background-color: #F8F9FA; "> <i class="el-icon-user"></i></el-button>
         <el-dropdown>
           <el-avatar> user </el-avatar>
           <el-dropdown-menu slot="dropdown">
@@ -307,6 +308,18 @@
       </el-footer>
     </el-container>
 
+    <!--dialog-->
+    <el-drawer
+      title="我是标题"
+      :visible.sync="dialog"
+      :with-header="false"
+    >
+      <el-row>
+        <el-col :xs="4" :sm="6" :md="10" :lg="9" :xl="11"><div class="grid-content bg-purple-light"></div></el-col>
+        <el-col :xs="4" :sm="6" :md="10" :lg="9" :xl="11"><div class="grid-content bg-purple"></div></el-col>
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1"><div class="grid-content bg-purple-light"></div></el-col>
+      </el-row>
+    </el-drawer>
 
   </div>
 </template>
@@ -316,7 +329,20 @@ export default {
   name: 'app',
   data() {
     return {
-
+      dialog: false,
+      loading: false,
+      form: {
+        name: '',
+        region: '',
+        date1: '',
+        date2: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
+      },
+      formLabelWidth: '80px',
+      timer: null,
     }
   },
 
@@ -326,9 +352,33 @@ export default {
     },
     handleDelete(index, row) {
       console.log(index, row);
-    }
+    },
 
-  },
+    handleClose(done) {
+      if (this.loading) {
+        return;
+      }
+      this.$confirm('确定要提交表单吗？')
+        .then(_ => {
+          this.loading = true;
+          this.timer = setTimeout(() => {
+            done();
+            // 动画关闭需要一定的时间
+            setTimeout(() => {
+              this.loading = false;
+            }, 400);
+          }, 2000);
+        })
+        .catch(_ => {});
+    },
+    cancelForm() {
+      this.loading = false;
+      this.dialog = false;
+      clearTimeout(this.timer);
+    }
+  }
+
+
 }
 </script>
 
@@ -360,11 +410,11 @@ a {
 }
 
 .bg-purple {
-  background: #d3dce6;
+  background: pink;
 }
 
 .bg-purple-light {
-  background: #e5e9f2;
+  background: pink;
 }
 
 .grid-content {
