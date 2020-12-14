@@ -7,6 +7,7 @@ import Qiantai from '../router/qiantai/router.config'
 import Shanghu from '../router/shanghu/router.config'
 import  Qiantaishouye from '../views/qiantai/shouye.vue'
 import  Shouyetest from '../views/houtai/shoplist.vue'
+import  Shoptytest from '../views/houtai/shoptylist.vue'
 
 import Yonghu from '../components/houtai/yuangong'
 import  Houtaishouye from '../views/houtai/menu.vue'
@@ -56,6 +57,11 @@ const routes = [
   {
     path: '/shouyetest',
     component: Shouyetest,
+    //children: Shanghu
+  },
+  {
+    path: '/shoptylist',
+    component: Shoptytest,
     //children: Shanghu
   },
   /**
