@@ -1,13 +1,13 @@
 import Vue from 'vue'
 
-import  App from './App'
+import  App from './views/App'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 
 import Axios from 'axios'
 
-import Router from './router/index'
+import Router from './router/index';
 
 
 Axios.defaults.baseURL = "http://localhost:8080/Buysystem"

@@ -11,7 +11,8 @@ import  Shouyetest from '../views/houtai/shoplist.vue'
 import Yonghu from '../components/houtai/yuangong'
 import  Houtaishouye from '../views/houtai/menu.vue'
 import  Login from '../views/houtai/login'
-import  Shanghushouye from '../views/shanghu/Login.vue'
+import  Login2 from '../views/shanghu/Login'
+import shmenu from "../views/shanghu/shmenu.vue";
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const routes = [
     path: '/',
     component: Login
   },
+
+  {
+    path: '/login2',
+    component: Login2
+  },
   /**
    * 后台路由,访问地址 /back/.....
    */
@@ -43,8 +49,8 @@ const routes = [
     //children: Qiantai
   },
   {
-    path: '/shop',
-    component: Shanghushouye,
+    path: '/shshouye',
+    component: shmenu,
    //children: Shanghu
    },
   {
@@ -60,6 +66,11 @@ const routes = [
 const router = new VueRouter({
   routes:routes
 })
+// 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 
 export default router

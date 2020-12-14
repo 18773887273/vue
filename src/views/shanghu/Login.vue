@@ -33,19 +33,19 @@
                             </el-carousel-item>
                         </el-carousel>
                     </div>
-                    <div id="loginmydiv" style="background: url('../../images/shanghu/loginback.png')">
+                    <div id="loginmydiv" style="background: url('./src/images/shanghu/loginback.png')">
                         <div style="text-align: center;font-size: 20px;">
                             商户登录
                         </div>
                         <el-divider></el-divider>
-                        <form id="loginform" action="###">
+                        <form id="loginform">
                               <div>
-                                <input type="text" placeholder="账号" v-model="text" maxlength="10" minlength="6" class="loginname"></input>
+                                <input type="text" placeholder="账号" v-model="shname" maxlength="10" minlength="6" class="loginname"></input>
                               </div>
                               <div>
-                                <input type="password" placeholder="密码" v-model="pass" minlength="6" class="loginpass"></input>
+                                <input type="password" placeholder="密码" v-model="shpass" minlength="6" class="loginpass"></input>
                               </div>
-                          <el-button style="margin: 20px 80px;" type="danger" round>立即登录</el-button>
+                          <el-button style="margin: 20px 80px;" type="danger" round @click="shdenglu()">立即登录</el-button>
                         </form>
                     </div>
                 </el-main>
@@ -62,6 +62,8 @@
         name: "Login",
         data() {
             return {
+                shname:"",
+                shpass:"",
                 colors: {color: "#8e8e8e"},
                 colors1:{backgroundColor:"white",color:"black"},
                 colors2:{backgroundColor:"white",color:"black"},
@@ -82,6 +84,42 @@
             }
         },
         methods: {
+          shdenglu(){
+            var _this = this;
+            var params = new URLSearchParams();
+            params.append("shname", this.shname);
+            params.append("shpass", this.shpass);
+
+            this.$axios.post("/shanghu/queryByShnameShpass.action",params).
+            then(function(result) {
+              if(result.data!="登录失败"){
+                _this.$message({
+                  message:result.data,
+                  type:"success"
+                })
+                setTimeout(function () {
+                  if(result.data!="登录失败") {
+                    alert("111")
+                    _this.$router.push({path: '/shshouye'})
+                    //document.getElementById("date").style.display = "none";
+                  }
+                },2000)
+
+
+
+              }else{
+                _this.$message({
+                  message:result.data,
+                  type:"error"
+                })
+                _this.username=""
+                _this.userpass=""
+              }
+            }.bind(this)).
+            catch(function(error) {
+              alert(error)
+            });
+          },
             a() {
                 this.colors.color = "green";
             },
