@@ -16,7 +16,8 @@
           </el-form-item>
         </el-form>
         <!--表格显示  -->
-        <el-table :data="tableData" :row-class-name="tableRowClassName" border max-height="437px">
+        <el-table :data="tableData" :row-class-name="tableRowClassName" border max-height="437px"
+                  :header-cell-style="headClass" :cell-style="rowClass">
           <el-table-column prop="empid" label="编号">
           </el-table-column>
           <el-table-column label="姓名">
@@ -131,7 +132,7 @@
         tableData: [],
         total: 1,
         page: 1,
-        rows:6,
+        rows: 6,
         selectDate: {},
         queryempname: "",
         queryaddress: ""
@@ -149,7 +150,7 @@
         }
         return '';
       },
-      getData() { //获取数据方法
+      getData(func) { //获取数据方法
         var _this = this;
         var params = new URLSearchParams();
         params.append("empname", this.queryempname);
@@ -159,6 +160,7 @@
         this.$axios.post("employ/querylike.action", params).then(function (result) {
           _this.tableData = result.data.rows;
           _this.total = result.data.total;
+          func && func();
         }).catch(function (error) {
           alert(error)
         });
@@ -215,11 +217,12 @@
         employs.append("username", addemploy.username);
         employs.append("password", addemploy.password);
         this.$axios.post("employ/editemploy.action", employs).then(function (result) {
-          _this.$message({
-            message: result.data.msg,
-            type: 'success'
+          _this.getData(() => {
+            _this.$message({
+              message: result.data.msg,
+              type: 'success'
+            });
           });
-          _this.getData();
         })
           .catch(function (error) {
             _this.$message({
@@ -244,11 +247,12 @@
         employs.append("empremark", editemploy.empremark);
         employs.append("password", editemploy.password);
         this.$axios.post("employ/editemploy.action", employs).then(function (result) {
-          _this.$message({
-            message: result.data.msg,
-            type: 'success'
+          _this.getData(() => {
+            _this.$message({
+              message: result.data.msg,
+              type: 'success'
+            });
           });
-          _this.getData();
         })
           .catch(function (error) {
             _this.$message({
@@ -265,11 +269,12 @@
         var params = new URLSearchParams();
         params.append("empid", row.empid);
         this.$axios.post("employ/delemploy.action", params).then(function (result) {
-          _this.$message({
-            message: result.data.msg,
-            type: 'success'
+          _this.getData(() => {
+            _this.$message({
+              message: result.data.msg,
+              type: 'success'
+            });
           });
-          _this.getData();
         })
           .catch(function (error) {
             _this.$message({
@@ -283,6 +288,12 @@
         this.page = pageindex;
         //根据pageindex  获取数据
         this.getData();
+      },
+      headClass() { //表头居中显示
+        return "text-align:center"
+      },
+      rowClass() { //表格数据居中显示
+        return "text-align:center"
       }
     },
     components: { //子组件

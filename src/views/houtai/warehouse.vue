@@ -15,7 +15,8 @@
             <el-button type="success" @click="addwarehouse()" plain>添加</el-button>
           </el-form-item>
         </el-form>
-        <el-table :data="warehousetableData" style="width: 100%" :row-class-name="tableRowClassName" max-height="437px">
+        <el-table :data="warehousetableData" style="width: 100%" :row-class-name="tableRowClassName" max-height="437px"
+                  border :header-cell-style="headClass" :cell-style="rowClass">
           <el-table-column prop="wareid" label="编号">
           </el-table-column>
           <el-table-column label="仓库名称">
@@ -64,8 +65,8 @@
           </div>
           <editwarehouse ref="editwarehousechild"></editwarehouse>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="editroledialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="rolesave()">确 定</el-button>
+            <el-button @click="editwarehousedialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="warehousesave()">确 定</el-button>
           </div>
         </el-dialog>
         <el-dialog :visible.sync="addwarehousedialogFormVisible" :before-close="addwarehousehandleClose">
@@ -141,10 +142,11 @@
         //employroleDate: [],
         total: 1,
         page: 1,
-        rows:6,
+        rows: 6,
         selectDate: {},
         querywarehousename: "",
-        querywarehouseaddress: ""
+        querywarehouseaddress: "",
+        editwarecount: 0
         //rolexiangqing:""
       }
     },
@@ -160,7 +162,7 @@
         }
         return '';
       },
-      getData() { //获取数据方法
+      getData(func) { //获取数据方法
         var _this = this;
         var params = new URLSearchParams();
         params.append("warename", this.querywarehousename);
@@ -170,6 +172,7 @@
         this.$axios.post("warehouse/querylike.action", params).then(function (result) {
           _this.warehousetableData = result.data.rows;
           _this.total = result.data.total;
+          func && func();
         }).catch(function (error) {
           alert(error)
         });
@@ -211,6 +214,7 @@
           this.selectDate = {
             ...row
           }
+          _this.editwarecount = row.shopcount;
           this.$refs.editwarehousechild.editwarehouse = this.selectDate;
         })
         //index 索引  row对象 修改该条记录对象
@@ -234,14 +238,18 @@
         var addwarehouse = this.$refs.addwarehousechild.addwarehouse;
         var _this = this;
         var warehouses = new URLSearchParams();
-        /*roles.append("rname", addrole.rname);
-                  roles.append("rremart", addrole.rremart);*/
+        warehouses.append("warename", addwarehouse.warename);
+        warehouses.append("wareremark", addwarehouse.wareremark);
+        warehouses.append("warecount", addwarehouse.warecount);
+        warehouses.append("empid.empid", addwarehouse.empid.empid);
+        warehouses.append("wareaddress", addwarehouse.wareaddress);
         this.$axios.post("warehouse/editwarehouse.action", warehouses).then(function (result) {
-          _this.$message({
-            message: result.data.msg,
-            type: 'success'
+          _this.getData(() => {
+            _this.$message({
+              message: result.data.msg,
+              type: 'success'
+            });
           });
-          _this.getData();
         })
           .catch(function (error) {
             _this.$message({
@@ -249,28 +257,39 @@
               type: 'error'
             });
           });
-        this.$refs.addwarehousechild.addrole = {};
+        this.$refs.addwarehousechild.addwarehouse = {};
         this.addwarehousedialogFormVisible = false;
       },
       //修改保存操作
       warehousesave() {
-        var editwarehouse = this.$refs.editwarehousechild.editwarehouse;
         var _this = this;
-        var warehouses = new URLSearchParams();
-        /*roles.append("rid", editrole.rid);
-        roles.append("rname", editrole.rname);
-        roles.append("rremart", editrole.rremart);*/
-        this.$axios.post("role/editrole.action", warehouses).then(function (result) {
+        var editwarehouse = this.$refs.editwarehousechild.editwarehouse;
+        if (editwarehouse.warecount < _this.editwarecount) {
           _this.$message({
-            message: result.data.msg,
-            type: 'success'
+            message: '仓库最大容量不能小于当前容量',
+            type: 'error'
           });
-          _this.getData();
+          return;
+        }
+        var warehouses = new URLSearchParams();
+        warehouses.append("wareid", editwarehouse.wareid);
+        warehouses.append("warename", editwarehouse.warename);
+        warehouses.append("wareremark", editwarehouse.wareremark);
+        warehouses.append("warecount", editwarehouse.warecount);
+        warehouses.append("empid.empid", editwarehouse.empid.empid);
+        warehouses.append("wareaddress", editwarehouse.wareaddress);
+        this.$axios.post("warehouse/editwarehouse.action", warehouses).then(function (result) {
+          _this.getData(() => {
+            _this.$message({
+              message: result.data.msg,
+              type: 'success'
+            });
+          });
         })
           .catch(function (error) {
             _this.$message({
               message: '修改失败',
-              type: 'success'
+              type: 'error'
             });
           });
         this.editwarehousedialogFormVisible = false;
@@ -289,11 +308,12 @@
         }
         params.append("wareid", row.wareid);
         this.$axios.post("warehouse/delwarehouse.action", params).then(function (result) {
-          _this.$message({
-            message: result.data.msg,
-            type: 'success'
+          _this.getData(() => {
+            _this.$message({
+              message: result.data.msg,
+              type: 'success'
+            });
           });
-          _this.getData();
         })
           .catch(function (error) {
             _this.$message({
@@ -307,6 +327,12 @@
         this.page = pageindex;
         //根据pageindex  获取数据
         this.getData();
+      },
+      headClass() { //表头居中显示
+        return "text-align:center"
+      },
+      rowClass() { //表格数据居中显示
+        return "text-align:center"
       }
     },
     components: { //子组件

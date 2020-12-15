@@ -7,7 +7,7 @@ import Qiantai from '../router/qiantai/router.config'
 import Shanghu from '../router/shanghu/router.config'
 import  Qiantaishouye from '../views/qiantai/shouye.vue'
 import  Shouyetest from '../views/houtai/shoplist.vue'
-import  Shoptype from '../views/houtai/shoptylist.vue'
+import  Shoptytest from '../views/houtai/shoptylist.vue'
 import  Shoptyadd from '../components/houtai/shopty/addshopty'
 
 import Yonghu from '../components/houtai/yuangong'
@@ -18,9 +18,7 @@ import  Login2 from '../views/shanghu/Login'
 import shmenu from "../views/shanghu/shmenu.vue";
 import  Shouquan from '../views/houtai/shouquan'
 import  Warehouse from '../views/houtai/warehouse'
-import   Shouye01 from '../components/qiantai/shouye01'
-import  My from '../components/qiantai/my'
-
+import  Role from '../views/houtai/rolelist'
 Vue.use(VueRouter)
 
 /**
@@ -45,8 +43,8 @@ const routes = [
        {path:'/warehouse',
          component: Warehouse
        },
-       {path:'/shoptype',
-         component: Shoptype
+       {path:'/rolelist',
+         component: Role
        }
      ]
   },
@@ -65,15 +63,7 @@ const routes = [
   {
     path: '/back',
     component: Qiantaishouye,
-    redirect:'/main',
-    children: [{
-      path: '/main',
-      component: Shouye01
-    },
-      {
-        path: '/mys',
-        component: My
-      }]
+    //children: Qiantai
   },
   {
     path: '/shshouye',
@@ -87,7 +77,7 @@ const routes = [
   },
   {
     path: '/shoptylist',
-    component: Shoptype,
+    component: Shoptytest,
     //children: Shanghu
   },
   {
