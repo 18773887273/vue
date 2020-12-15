@@ -4,7 +4,7 @@
     <el-container>
       <!-- 头部区域 -->
       <el-header>
-
+        <span>欢迎{{username}}登陆</span>
 
       </el-header>
       <el-container>
@@ -13,7 +13,7 @@
           <!--  <el-menu style="height: 900px;"  @select="childMenuSelect"> -->
           <div class="toggle-button" @click="toggleCollapse">|||</div>
           <el-menu style="height: 880px;"
-                    router
+                   router
                    :collapse="isCollapse"
                    :unique-opened="true"
                    :default-active="activationInedx"
@@ -42,7 +42,7 @@
                          :key="item.name"
                          :label="item.title"
                          :name="item.name">
-            <component :is="item.content"></component>
+              <component :is="item.content"></component>
             </el-tab-pane>
 
           </el-tabs>
@@ -73,6 +73,7 @@
     },
     data() {
       return {
+        username: sessionStorage.getItem('username'),
         iconsObj: {
           '101': "el-icon-coin",
           '102': "el-icon-house",
@@ -95,10 +96,8 @@
         }],
       }
     },
-  /*,*/
-
-      methods: {
-
+    /*,*/
+    methods: {
       //异步加载数据
       getdata(){
         var _this=this;
@@ -113,7 +112,6 @@
           alert("error")
         });
       },
-
       //折叠菜单栏
       toggleCollapse() {
         this.isCollapse = !this.isCollapse;
@@ -128,7 +126,6 @@
         const keys = key.split("/")[1];
         var _this = this;
         for (let s = 0; s < this.editableTabs.length; s++) {
-
           this.editableTabs.map((tabs) => {
             if (tabs.name == keys) {
               _this.editableTabsValue = keys;
@@ -144,7 +141,6 @@
               if (res.path == keys) {
                 //alert(res.path)
                 _this.editableTabs.push({
-
                   title: res.name,
                   name: keys,
                   content:res.path
@@ -176,11 +172,10 @@
         this.editableTabsValue = activeName;
         this.editableTabs = tabs.filter((tab) => tab.name !== targetName);
       }
-      },
+    },
     created() {
       this.getdata();
     }
-
   }
 </script>
 
@@ -189,11 +184,9 @@
     margin: 0px;
     padding: 0px;
   }
-
   .el-tabs__nav .el-tabs__item:nth-child(1) span {
     display: none;
   }
-
   .toggle-button {
     background-color: #409eff;
     font-size: 10px;
@@ -203,18 +196,15 @@
     letter-spacing: 0.2em;
     cursor: pointer;
   }
-
   .el-main {
     text-align: center;
   }
-
   .el-header {
     text-align: center;
     border-bottom: 1px solid #E6E6E6;
     color: #333;
     line-height: 60px;
   }
-
   .el-aside {
     color: #333;
   }

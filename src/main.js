@@ -8,7 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import Axios from 'axios'
 
 import Router from './router/index';
-
+import Store from './vuex/store.js'
 
 Axios.defaults.baseURL = "http://localhost:8080/Buysystem"
 // 将API方法绑定到全局
@@ -19,6 +19,8 @@ Vue.use(ElementUI)
 new Vue({
   el: '#app',
   render: h => h(App),
-  router:Router
+  router:Router,
+  store:Store,//vuex挂载
+
 })
 

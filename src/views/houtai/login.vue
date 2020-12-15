@@ -42,7 +42,8 @@
         then(function(result) {
           //alert(result.data.code)
           if(result.data.code==1){
-
+           // alert(result.data.employ)
+            sessionStorage.setItem("username",result.data.employ)
             _this.$message({
               message:result.data.msg,
               type:"success"

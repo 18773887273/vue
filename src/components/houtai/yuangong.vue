@@ -60,8 +60,8 @@
         return '';
       },
       deluser(row) {
-        alert(row)
-        alert(row.userid);
+        //alert(row)
+        //alert(row.userid);
         var _this = this;
         var params = new URLSearchParams();
         params.append("userid", row.userid);
