@@ -1,10 +1,10 @@
 <template>
   <div id="app">
 
-    <el-menu :default-active="activeIndex" class="el-menu-demo" style="height:65px;" mode="horizontal" @select="handleSelect">
+    <el-menu  class="el-menu-demo" style="height:65px;" mode="horizontal">
       <el-menu-item style="width: 100px"></el-menu-item>
       <el-menu-item>
-        <el-image style="width: 100px; height: 50px" src="" :fit="scale-down"></el-image>
+        <el-image style="width: 100px; height: 50px" src="" ></el-image>
       </el-menu-item>
       <el-menu-item>
         <el-button size="mini" circle><i class="el-icon-location-outline"></i></el-button>
@@ -68,179 +68,8 @@
         </el-row>
       </el-header>
       <el-main>
-        <el-row :gutter="20">
-          <el-col :span="20" style="margin-left: 98px;margin-top: 20px;">
-            <span>你在找什么?</span>
-            <el-button size="small" type="success" plain style="margin-left: 868px;">查看更多</el-button>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20" style="margin-top: 15px;">
-          <el-col :span="20" style="margin-left: 98px;">
-            <el-button style="width: 120px;height: 100px;text-align: center;">海鲜</el-button>
-            <el-button style="width: 120px;height: 100px;text-align: center;">牛奶和鸡蛋</el-button>
-            <el-button style="width: 120px;height: 100px;text-align: center;">面包</el-button>
-            <el-button style="width: 120px;height: 100px;text-align: center;">冰冻的</el-button>
-            <el-button style="width: 120px;height: 100px;text-align: center;">有机</el-button>
-            <el-button style="width: 120px;height: 100px;text-align: center;">蔬菜</el-button>
-            <el-button style="width: 120px;height: 100px;text-align: center;">水果</el-button>
-            <el-button style="width: 120px;height: 100px;text-align: center;">肉</el-button>
-          </el-col>
-          <el-col :span="1" style="margin-left: 98px;">
-
-          </el-col>
-        </el-row>
-
-        <el-row :gutter="20">
-          <el-col :span="20" style="margin-left: 98px; margin-top:30px;">
-            <span>促销给你</span>
-            <el-button size="small" type="success" plain style="margin-left: 908px;">查看更多</el-button>
-          </el-col>
-        </el-row>
-        <el-row :gutter="1">
-          <el-col :span="20" style="margin-left: 98px;">
-            <template>
-              <el-carousel :interval="4000" type="card" height="200px">
-                <el-carousel-item v-for="item in 6" :key="item">
-                  <h3 class="medium">{{ item }}</h3>
-                </el-carousel-item>
-              </el-carousel>
-            </template>
-          </el-col>
-        </el-row>
-
-        <el-row :gutter="20">
-          <el-col :span="20" style="margin-left: 98px;">
-            <span>今日精选</span>
-            <el-button size="small" type="success" plain style="margin-left: 908px;">查看更多</el-button>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20" style="margin-left: 98px;">
-          <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-            <div>
-              <el-image
-                style="width: 230px; height: 155px;margin-top: 20px;"
-                src="../images/v1.jpg"
-                :fit="fit">
-              </el-image>
-              辣椒<br />
-              $ 0.8 /公斤
-            </div>
-          </el-col>
-          <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-            <div>
-              <el-image
-                style="width: 230px; height: 155px;margin-top: 20px;"
-                src="../images/v1.jpg"
-                :fit="fit">
-              </el-image>
-              辣椒<br />
-              $ 0.8 /公斤
-            </div>
-          </el-col>
-          <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-            <div>
-              <el-image
-                style="width: 230px; height: 155px;margin-top: 20px;"
-                src="../images/v1.jpg"
-                :fit="fit">
-              </el-image>
-              辣椒<br />
-              $ 0.8 /公斤
-            </div>
-          </el-col>
-          <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-            <div>
-              <el-image
-                style="width: 230px; height: 155px;margin-top: 20px;"
-                src="../images/v1.jpg"
-                :fit="fit">
-              </el-image>
-              辣椒<br />
-              $ 0.8 /公斤
-            </div>
-          </el-col>
-          <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-            <div>
-              <el-image
-                style="width: 230px; height: 155px;margin-top: 20px;"
-                src="../images/v1.jpg"
-                :fit="fit">
-              </el-image>
-              辣椒<br />
-              $ 0.8 /公斤
-            </div>
-          </el-col>
-          <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-            <div>
-              <el-image
-                style="width: 230px; height: 155px;margin-top: 20px;"
-                src="../images/v1.jpg"
-                :fit="fit">
-              </el-image>
-              辣椒<br />
-              $ 0.8 /公斤
-            </div>
-          </el-col>
-          <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-            <div>
-              <el-image
-                style="width: 230px; height: 155px;margin-top: 20px;"
-                src="../images/v1.jpg"
-                :fit="fit">
-              </el-image>
-              辣椒<br />
-              $ 0.8 /公斤
-            </div>
-          </el-col>
-          <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-            <div>
-              <el-image
-                style="width: 230px; height: 155px;margin-top: 20px;"
-                src="../images/v1.jpg"
-                :fit="fit">
-              </el-image>
-              辣椒<br />
-              $ 0.8 /公斤
-            </div>
-          </el-col>
-        </el-row>
-
-
-        <el-row :gutter="20">
-          <el-col :span="20" style="margin-left: 98px; margin-top:50px;">
-            <span>为你推荐</span>
-            <el-button size="small" type="success" plain style="margin-left: 908px;">查看更多</el-button>
-          </el-col>
-        </el-row>
-        <el-row :gutter="1" style="margin-left: 98px;margin-bottom: 30px;">
-          <el-col :span="7" style="margin-left: 10px;margin-top: 20px;">
-            <div class="block">
-              <el-carousel trigger="click" height="200px" >
-                <el-carousel-item v-for="item in 4" :key="item">
-                  <h3 class="small">{{ item }}</h3>
-                </el-carousel-item>
-              </el-carousel>
-            </div>
-          </el-col>
-          <el-col :span="7" style="margin-left: 10px;margin-top: 20px;">
-            <div class="block">
-              <el-carousel trigger="click" height="200px" >
-                <el-carousel-item v-for="item in 4" :key="item">
-                  <h3 class="small">{{ item }}</h3>
-                </el-carousel-item>
-              </el-carousel>
-            </div>
-          </el-col>
-          <el-col :span="7" style="margin-left: 10px;margin-top: 20px;">
-            <div class="block">
-              <el-carousel trigger="click" height="200px" >
-                <el-carousel-item v-for="item in 4" :key="item">
-                  <h3 class="small">{{ item }}</h3>
-                </el-carousel-item>
-              </el-carousel>
-            </div>
-          </el-col>
-        </el-row>
+        <!--路由-->
+        <mains></mains>
       </el-main>
       <el-footer>
         <el-row :gutter="20">
@@ -314,21 +143,15 @@
       :visible.sync="dialog"
       :with-header="false"
     >
-      <div id="mylogodivright" class="mylogoli">
-        <ul>
-          <li class="logorightlia" style="background-color: #39b6f0;color:white"><a>商户登录</a></li>
-          <li class="logorightlib" :key="1" @mouseover="c(1,'#7cc472')" @mouseout="c1" :style=[colors1]><a>招商中心</a></li>
-          <li class="logorightlic" :key="2" @mouseover="c(2,'#ff5e5e')" @mouseout="c1" :style=[colors2]><a>数据中心</a></li>
-          <li class="logorightlid" :key="3" @mouseover="c(3,'#f1ad4e')" @mouseout="c1" :style=[colors3]><a>培训中心</a></li>
-          <li class="logorightlie" :key="4" @mouseover="c(4,'#e07fd2')" @mouseout="c1" :style=[colors4]><a>帮助中心</a></li>
-        </ul>
-      </div>
+
     </el-drawer>
 
   </div>
 </template>
 
 <script>
+import Shouyemain from "../../components/qiantai/shouye01"
+
 export default {
   name: 'app',
   data() {
@@ -379,7 +202,12 @@ export default {
       this.loading = false;
       this.dialog = false;
       clearTimeout(this.timer);
-    }
+    },
+
+
+  },
+  components: { //子组件
+    mains: Shouyemain,
   }
 
 
@@ -391,9 +219,7 @@ export default {
   color: #2c3e50;
 }
 
-.logorightlib{
-  border-bottom: 3px #7cc472 solid;
-}
+
 
 a {
   color: #42b983;
