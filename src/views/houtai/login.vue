@@ -51,7 +51,7 @@
 
               if(result.data.code==1) {
                 _this.$router.push({path: '/caidan'})
-                document.getElementById("date").style.display = "none";
+               // document.getElementById("date").style.display = "none";
               }
             },2000)
 

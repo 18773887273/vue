@@ -18,6 +18,8 @@ import  Login2 from '../views/shanghu/Login'
 import shmenu from "../views/shanghu/shmenu.vue";
 import  Shouquan from '../views/houtai/shouquan'
 import  Warehouse from '../views/houtai/warehouse'
+import   Shouye01 from '../components/qiantai/shouye01'
+import  My from '../components/qiantai/my'
 
 Vue.use(VueRouter)
 
@@ -60,7 +62,15 @@ const routes = [
   {
     path: '/back',
     component: Qiantaishouye,
-    //children: Qiantai
+    redirect:'/main',
+    children: [{
+      path: '/main',
+      component: Shouye01
+    },
+      {
+        path: '/mys',
+        component: My
+      }]
   },
   {
     path: '/shshouye',

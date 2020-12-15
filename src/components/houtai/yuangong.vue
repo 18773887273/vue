@@ -60,14 +60,17 @@
         return '';
       },
       deluser(row) {
-        //alert(row.id);
+        alert(row)
+        alert(row.userid);
         var _this = this;
         var params = new URLSearchParams();
-        params.append("id", row.id);
-        this.$axios.post("/deleteuser.action", params).
+        params.append("userid", row.userid);
+        this.$axios.post("user/deluser.action", params,{
+        emulateJSON:true
+        }).
         then(function(result) {
 
-          if(result.data == "1") {
+          if(result.data.msg == "1") {
             //alert('删除成功');
             const h = _this.$createElement;
             _this.$notify({
@@ -76,12 +79,13 @@
               type: 'success',
               position: 'bottom-right'
             });
+            this.getdata();
 
           } else {
             alert('删除失败');
           }
 
-        }).
+        }.bind(this)).
         catch(function(error) {
           alert(error)
         });

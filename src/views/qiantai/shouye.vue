@@ -27,7 +27,7 @@
         <el-dropdown>
           <el-avatar> user </el-avatar>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>我的账号</el-dropdown-item>
+            <el-dropdown-item><router-link to="/mys">我的账号</router-link></el-dropdown-item>
             <el-dropdown-item>我的地址</el-dropdown-item>
             <el-dropdown-item>登出</el-dropdown-item>
           </el-dropdown-menu>
@@ -69,7 +69,8 @@
       </el-header>
       <el-main>
         <!--路由-->
-        <mains></mains>
+
+      <router-view></router-view>
       </el-main>
       <el-footer>
         <el-row :gutter="20">
@@ -151,6 +152,7 @@
 
 <script>
 import Shouyemain from "../../components/qiantai/shouye01"
+import My from "../../components/qiantai/my"
 
 export default {
   name: 'app',
@@ -208,6 +210,7 @@ export default {
   },
   components: { //子组件
     mains: Shouyemain,
+    mys:My,
   }
 
 
