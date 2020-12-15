@@ -57,9 +57,17 @@
 
 <script>
   import  Yonghu from '../../components/houtai/yuangong'
+  import  Employ from '../../views/houtai/employlist'
+  import  Shouquan from '../../views/houtai/shouquan'
+  import  Warehouse from '../../views/houtai/warehouse'
+  import  Role from '../../views/houtai/rolelist'
   export default {
     components:{
       yonghu:Yonghu,
+      employlist:Employ,
+      shouquan:Shouquan,
+      warehouse:Warehouse,
+      rolelist:Role
     },
     data() {
       return {

@@ -12,8 +12,11 @@ import  Shoptytest from '../views/houtai/shoptylist.vue'
 import Yonghu from '../components/houtai/yuangong'
 import  Houtaishouye from '../views/houtai/menu.vue'
 import  Login from '../views/houtai/login'
+import  Employ from '../views/houtai/employlist'
 import  Login2 from '../views/shanghu/Login'
 import shmenu from "../views/shanghu/shmenu.vue";
+import  Shouquan from '../views/houtai/shouquan'
+import  Warehouse from '../views/houtai/warehouse'
 
 Vue.use(VueRouter)
 
@@ -29,7 +32,16 @@ const routes = [
     component: Houtaishouye,
      children:[
       {path:'/yonghu',
-         component: Yonghu}
+         component: Yonghu},
+       {path:'/employlist',
+         component: Employ
+       },
+       {path:'/shouquan',
+         component: Shouquan
+       },
+       {path:'/warehouse',
+         component: Warehouse
+       }
      ]
   },
   {
