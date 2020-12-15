@@ -22,15 +22,43 @@
         <el-input-number style="width: 218px" v-model="addshop.shopprice" controls-position="right" @change="handleChange" :step="1" :min="1" :max="1000000"></el-input-number>
       </el-form-item>
       <el-form-item label="商品图片">
-        <el-upload
-          class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+      <el-upload
+        action="#"
+        list-type="picture-card"
+        :auto-upload="false">
+        <i slot="default" class="el-icon-plus"></i>
+        <div slot="file" slot-scope="{file}">
+          <img
+            class="el-upload-list__item-thumbnail"
+            :src="file.url" alt=""
+          >
+          <span class="el-upload-list__item-actions">
+        <span
+          class="el-upload-list__item-preview"
+          @click="handlePictureCardPreview(file)"
+        >
+          <i class="el-icon-zoom-in"></i>
+        </span>
+        <span
+          v-if="!disabled"
+          class="el-upload-list__item-delete"
+          @click="handleDownload(file)"
+        >
+          <i class="el-icon-download"></i>
+        </span>
+        <span
+          v-if="!disabled"
+          class="el-upload-list__item-delete"
+          @click="handleRemove(file)"
+        >
+          <i class="el-icon-delete"></i>
+        </span>
+      </span>
+        </div>
+      </el-upload>
+      <el-dialog :visible.sync="dialogVisible">
+        <img width="100%" :src="dialogImageUrl" alt="">
+      </el-dialog>
       </el-form-item>
       <el-form-item label="商品详情图片">
         <el-upload
@@ -61,6 +89,9 @@ export default {
   name: 'app',
   data() {
     return {
+      dialogImageUrl: '',
+      dialogVisible: false,
+      disabled: false,
       options: [],
       optionsdw: [{
         value: '选项1',
@@ -82,6 +113,16 @@ export default {
   methods: {
     handleChange(value) {
       console.log(value);
+    },
+    handleRemove(file) {
+      console.log(file);
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    handleDownload(file) {
+      console.log(file);
     },
     getData() { //获取数据方法
 

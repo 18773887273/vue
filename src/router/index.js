@@ -7,8 +7,10 @@ import Qiantai from '../router/qiantai/router.config'
 import Shanghu from '../router/shanghu/router.config'
 import  Qiantaishouye from '../views/qiantai/shouye.vue'
 import  Shouyetest from '../views/houtai/shoplist.vue'
-import  Shoptytest from '../views/houtai/shoptylist.vue'
+import  Shoptype from '../views/houtai/shoptylist.vue'
 import  Shoptyadd from '../components/houtai/shopty/addshopty'
+/*头像上传测试*/
+import uploadtest from '../views/houtai/uploadtest.vue';
 
 import Yonghu from '../components/houtai/yuangong'
 import  Houtaishouye from '../views/houtai/menu.vue'
@@ -45,6 +47,9 @@ const routes = [
        },
        {path:'/rolelist',
          component: Role
+       },
+       {path:'/shoptype',
+         component: Shoptype
        }
      ]
   },
@@ -77,12 +82,12 @@ const routes = [
   },
   {
     path: '/shoptylist',
-    component: Shoptytest,
+    component: Shoptype,
     //children: Shanghu
   },
   {
-    path: '/shoptyadd',
-    component: Shoptyadd,
+    path: '/uploadtest',
+    component: uploadtest,
     //children: Shanghu
   },
   /**

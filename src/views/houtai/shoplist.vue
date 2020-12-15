@@ -7,11 +7,11 @@
         <el-button type="primary" plain @click="addshop()"  style="width: 100px;">添加</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="tableData" stripe style="width: 100%">
-
-      <el-table-column prop="shopid" label="ID" width="180">
+    <el-table :data="tableData" stripe style="width: 100%"
+              :header-cell-style="headClass" :cell-style="rowClass">
+      <el-table-column prop="shopid" label="ID">
       </el-table-column>
-      <el-table-column prop="shopname" label="商品名" width="180">
+      <el-table-column prop="shopname" label="商品名">
       </el-table-column>
       <el-table-column prop="shoptyid.shoptyname" label="类型">
       </el-table-column>
@@ -108,6 +108,12 @@
         this.addshopdialogFormVisible = false;
         this.$refs.addshopchild.addshop = {};
       },
+      headClass() { //表头居中显示
+        return "text-align:center"
+      },
+      rowClass() { //表格数据居中显示
+        return "text-align:center"
+      },
       shopadd() {
         var addshop = this.$refs.addshopchild.addshop;
         var _this = this;
@@ -137,6 +143,7 @@
     components: { //子组件
       addshop: Addshop,
     }
+
   }
 </script>
 
