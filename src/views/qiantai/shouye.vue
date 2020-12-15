@@ -314,11 +314,15 @@
       :visible.sync="dialog"
       :with-header="false"
     >
-      <el-row>
-        <el-col :xs="4" :sm="6" :md="10" :lg="9" :xl="11"><div class="grid-content bg-purple-light"></div></el-col>
-        <el-col :xs="4" :sm="6" :md="10" :lg="9" :xl="11"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1"><div class="grid-content bg-purple-light"></div></el-col>
-      </el-row>
+      <div id="mylogodivright" class="mylogoli">
+        <ul>
+          <li class="logorightlia" style="background-color: #39b6f0;color:white"><a>商户登录</a></li>
+          <li class="logorightlib" :key="1" @mouseover="c(1,'#7cc472')" @mouseout="c1" :style=[colors1]><a>招商中心</a></li>
+          <li class="logorightlic" :key="2" @mouseover="c(2,'#ff5e5e')" @mouseout="c1" :style=[colors2]><a>数据中心</a></li>
+          <li class="logorightlid" :key="3" @mouseover="c(3,'#f1ad4e')" @mouseout="c1" :style=[colors3]><a>培训中心</a></li>
+          <li class="logorightlie" :key="4" @mouseover="c(4,'#e07fd2')" @mouseout="c1" :style=[colors4]><a>帮助中心</a></li>
+        </ul>
+      </div>
     </el-drawer>
 
   </div>
@@ -387,6 +391,9 @@ export default {
   color: #2c3e50;
 }
 
+.logorightlib{
+  border-bottom: 3px #7cc472 solid;
+}
 
 a {
   color: #42b983;

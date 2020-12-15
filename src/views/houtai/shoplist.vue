@@ -2,12 +2,13 @@
   <div id="app">
     <el-form label-width="100px">
       <el-form-item label="商品名:">
-        <el-input v-model="queryshopname"></el-input>
+        <el-input v-model="queryshopname"  style="width: 400px;"></el-input>
+        <el-button type="primary" plain @click="getData()" style="width: 100px">查询</el-button>
+        <el-button type="primary" plain @click="addshop()"  style="width: 100px;">添加</el-button>
       </el-form-item>
-      <el-button type="info" plain @click="queryrole()">查询</el-button>
-      <el-button type="primary" plain @click="addshop()">添加</el-button>
     </el-form>
     <el-table :data="tableData" stripe style="width: 100%">
+
       <el-table-column prop="shopid" label="ID" width="180">
       </el-table-column>
       <el-table-column prop="shopname" label="商品名" width="180">
@@ -34,8 +35,8 @@
       </el-table-column>
     </el-table>
 
-    <el-tree :data="data" show-checkbox node-key="id" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]">
-    </el-tree>
+    <el-pagination id="app1" @current-change="pagechange" layout="prev, pager, next" :total="total" :page-size="5">
+    </el-pagination>
 
 
 
@@ -60,6 +61,7 @@
     name: 'app',
     data() {
       return {
+        queryshopname:'',
         tableData: [],
         addshopdialogFormVisible: false,
         total:1,
@@ -75,6 +77,7 @@
 
         var params = new URLSearchParams();
         params.append("page", this.page);
+        params.append("shopname",this.queryshopname)
         params.append("minprice", this.minprice);
         params.append("maxprice", this.maxprice);
         this.$axios.post("shop/querylike.action",params).
@@ -85,6 +88,16 @@
         catch(function(error) {
           alert(error)
         });
+
+      },
+      pagechange(pageindex){  //页码变更时
+        //console.log(pageindex)
+        this.page = pageindex;
+        //根据pageindex  获取数据
+        this.getData();
+
+      },
+      queryshop(){
 
       },
       addshop() {
@@ -128,11 +141,19 @@
 </script>
 
 <style>
-#app {
+#app1 {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  color: #2c3e50;
+  margin-top: 20px;
+}
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 60px;
 }
