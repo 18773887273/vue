@@ -61,13 +61,15 @@
   import  Shouquan from '../../views/houtai/shouquan'
   import  Warehouse from '../../views/houtai/warehouse'
   import  Role from '../../views/houtai/rolelist'
+  import  Shoptype from '../../views/houtai/shoptylist.vue'
   export default {
     components:{
       yonghu:Yonghu,
       employlist:Employ,
       shouquan:Shouquan,
       warehouse:Warehouse,
-      rolelist:Role
+      rolelist:Role,
+      shoptype:Shoptype,
     },
     data() {
       return {

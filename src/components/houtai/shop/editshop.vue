@@ -5,7 +5,7 @@
 				<el-input v-model="editrole.rid" readonly="readonly" autocomplete="off"></el-input>
 			</el-form-item>
 			<el-form-item label="角色名">
-				<el-input v-model="editrole.rname" autocomplete="off"></el-input>
+				<el-input v-model="editrole.rname"  autocomplete="off"></el-input>
 			</el-form-item>
 
 			<el-form-item label="备注">

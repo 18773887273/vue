@@ -17,8 +17,8 @@
 
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="success" @click="editrole(scope.row)" plain circle>编辑</el-button>
-          <el-popconfirm title="确定删除这条记录吗？" @confirm="delrole(scope.row)">
+          <el-button type="success" @click="editshopty(scope.row)" plain circle>编辑</el-button>
+          <el-popconfirm title="确定删除这条记录吗？" @confirm="delshopty(scope.row)">
             <el-button type="danger" slot="reference" plain circle>删除</el-button>
           </el-popconfirm>
 
@@ -41,12 +41,23 @@
       </div>
     </el-dialog>
 
+    <el-dialog title="编辑类型" :visible.sync="editshoptydialogFormVisible">
+
+      <editShopty ref="editshoptychild"></editShopty>
+      <!--将编辑页面子组件加入到列表页面 -->
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="editshopquxiao()">取 消</el-button>
+        <el-button type="primary" @click="shopsave()">确 定</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
 
 import AddShopty from '../../components/houtai/shopty/addshopty.vue'
+import EditShopty from '../../components/houtai/shopty/editshopty.vue'
 
 export default {
   name: 'shoptylist',
@@ -54,6 +65,7 @@ export default {
     return {
       tableData: [],
       queryshoptyname:'',
+      editshoptydialogFormVisible:false,
       addshoptydialogFormVisible: false,
       total:1,
       page:1,
@@ -86,6 +98,67 @@ export default {
       this.getData();
 
     },
+    delshopty(val) { //删除数据
+      var _this = this;
+      var params = new URLSearchParams();
+      params.append("shoptyid", val.shoptyid);
+
+      this.$axios.post("shoptype/delshoptype.action", params).
+      then(function(result) {
+        _this.$message({
+          message: result.data.msg,
+          type: 'success'
+        });
+
+        //刷新数据
+        _this.getData();
+
+      }).
+      catch(function() {
+        _this.$message({
+          message: '删除失败',
+          type: 'success'
+        });
+      });
+
+    },
+    editshopty(val) { //编辑按钮按下  打开编辑模态框
+      //获取到要编辑的巨记录  通过val（id）
+      setTimeout(() => {
+        this.selectDate = {
+          ...val
+        }
+        this.$refs.editshoptychild.editshopty =  this.selectDate;
+      })
+
+      this.editshoptydialogFormVisible = true;
+
+    },
+    //修改保存操作
+    shopsave() {
+      var editrole = this.$refs.editshoptychild.editshopty;
+      var _this = this;
+      var shuptype = new URLSearchParams();
+      shuptype.append("shoptyid", editrole.shoptyid);
+      shuptype.append("shoptyname", editrole.shoptyname);
+      shuptype.append("shopremart", editrole.shopremart);
+      this.$axios.post("shoptype/editshoptype.action", shuptype).then(function(result) {
+        _this.$message({
+          message: result.data.msg,
+          type: 'success'
+        });
+        _this.editshoptydialogFormVisible = false;
+        _this.getData();
+
+      })
+        .catch(function(error) {
+          _this.$message({
+            message: '修改失败',
+            type: 'success'
+          });
+        });
+
+    },
     addshopty() {
       //index 索引  row对象 修改该条记录对象
       this.addshoptydialogFormVisible = true;
@@ -93,6 +166,9 @@ export default {
     addshopquxiao() {
       this.addshoptydialogFormVisible = false;
       this.$refs.addshoptychild.addshoptype = {};
+    },
+    editshopquxiao() {
+      this.editshoptydialogFormVisible = false;
     },
     shoptyadd() {
       var addshopty = this.$refs.addshoptychild.addshoptype;
@@ -126,6 +202,7 @@ export default {
   },
   components: { //子组件
       addShopty:AddShopty,
+      editShopty:EditShopty,
   }
 }
 </script>
@@ -137,7 +214,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 20px;
+
 }
 
 #shoptylist {
@@ -145,7 +222,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
+
 }
 
 
