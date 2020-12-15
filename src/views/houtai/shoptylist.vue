@@ -4,7 +4,7 @@
       <el-form-item label="类型名:">
         <el-input v-model="queryshoptyname" style="width: 400px;"></el-input>
         <el-button type="primary" plain @click="getData()" style="width: 100px">查询</el-button>
-        <el-button type="primary" plain @click="addshop()"  style="width: 100px;">添加</el-button>
+        <el-button type="primary" plain @click="addshopty()"  style="width: 100px;">添加</el-button>
       </el-form-item>
     </el-form>
     <el-table :data="tableData" stripe style="width: 100%">
@@ -31,13 +31,13 @@
 
 
 
-    <el-dialog title="添加页面" :visible.sync="addshopdialogFormVisible">
+    <el-dialog title="添加类型" :visible.sync="addshoptydialogFormVisible">
 
-      <addshop ref="addshopchild"></addshop>
+      <addShopty ref="addshoptychild"></addShopty>
       <!--将编辑页面子组件加入到列表页面 -->
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addshopdialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addshopdialogFormVisible = false">确 定</el-button>
+        <el-button @click="addshopquxiao()">取 消</el-button>
+        <el-button type="primary" @click="shoptyadd()">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -46,7 +46,7 @@
 
 <script>
 
-
+import AddShopty from '../../components/houtai/shopty/addshopty.vue'
 
 export default {
   name: 'shoptylist',
@@ -54,7 +54,7 @@ export default {
     return {
       tableData: [],
       queryshoptyname:'',
-      addshopdialogFormVisible: false,
+      addshoptydialogFormVisible: false,
       total:1,
       page:1,
       minprice:0,
@@ -86,42 +86,46 @@ export default {
       this.getData();
 
     },
-    addshop() {
+    addshopty() {
       //index 索引  row对象 修改该条记录对象
-      this.addshopdialogFormVisible = true;
+      this.addshoptydialogFormVisible = true;
     },
     addshopquxiao() {
-      this.addshopdialogFormVisible = false;
-      this.$refs.addshopchild.addshop = {};
+      this.addshoptydialogFormVisible = false;
+      this.$refs.addshoptychild.addshoptype = {};
     },
-    shopadd() {
-      var addshop = this.$refs.addshopchild.addshop;
+    shoptyadd() {
+      var addshopty = this.$refs.addshoptychild.addshoptype;
       var _this = this;
-      var shops = new URLSearchParams();
-      /*roles.append("rname", addrole.rname);
-      roles.append("rremart", addrole.rremart);*/
-      this.$axios.post("role/editshop.action", roles).then(function(result) {
-        _this.$message({
-          message: result.data.msg,
-          type: 'success'
-        });
-        _this.getData();
-      })
-        .catch(function(error) {
+      var shoptype = new URLSearchParams();
+      shoptype.append("shoptyname",addshopty.shoptyname)
+      shoptype.append("shopremart",addshopty.shoptymiaoshu)
+      this.$axios.post("shoptype/editshoptype.action", shoptype).then(function(result) {
+        if (result.data.msg=="添加成功"){
           _this.$message({
-            message: '添加失败',
+            message: result.data.msg,
+            type: 'success'
+          });
+
+          _this.getData();
+
+        }
+      }).catch(function(error) {
+          _this.$message({
+            message: error,
             type: 'error'
           });
         });
-      this.$refs.addshopchild.addshop = {};
-      this.addshopdialogFormVisible = false;
+      _this.$refs.addshoptychild.addshoptype = {};
+      _this.addshoptydialogFormVisible = false;
+
     },
   },
   created() { //钩子函数  vue对象初始化完成后  执行
     this.getData();
   },
   components: { //子组件
-
+      addShopty:AddShopty,
   }
 }
 </script>
