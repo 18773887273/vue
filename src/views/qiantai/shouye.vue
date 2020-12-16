@@ -1,10 +1,10 @@
 <template>
   <div id="app">
 
-    <el-menu  class="el-menu-demo" style="height:65px;" mode="horizontal">
+    <el-menu class="el-menu-demo" style="height:65px;" mode="horizontal">
       <el-menu-item style="width: 100px"></el-menu-item>
       <el-menu-item>
-        <el-image style="width: 100px; height: 50px" src="" ></el-image>
+        <el-image style="width: 100px; height: 50px" src="../../images/qianduan/mxt.png"></el-image>
       </el-menu-item>
       <el-menu-item>
         <el-button size="mini" circle><i class="el-icon-location-outline"></i></el-button>
@@ -23,17 +23,21 @@
 
       </el-menu-item>
       <el-menu-item>
-        <el-button size="mini" @click="dialog = true" circle style="background-color: #F8F9FA; "> <i class="el-icon-user"></i></el-button>
+        <el-button size="mini" @click="dialog = true" circle style="background-color: #F8F9FA; "><i
+          class="el-icon-user"></i></el-button>
         <el-dropdown>
-          <el-avatar> user </el-avatar>
+          <el-avatar> user</el-avatar>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item><router-link to="/mys">我的账号</router-link></el-dropdown-item>
+            <el-dropdown-item>
+              <router-link to="/mys">我的账号</router-link>
+            </el-dropdown-item>
             <el-dropdown-item>我的地址</el-dropdown-item>
             <el-dropdown-item>登出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <el-button size="mini" circle style="background-color: #F8F9FA; "> <i class="el-icon-bell"></i></el-button>
-        <el-button size="mini" circle style="background-color: #F8F9FA; "><i class="el-icon-shopping-cart-2"></i></el-button>
+        <el-button size="mini" circle style="background-color: #F8F9FA; "><i class="el-icon-bell"></i></el-button>
+        <el-button size="mini" circle style="background-color: #F8F9FA; "><i class="el-icon-shopping-cart-2"></i>
+        </el-button>
       </el-menu-item>
     </el-menu>
     <el-container>
@@ -45,7 +49,8 @@
           </el-col>
           <el-col :span="2" style="margin-left: -10px;">
             <el-dropdown>
-              <el-link :underline="false" style="color: #FFFAE8;">产品展示<i class="el-icon-arrow-down el-icon--right"></i></el-link>
+              <el-link :underline="false" style="color: #FFFAE8;">产品展示<i class="el-icon-arrow-down el-icon--right"></i>
+              </el-link>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>趋向</el-dropdown-item>
                 <el-dropdown-item>推荐的</el-dropdown-item>
@@ -55,7 +60,8 @@
           </el-col>
           <el-col :span="2" style="margin-left: -10px;">
             <el-dropdown>
-              <el-link :underline="false" style="color: #FFFAE8;">我的订单<i class="el-icon-arrow-down el-icon--right"></i></el-link>
+              <el-link :underline="false" style="color: #FFFAE8;">我的订单<i class="el-icon-arrow-down el-icon--right"></i>
+              </el-link>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>我的订单</el-dropdown-item>
                 <el-dropdown-item>已完成</el-dropdown-item>
@@ -70,7 +76,7 @@
       <el-main>
         <!--路由-->
 
-      <router-view></router-view>
+        <router-view></router-view>
       </el-main>
       <el-footer>
         <el-row :gutter="20">
@@ -82,56 +88,85 @@
         <el-divider></el-divider>
         <el-row style="margin-bottom: 35px;">
           <el-col :span="4" style="margin-left: 98px; margin-top:30px;">
-            <span>产品展示</span><br />
-            <el-link class="el-linka" :underline="false">清单</el-link><br />
-            <el-link class="el-linka" :underline="false">详情</el-link><br />
-            <el-link class="el-linka" :underline="false">趋向</el-link><br />
-            <el-link class="el-linka" :underline="false">推荐的</el-link><br />
-            <el-link class="el-linka" :underline="false">最受欢迎的</el-link><br />
+            <span>产品展示</span><br/>
+            <el-link class="el-linka" :underline="false">清单</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">详情</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">趋向</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">推荐的</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">最受欢迎的</el-link>
+            <br/>
           </el-col>
           <el-col :span="4" style="margin-left: 20px; margin-top:30px;">
-            <span>结帐流程</span><br />
-            <el-link class="el-linka" :underline="false">购物车</el-link><br />
-            <el-link class="el-linka" :underline="false">订单地址</el-link><br />
-            <el-link class="el-linka" :underline="false">交货时间</el-link><br />
-            <el-link class="el-linka" :underline="false">订单付款</el-link><br />
-            <el-link class="el-linka" :underline="false">查看</el-link><br />
-            <el-link class="el-linka" :underline="false">成功的</el-link><br />
+            <span>结帐流程</span><br/>
+            <el-link class="el-linka" :underline="false">购物车</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">订单地址</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">交货时间</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">订单付款</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">查看</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">成功的</el-link>
+            <br/>
           </el-col>
           <el-col :span="4" style="margin-left: 20px; margin-top:30px;">
-            <span>我的订单</span><br />
-            <el-link class="el-linka" :underline="false">我的订单</el-link><br />
-            <el-link class="el-linka" :underline="false">状态完成</el-link><br />
-            <el-link class="el-linka" :underline="false">进行中状态</el-link><br />
-            <el-link class="el-linka" :underline="false">状态已取消</el-link><br />
-            <el-link class="el-linka" :underline="false">评论</el-link><br />
+            <span>我的订单</span><br/>
+            <el-link class="el-linka" :underline="false">我的订单</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">状态完成</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">进行中状态</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">状态已取消</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">评论</el-link>
+            <br/>
 
           </el-col>
           <el-col :span="4" style="margin-left: 20px; margin-top:30px;">
-            <span>我的帐户</span><br />
-            <el-link class="el-linka" :underline="false">我的帐户</el-link><br />
-            <el-link class="el-linka" :underline="false">宣传片</el-link><br />
-            <el-link class="el-linka" :underline="false">我的地址</el-link><br />
-            <el-link class="el-linka" :underline="false">条款及规则</el-link><br />
-            <el-link class="el-linka" :underline="false">帮助支持</el-link><br />
-            <el-link class="el-linka" :underline="false">帮助票</el-link><br />
-            <el-link class="el-linka" :underline="false">等出</el-link><br />
+            <span>我的帐户</span><br/>
+            <el-link class="el-linka" :underline="false">我的帐户</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">宣传片</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">我的地址</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">条款及规则</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">帮助支持</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">帮助票</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">等出</el-link>
+            <br/>
           </el-col>
           <el-col :span="4" style="margin-left: 20px; margin-top:30px;">
-            <span>额外页面</span><br />
-            <el-link class="el-linka" :underline="false">促销详情</el-link><br />
-            <el-link class="el-linka" :underline="false">条件</el-link><br />
-            <el-link class="el-linka" :underline="false">帮助支持</el-link><br />
-            <el-link class="el-linka" :underline="false">退款支持</el-link><br />
-            <el-link class="el-linka" :underline="false">常见问题</el-link><br />
-            <el-link class="el-linka" :underline="false">登入</el-link><br />
+            <span>额外页面</span><br/>
+            <el-link class="el-linka" :underline="false">促销详情</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">条件</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">帮助支持</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">退款支持</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">常见问题</el-link>
+            <br/>
+            <el-link class="el-linka" :underline="false">登入</el-link>
+            <br/>
           </el-col>
         </el-row>
         <el-divider></el-divider>
         <el-row style="margin-bottom: 35px;">
           <el-col :span="5" style="margin-left: 90px;">
-            <span  class="el-linkb">©2020 Grofarweb</span>
-            <el-link class="el-linkb" :underline="false">隐私 </el-link>
+            <span class="el-linkb">©2020 Grofarweb</span>
+            <el-link class="el-linkb" :underline="false">隐私</el-link>
             <el-link class="el-linkb" :underline="false">条款和条件</el-link>
           </el-col>
         </el-row>
@@ -141,9 +176,33 @@
     <!--dialog-->
     <el-drawer
       title="我是标题"
-      :visible.sync="dialog"
       :with-header="false"
+      :visible.sync="dialog"
+      size="25%"
+
     >
+      <el-row class="el-row2">
+        <el-col :span="11" class="el-col2">
+          <div ref="ssc" class="grid-content bg-purple el-col2-div" :style="coldiv1"
+             @click="denglu1"   @mouseover="mouseOver(1,'2px #42b983 solid')" @mouseout="mouseLeave">登录
+          </div>
+        </el-col>
+        <el-col :span="11" class="el-col2">
+          <div class="grid-content bg-purple-light el-col2-div" :style="coldiv2"
+               @click="zuche1"   @mouseover="mouseOver(2,'2px #42b983 solid')" @mouseout="mouseLeave">注册
+          </div>
+        </el-col>
+        <el-col :span="2" class="el-col2">
+          <div class="grid-content bg-purple-light el-col2-div" :style="coldiv3"
+               @mouseover="mouseOver(3,'2px #42b983 solid')" @mouseout="mouseLeave"><span class="span1"><i
+            class="el-icon-close" ></i></span></div>
+        </el-col>
+      </el-row>
+      <el-row style="margin-top: 3px">
+        <el-col :span="24" ><div style="height: 500px">
+          <component :is="path" v-bind:sg="dialog"></component>
+        </div></el-col>
+      </el-row>
 
     </el-drawer>
 
@@ -153,11 +212,23 @@
 <script>
 import Shouyemain from "../../components/qiantai/shouye01"
 import My from "../../components/qiantai/my"
+import Denglu from "../../components/qiantai/dengluzuche/denglu"
+import Zuche from "../../components/qiantai/dengluzuche/zuche"
 
 export default {
+  components: { //子组件
+    mains: Shouyemain,
+    mys: My,
+    denglu:Denglu,
+    zuche:Zuche
+  },
   name: 'app',
   data() {
     return {
+      coldiv1: {borderBottom: "2px #42b983 solid"},
+      coldiv2: {borderBottom: "2px #42b983 solid"},
+      coldiv3: {borderBottom: "2px #42b983 solid"},
+      path:'denglu',
       dialog: false,
       loading: false,
       form: {
@@ -176,6 +247,12 @@ export default {
   },
 
   methods: {
+    denglu1(){
+      this.path='denglu';
+    },
+    zuche1(){
+      this.path='zuche';
+    },
     handleEdit(index, row) {
       console.log(index, row);
     },
@@ -198,8 +275,27 @@ export default {
             }, 400);
           }, 2000);
         })
-        .catch(_ => {});
+        .catch(_ => {
+        });
     },
+
+    mouseOver(index, value) {
+      if (index == 1) {
+
+        this.coldiv1.borderBottom = "2px #42b983 solid";
+      } else if (index == 2) {
+        this.coldiv2.borderBottom = "2px #42b983 solid";
+      } else if (index == 3) {
+        this.coldiv3.borderBottom =  "2px #42b983 solid";
+      }
+
+    },
+    mouseLeave() {
+      this.coldiv1.borderBottom = "";
+      this.coldiv2.borderBottom = "";
+      this.coldiv3.borderBottom = "";
+    },
+
     cancelForm() {
       this.loading = false;
       this.dialog = false;
@@ -208,10 +304,7 @@ export default {
 
 
   },
-  components: { //子组件
-    mains: Shouyemain,
-    mys:My,
-  }
+
 
 
 }
@@ -219,21 +312,41 @@ export default {
 
 <style>
 #app {
+
   color: #2c3e50;
 }
 
-
+.el-drawer:focus {
+  outline: none;
+}
 
 a {
   color: #42b983;
 }
 
+.el-row2 {
+  text-align: center;
+  font-size: 18px;
+
+}
+
+.el-row3 {
+
+}
+
+.el-col2-div {
+  height: 50px;
+  padding-top: 25px;
+}
+
 .el-row {
 
 
-&:last-child {
-   margin-bottom: 0;
- }
+&
+:last-child {
+  margin-bottom: 0;
+}
+
 }
 
 .el-col {
@@ -246,11 +359,11 @@ a {
 }
 
 .bg-purple {
-  background: pink;
+
 }
 
 .bg-purple-light {
-  background: pink;
+
 }
 
 .grid-content {
@@ -268,12 +381,13 @@ a {
   text-align: center;
   line-height: 30px;
 }
-.el-linka{
+
+.el-linka {
   margin-top: 12px;
   font-size: 10px;
 }
 
-.el-linkb{
+.el-linkb {
   margin-left: 5px;
   font-size: 14px;
 }

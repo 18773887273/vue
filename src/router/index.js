@@ -9,7 +9,8 @@ import  Qiantaishouye from '../views/qiantai/shouye.vue'
 import  Shouyetest from '../views/houtai/shoplist.vue'
 import  Shoptytest from '../views/houtai/shoptylist.vue'
 import  Shoptyadd from '../components/houtai/shopty/addshopty'
-
+/*头像上传测试*/
+import  Uploadtest from '../views/houtai/uploadtest.vue'
 import Yonghu from '../components/houtai/yuangong'
 import  Houtaishouye from '../views/houtai/menu.vue'
 import  Login from '../views/houtai/login'
@@ -26,11 +27,13 @@ import  Role from '../views/houtai/rolelist'
 
 import  Shoptype from '../views/houtai/shoptylist.vue'
 import  Addshopty from '../components/houtai/shopty/addshopty'
-/*头像上传测试*/
+
 import Alldingdan from "../components/qiantai/dingdan/alldingdan";
 import Daifukuan from "../components/qiantai/dingdan/daifukuan";
 import Daitihuo from "../components/qiantai/dingdan/daitihuo";
 import Yiwancheng from '../components/qiantai/dingdan/yiwancheng'
+/*登录*/
+import Denglu from "../components/qiantai/dengluzuche/denglu"
 
 Vue.use(VueRouter)
 
@@ -72,6 +75,14 @@ const routes = [
   {
     path: '/login2',
     component: Login2
+  },
+  {
+    path: '/uploadtest',
+    component: Uploadtest
+  },
+  {
+    path: '/denglu',
+    component: Denglu
   },
   /**
    * 后台路由,访问地址 /back/.....
