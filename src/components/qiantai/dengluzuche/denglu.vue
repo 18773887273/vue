@@ -1,15 +1,14 @@
 <template>
   <div id="denglu">
     <el-row class="font1">
-      <el-col :span="14" offset="2">
+      <el-col :span="14" offset=2>
         <h1 style="font-size: 25px">欢迎回来</h1>
       登录以继续<br><br>
-        {{sg}}aa
       <el-form :model="loginform">
-        <el-form-item label="用户名" :label-width="formLabelWidth">
+        <el-form-item label="用户名" >
           <el-input placeholder="输入用户名" size="small" v-model="loginform.username" autocomplete="off" style="width: 285px;"></el-input>
         </el-form-item>
-        <el-form-item style="margin-top: -20px" label="密码" :label-width="formLabelWidth">
+        <el-form-item style="margin-top: -20px" label="密码" >
           <el-input placeholder="输入密码" size="small" v-model="loginform.userpass" autocomplete="off" style="width: 285px;"></el-input>
         </el-form-item>
         <el-form-item>
@@ -34,7 +33,7 @@ export default {
       },
       timer: null,
       loading:false,
-
+      falodchild:false
     }
   },
   methods:{
@@ -52,18 +51,22 @@ export default {
           this.loading = true;
           this.$axios.post("user/login.action",params).then(function(result) {
             alert(result.data.msg)
-            alert(_this.sg);
+            //将登录成功的用户名存入store中
+            this.$emit("propdialog",false);
+            sessionStorage.setItem("username",result.data.username);
+            _this.$router.push("/back");
 
 
           })
             .catch(function(error) {
-
+              this.$emit("propdialog",false);
               alert("error")
             });
 
           this.timer = setTimeout(() => {
             // 动画关闭需要一定的时间
             setTimeout(() => {
+
               this.loading = false;
             }, 400);
           }, 2000);
@@ -83,7 +86,7 @@ export default {
             done();
             // 动画关闭需要一定的时间
             setTimeout(() => {
-              this.$refs.drawer.dialog=false;
+              this.falodchild = false ;
             }, 400);
           }, 2000);
         })

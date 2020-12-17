@@ -200,7 +200,7 @@
       </el-row>
       <el-row style="margin-top: 3px">
         <el-col :span="24" ><div style="height: 500px">
-          <component :is="path" v-bind:sg="dialog"></component>
+          <component :is="path" ref="childprpo" v-bind:sg="dialog" v-on:propdialog="dengluclose($event)"></component>
         </div></el-col>
       </el-row>
 
@@ -247,6 +247,10 @@ export default {
   },
 
   methods: {
+    dengluclose(msg){
+      this.dialog = msg;
+      alert(msg)
+    },
     denglu1(){
       this.path='denglu';
     },
