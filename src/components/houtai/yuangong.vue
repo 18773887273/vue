@@ -61,7 +61,7 @@
       },
       deluser(row) {
         //alert(row)
-        //alert(row.userid);
+        alert(row.userid);
         var _this = this;
         var params = new URLSearchParams();
         params.append("userid", row.userid);
@@ -80,7 +80,6 @@
               position: 'bottom-right'
             });
             this.getdata();
-
           } else {
             alert('删除失败');
           }

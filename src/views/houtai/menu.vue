@@ -101,7 +101,9 @@
       //异步加载数据
       getdata(){
         var _this=this;
-        this.$axios.post("/menu/queryallmenus.action",
+        var params = new URLSearchParams();
+        params.append("username", this.username);
+        this.$axios.post("/menu/queryall.action",params,
           {emulateJSON:true}).
         then(function(result) {
           //alert(result.data)

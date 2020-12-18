@@ -3,20 +3,20 @@
           <el-col :span="24" style="margin-top: 5px">
             <div class="grid-content bg-purple-dark"><h2>我的账号</h2></div>
           </el-col>
-      <el-form :label-position="top" :model="formLabelAlign">
+      <el-form :label-position="top" :model="tableData">
         <el-col :span="24" style="margin-top: 5px">
         <el-form-item label="用户名">
-          <el-input v-model="formLabelAlign.name"></el-input>
+          <el-input v-model="tableData.username"></el-input>
         </el-form-item>
       </el-col>
         <el-col :span="24" style="margin-top: 5px">
         <el-form-item label="性别">
-          <el-input v-model="formLabelAlign.region"></el-input>
+          <el-input v-model="tableData.sex"></el-input>
         </el-form-item>
         </el-col>
         <el-col :span="24" style="margin-top: 5px">
         <el-form-item label="电话">
-          <el-input v-model="formLabelAlign.type"></el-input>
+          <el-input v-model="tableData.usernumber"></el-input>
         </el-form-item>
         </el-col>
         <el-button type="success" round  class="but1"   size="medium">修改信息</el-button>
@@ -32,8 +32,32 @@
                 name: '',
                 region: '',
                 type: ''
-              }
+              },
+              tableData:[],
+              yonghuname: sessionStorage.getItem('yonghuname'),
             }
+          },
+          methods:{
+
+            getdata(){
+              var _this = this;
+              var params = new URLSearchParams();
+              params.append("username",this.yonghuname);
+              this.$axios.post("/user/queryuser.action", params,{
+                emulateJSON:true
+              }).
+              then(function(result) {
+
+                _this.tableData = result.data;
+              }).
+              catch(function(error) {
+                alert(error)
+              });
+            }
+
+          },
+          created() {
+            this.getdata();
           }
         }
 </script>

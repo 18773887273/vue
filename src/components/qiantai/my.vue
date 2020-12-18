@@ -7,8 +7,8 @@
       <el-col :span="6" style="margin-left: 100px;height: 500px">
         <div class="grid-content bg-purple"  style="height: 500px"  >
           <div class="block">
-            <el-avatar :size="120" :src="12" style="margin-top: 25px"></el-avatar>
-            <label>用户</label>
+            <el-avatar :size="120" :src="tupian" style="margin-top: 25px"></el-avatar>
+            <label>用户{{yonghuname}}</label>
           </div>
           <el-divider></el-divider>
           <div>
@@ -26,14 +26,14 @@
             </div>
             </router-link>
             <el-divider></el-divider>
-            <router-link to="">
+            <router-link to="/shiming">
             <div class="icons">
               <i class="el-icon-setting" style="font-size: 30px"></i>
               <label>实名认证</label>
             </div>
             </router-link>
             <el-divider></el-divider>
-            <router-link to="">
+            <router-link to="/shangjiashen">
             <div class="icons">
               <i class="el-icon-s-goods" style="font-size: 30px"></i>
               <label>商家认证</label>
@@ -54,18 +54,32 @@
 </template>
 
 <script>
-  import  Myzhanghao from '../qiantai/myzhanghao'
-  import  Dingdan from '../qiantai/dingdan'
+  import  Myzhanghao from './myzhanghao'
+  import  Dingdan from './dingdan'
+  import  Shiming from './shiming'
+  import Shangjiashen from "./shangjiashen";
     export default {
+      name:"my",
     components:{
+
       myzhanghao:Myzhanghao,
-      dingdan:Dingdan
+      dingdan:Dingdan,
+      shiming:Shiming,
+      shangjiashen:Shangjiashen
     },
-      data:{
-      return:{
-        yonghuming:"12345"
+      data(){
+      return {
+        tupian:'../../images/shanghu/logo.png',
+        yonghuming:"12345",
+        yonghuname: sessionStorage.getItem('username'),
+
       }
-      }
+      },
+      methods:{
+
+
+      },
+
     }
 </script>
 
