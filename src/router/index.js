@@ -30,7 +30,7 @@ import  Role from '../views/houtai/rolelist'
 
 import  Shoptype from '../views/houtai/shoptylist.vue'
 import  Addshopty from '../components/houtai/shopty/addshopty'
-
+import  Caigou from '../views/houtai/caigou.vue'
 import Alldingdan from "../components/qiantai/dingdan/alldingdan";
 import Daifukuan from "../components/qiantai/dingdan/daifukuan";
 import Daitihuo from "../components/qiantai/dingdan/daitihuo";
@@ -70,6 +70,9 @@ const routes = [
        },
        {path:'/shoplist',
          component: Shop
+       },
+       {path:'/caigou',
+         component: Caigou
        }
      ]
   },
