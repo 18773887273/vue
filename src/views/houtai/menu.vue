@@ -63,6 +63,7 @@
   import  Role from '../../views/houtai/rolelist'
   import  Shoptype from '../../views/houtai/shoptylist.vue'
   import  Shop from '../../views/houtai/shoplist.vue'
+  import  Caigou from '../../views/houtai/caigou.vue'
   export default {
     components:{
       yonghu:Yonghu,
@@ -71,7 +72,8 @@
       warehouse:Warehouse,
       rolelist:Role,
       shoptype:Shoptype,
-      shoplist:Shop
+      shoplist:Shop,
+      caigou:Caigou
     },
     data() {
       return {
