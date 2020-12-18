@@ -31,6 +31,10 @@ export default {
         username: '',
         userpass: ''
       },
+      propvalue:{
+        propdialog:false,
+        proptouxian:true
+      },
       timer: null,
       loading:false,
       falodchild:false
@@ -52,15 +56,16 @@ export default {
           this.$axios.post("user/login.action",params).then(function(result) {
             alert(result.data.msg)
             //将登录成功的用户名存入store中
-            this.$emit("propdialog",false);
             sessionStorage.setItem("username",result.data.username);
-            _this.$router.push("/back");
+            _this.$emit("propvalue",false);
+            /* _this.$emit("propvalue",_this.propvalue);*/
+
+         /*   _this.$router.push("/back");*/
 
 
           })
             .catch(function(error) {
-              this.$emit("propdialog",false);
-              alert("error")
+              alert(error)
             });
 
           this.timer = setTimeout(() => {

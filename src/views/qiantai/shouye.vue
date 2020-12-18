@@ -26,7 +26,7 @@
         <el-button size="mini" @click="dialog = true" circle style="background-color: #F8F9FA; "><i
           class="el-icon-user"></i></el-button>
         <el-dropdown>
-          <el-avatar> user</el-avatar>
+          <el-avatar v-if="touxian"> {{shouyeusername}}</el-avatar>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
               <router-link to="/mys">我的账号</router-link>
@@ -225,11 +225,13 @@ export default {
   name: 'app',
   data() {
     return {
+      shouyeusername: sessionStorage.getItem("username"),
       coldiv1: {borderBottom: "2px #42b983 solid"},
       coldiv2: {borderBottom: "2px #42b983 solid"},
       coldiv3: {borderBottom: "2px #42b983 solid"},
       path:'denglu',
       dialog: false,
+      touxian: false,
       loading: false,
       form: {
         name: '',
@@ -247,9 +249,8 @@ export default {
   },
 
   methods: {
-    dengluclose(msg){
+    dengluclose(index,msg){
       this.dialog = msg;
-      alert(msg)
     },
     denglu1(){
       this.path='denglu';
