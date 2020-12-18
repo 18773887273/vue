@@ -23,10 +23,10 @@
 
       </el-menu-item>
       <el-menu-item>
-        <el-button size="mini" @click="dialog = true" circle style="background-color: #F8F9FA; "><i
+        <el-button v-if="!touxian" size="mini" @click="dialog = true" circle style="background-color: #F8F9FA; "><i
           class="el-icon-user"></i></el-button>
         <el-dropdown>
-          <el-avatar v-if="touxian"> {{shouyeusername}}</el-avatar>
+          <el-avatar v-if="touxian"> user</el-avatar>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
               <router-link to="/mys">我的账号</router-link>
@@ -184,24 +184,26 @@
       <el-row class="el-row2">
         <el-col :span="11" class="el-col2">
           <div ref="ssc" class="grid-content bg-purple el-col2-div" :style="coldiv1"
-             @click="denglu1"   @mouseover="mouseOver(1,'2px #42b983 solid')" @mouseout="mouseLeave">登录
+               @click="denglu1" @mouseover="mouseOver(1,'2px #42b983 solid')" @mouseout="mouseLeave">登录
           </div>
         </el-col>
         <el-col :span="11" class="el-col2">
           <div class="grid-content bg-purple-light el-col2-div" :style="coldiv2"
-               @click="zuche1"   @mouseover="mouseOver(2,'2px #42b983 solid')" @mouseout="mouseLeave">注册
+               @click="zuche1" @mouseover="mouseOver(2,'2px #42b983 solid')" @mouseout="mouseLeave">注册
           </div>
         </el-col>
         <el-col :span="2" class="el-col2">
           <div class="grid-content bg-purple-light el-col2-div" :style="coldiv3"
                @mouseover="mouseOver(3,'2px #42b983 solid')" @mouseout="mouseLeave"><span class="span1"><i
-            class="el-icon-close" ></i></span></div>
+            class="el-icon-close"></i></span></div>
         </el-col>
       </el-row>
       <el-row style="margin-top: 3px">
-        <el-col :span="24" ><div style="height: 500px">
-          <component :is="path" ref="childprpo" v-bind:sg="dialog" v-on:propdialog="dengluclose($event)"></component>
-        </div></el-col>
+        <el-col :span="24">
+          <div style="height: 500px">
+            <component :is="path" ref="childprpo" v-bind:sg="dialog" v-on:propvalue="dengluclose"></component>
+          </div>
+        </el-col>
       </el-row>
 
     </el-drawer>
@@ -219,8 +221,8 @@ export default {
   components: { //子组件
     mains: Shouyemain,
     mys: My,
-    denglu:Denglu,
-    zuche:Zuche
+    denglu: Denglu,
+    zuche: Zuche
   },
   name: 'app',
   data() {
@@ -229,7 +231,7 @@ export default {
       coldiv1: {borderBottom: "2px #42b983 solid"},
       coldiv2: {borderBottom: "2px #42b983 solid"},
       coldiv3: {borderBottom: "2px #42b983 solid"},
-      path:'denglu',
+      path: 'denglu',
       dialog: false,
       touxian: false,
       loading: false,
@@ -249,14 +251,15 @@ export default {
   },
 
   methods: {
-    dengluclose(index,msg){
+    dengluclose(msg, msg2) {
       this.dialog = msg;
+      this.touxian = msg2;
     },
-    denglu1(){
-      this.path='denglu';
+    denglu1() {
+      this.path = 'denglu';
     },
-    zuche1(){
-      this.path='zuche';
+    zuche1() {
+      this.path = 'zuche';
     },
     handleEdit(index, row) {
       console.log(index, row);
@@ -291,7 +294,7 @@ export default {
       } else if (index == 2) {
         this.coldiv2.borderBottom = "2px #42b983 solid";
       } else if (index == 3) {
-        this.coldiv3.borderBottom =  "2px #42b983 solid";
+        this.coldiv3.borderBottom = "2px #42b983 solid";
       }
 
     },
@@ -309,7 +312,6 @@ export default {
 
 
   },
-
 
 
 }
