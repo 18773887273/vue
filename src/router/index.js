@@ -37,6 +37,7 @@ import Daitihuo from "../components/qiantai/dingdan/daitihuo";
 import Yiwancheng from '../components/qiantai/dingdan/yiwancheng'
 /*登录*/
 import Denglu from "../components/qiantai/dengluzuche/denglu"
+import Personal from "../components/shanghu/maintain/personal";
 
 Vue.use(VueRouter)
 
@@ -137,7 +138,11 @@ const routes = [
   {
     path: '/shshouye',
     component: shmenu,
-   //children: Shanghu
+    redirect: '/personal',
+   children: [{
+      path: '/personal',
+     component: Personal,
+   }]
    },
   {
     path: '/shouyetest',
