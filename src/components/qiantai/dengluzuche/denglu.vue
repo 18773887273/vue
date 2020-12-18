@@ -1,7 +1,7 @@
 <template>
   <div id="denglu">
     <el-row class="font1">
-      <el-col :span="14" offset=2>
+      <el-col :span="14" :offset="2">
         <h1 style="font-size: 25px">欢迎回来</h1>
       登录以继续<br><br>
       <el-form :model="loginform">
@@ -57,7 +57,7 @@ export default {
             alert(result.data.msg)
             //将登录成功的用户名存入store中
             sessionStorage.setItem("username",result.data.username);
-            _this.$emit("propvalue",false);
+            _this.$emit("propvalue",false,true);
             /* _this.$emit("propvalue",_this.propvalue);*/
 
          /*   _this.$router.push("/back");*/

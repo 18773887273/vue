@@ -9,6 +9,9 @@ import  Qiantaishouye from '../views/qiantai/shouye.vue'
 import  Shouyetest from '../views/houtai/shoplist.vue'
 import  Shoptytest from '../views/houtai/shoptylist.vue'
 import  Shoptyadd from '../components/houtai/shopty/addshopty'
+import  Shop from '../views/houtai/shoplist.vue'
+/*首页分类展示*/
+import Shouyetyshow from  '../components/qiantai/shouyetype/typeye'
 /*头像上传测试*/
 import  Uploadtest from '../views/houtai/uploadtest.vue'
 import Yonghu from '../components/houtai/yuangong'
@@ -64,12 +67,19 @@ const routes = [
        },
        {path:'/shoptype',
          component: Shoptype
+       },
+       {path:'/shoplist',
+         component: Shop
        }
      ]
   },
   {
     path: '/',
     component: Login
+  },
+  {
+    path: '/shouyetypeshow',
+    component: Shouyetyshow
   },
 
   {
