@@ -17,7 +17,8 @@
           </el-table-column>
           <el-table-column prop="shopremart" label="类型描述">
           </el-table-column>
-
+          <el-table-column prop="count" label="商品种类">
+          </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button type="success" @click="editshopty(scope.row)" plain circle>编辑</el-button>
@@ -122,6 +123,13 @@ export default {
     },
     delshopty(val) { //删除数据
       var _this = this;
+      if (val.count != 0) {
+        _this.$message({
+          message: '该类型还存在商品,不能删除该类型',
+          type: 'error'
+        });
+        return;
+      }
       var params = new URLSearchParams();
       params.append("shoptyid", val.shoptyid);
 

@@ -446,7 +446,7 @@
       addwarehousehandleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
-            this.$refs.addwarehousechild.addrole = {};
+            this.$refs.addwarehousechild.addwarehouse = {};
             done();
           })
           .catch(_ => {
@@ -502,7 +502,7 @@
         warehouses.append("warename", addwarehouse.warename);
         warehouses.append("wareremark", addwarehouse.wareremark);
         warehouses.append("warecount", addwarehouse.warecount);
-        warehouses.append("empid.empid", addwarehouse.empid.empid);
+        warehouses.append("empid.empid", addwarehouse.empid);
         warehouses.append("wareaddress", addwarehouse.wareaddress);
         this.$axios.post("warehouse/editwarehouse.action", warehouses).then(function (result) {
           _this.getData(() => {
