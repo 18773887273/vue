@@ -27,7 +27,7 @@
           class="el-icon-user"></i></el-button>
         <el-dropdown>
           <el-avatar v-if="touxian"> user</el-avatar>
-          <el-dropdown-menu slot="dropdown">
+          <el-dropdown-menu slot="dropdown" v-if="touxian">
             <el-dropdown-item>
               <router-link to="/mys">我的账号</router-link>
             </el-dropdown-item>
@@ -253,8 +253,8 @@ export default {
 
   methods: {
     dengluclose(msg, msg2) {
-      console.log(msg)
-      if (msg) {
+      console.log(msg,msg2)
+      if (!msg) {
         this.dialog = msg;
         this.touxian = msg2;
       }
