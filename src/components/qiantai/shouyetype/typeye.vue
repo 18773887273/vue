@@ -1,28 +1,55 @@
 <template>
   <div id="banner">
-    <div style="margin-left: 300px;margin-right: 300px;">
-      <hooper :itemsToShow="6" :infiniteScroll="true">
+    <div style="width: 1050px;margin-left: 100px">
+      <hooper :itemsToShow="7" :infiniteScroll="true">
         <slide>
-          <img :src="image1" width="297px" height="155px" />
+          <el-button style="width: 120px;height: 100px;text-align: center;">
+            <i class="el-icon-my-haixian" style="font-size: 40px"> </i><br>
+            海鲜
+          </el-button>
         </slide>
         <slide>
-          <img :src="image2" width="297px" height="155px" style="margin-left: 10px" />
+          <el-button style="width: 120px;height: 100px;text-align: center;">
+            <i class="el-icon-my-rou" style="font-size: 40px"> </i><br>
+            肉类
+          </el-button>
         </slide>
         <slide>
-          <img :src="image3" width="297px" height="155px"  style="margin-left: 10px"/>
+          <el-button style="width: 120px;height: 100px;text-align: center;">
+            <i class="el-icon-my-shucai" style="font-size: 40px"> </i><br>
+            蔬菜
+          </el-button>
         </slide>
         <slide>
-          <img :src="image4" width="297px" height="155px" style="margin-left: 10px"/>
+          <el-button style="width: 120px;height: 100px;text-align: center;">
+            <i class="el-icon-my-naishiping" style="font-size: 40px"> </i><br>
+            奶制品
+          </el-button>
         </slide>
         <slide>
-          <img :src="image5" width="297px" height="155px" style="margin-left: 10px"/>
+          <el-button style="width: 120px;height: 100px;text-align: center;">
+            <i class="el-icon-my-mianbao" style="font-size: 40px"> </i><br>
+            面包
+          </el-button>
         </slide>
         <slide>
-          <img :src="image6" width="297px" height="155px" style="margin-left: 10px"/>
+          <el-button style="width: 120px;height: 100px;text-align: center;">
+            <i class="el-icon-my-yingliao" style="font-size: 40px"> </i><br>
+            酒水饮料
+          </el-button>
         </slide>
-        <hooper-navigation slot="hooper-addons"></hooper-navigation>
-
-        <hooper-pagination slot="hooper-addons"></hooper-pagination>
+        <slide>
+          <el-button style="width: 120px;height: 100px;text-align: center;">
+            <i class="el-icon-my-lingshi" style="font-size: 40px"> </i><br>
+           休闲零食
+          </el-button>
+        </slide>
+        <slide>
+          <el-button style="width: 120px;height: 100px;text-align: center;">
+            <i class="el-icon-my-shuigou" style="font-size: 40px"> </i><br>
+           水果
+          </el-button>
+        </slide>
       </hooper>
     </div>
   </div>
@@ -41,13 +68,13 @@ export default {
   name: "banner",
   data() {
     return {
-      image1: require("../../../images/qianduan/mxt.png"),
-      image2: require("../../../images/qianduan/mxt.png"),
-      image3: require("../../../images/qianduan/mxt.png"),
-      image4: require("../../../images/qianduan/mxt.png"),
-      image5: require("../../../images/qianduan/mxt.png"),
-      image6: require("../../../images/qianduan/mxt.png"),
+
     };
+  },
+  methods: {
+    al() {
+      alert(1)
+    },
   },
   components: {
     Hooper,
@@ -60,5 +87,86 @@ export default {
 </script>
 
 <style scoped>
+.hooper:focus {
+  outline: none;
+}
+
+.hooper-navigation {
+  outline: none;
+}
+
+.el-icon-my-shucai {
+  background: url("../../../images/qianduan/icon/shucai.png") center no-repeat;
+}
+
+.el-icon-my-shucai:before {
+  content: "\8d3a";
+  font-size: 64px;
+  visibility: hidden;
+}
+
+.el-icon-my-haixian {
+  background: url("../../../images/qianduan/icon/haixian.png") center no-repeat;
+}
+
+.el-icon-my-haixian:before {
+  content: "\8d3a";
+  font-size: 64px;
+  visibility: hidden;
+}
+
+.el-icon-my-rou {
+  background: url("../../../images/qianduan/icon/rou.png") center no-repeat;
+}
+.el-icon-my-rou:before {
+  content: "\8d3a";
+  font-size: 64px;
+  visibility: hidden;
+}
+
+.el-icon-my-mianbao {
+  background: url("../../../images/qianduan/icon/mianbao.png") center no-repeat;
+}
+.el-icon-my-mianbao:before {
+  content: "\8d3a";
+  font-size: 64px;
+  visibility: hidden;
+}
+
+.el-icon-my-yingliao {
+  background: url("../../../images/qianduan/icon/yingliao.png") center no-repeat;
+}
+.el-icon-my-yingliao:before {
+  content: "\8d3a";
+  font-size: 64px;
+  visibility: hidden;
+}
+
+.el-icon-my-naishiping {
+  background: url("../../../images/qianduan/icon/naizhiping.png") center no-repeat;
+}
+.el-icon-my-naishiping:before {
+  content: "\8d3a";
+  font-size: 64px;
+  visibility: hidden;
+}
+
+.el-icon-my-shuigou {
+  background: url("../../../images/qianduan/icon/shuiguo.png") center no-repeat;
+}
+.el-icon-my-shuigou:before {
+  content: "\8d3a";
+  font-size: 64px;
+  visibility: hidden;
+}
+
+.el-icon-my-lingshi {
+  background: url("../../../images/qianduan/icon/零食.png") center no-repeat;
+}
+.el-icon-my-lingshi:before {
+  content: "\8d3a";
+  font-size: 64px;
+  visibility: hidden;
+}
 
 </style>

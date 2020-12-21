@@ -4,7 +4,7 @@
     <el-menu class="el-menu-demo" style="height:65px;" mode="horizontal">
       <el-menu-item style="width: 100px"></el-menu-item>
       <el-menu-item>
-        <el-image style="width: 100px; height: 50px" src="../../images/qianduan/mxt.png"></el-image>
+        <el-image style="width: 100px; height: 50px" :src="image1"></el-image>
       </el-menu-item>
       <el-menu-item>
         <el-button size="mini" circle><i class="el-icon-location-outline"></i></el-button>
@@ -227,6 +227,7 @@ export default {
   name: 'app',
   data() {
     return {
+      image1: require("../../images/qianduan/mxt.png"),
       shouyeusername: sessionStorage.getItem("username"),
       coldiv1: {borderBottom: "2px #42b983 solid"},
       coldiv2: {borderBottom: "2px #42b983 solid"},
@@ -252,8 +253,14 @@ export default {
 
   methods: {
     dengluclose(msg, msg2) {
-      this.dialog = msg;
-      this.touxian = msg2;
+      console.log(msg)
+      if (msg) {
+        this.dialog = msg;
+        this.touxian = msg2;
+      }
+      if (msg =="denglu"){
+        this.path = msg;
+      }
     },
     denglu1() {
       this.path = 'denglu';
