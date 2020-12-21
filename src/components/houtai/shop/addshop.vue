@@ -2,68 +2,32 @@
   <div id="app" style="margin-top: -15px;">
     <el-form :model="addshop" label-width="100px">
       <el-form-item label="商品名">
-        <el-input style="width: 218px" v-model="addshop.shopname" autocomplete="off" placeholder="请输入商品名称"></el-input>
+        <el-input v-model="addshop.shopname" autocomplete="off" placeholder="请输入商品名称"></el-input>
       </el-form-item>
+
       <el-form-item label="商品类型">
-        <el-select v-model="value" filterable placeholder="请选择">
-          <el-option
-            v-for="item in options"
-            :key="item.shoptyid"
-            :label="item.shoptyname"
-            :value="item.shoptyid">
+        <el-select v-model="addshop.shoptyid"
+                   style="width: 620px;">
+          <el-option v-for="item in shoptylist1" :key="item.shoptyid" :label="item.shoptyname" :value="item.shoptyid">
           </el-option>
         </el-select>
       </el-form-item>
+
       <el-form-item label="描述">
-        <el-input style="width: 218px" v-model="addshop.shopmiaoshu"  placeholder="请输入商品描述"></el-input>
+        <el-input v-model="addshop.shopmiaoshu" type="textarea" placeholder="请输入商品描述"
+                  :autosize="{ minRows: 2, maxRows: 4}"></el-input>
       </el-form-item>
 
       <el-form-item label="价格">
-        <el-input-number style="width: 218px" v-model="addshop.shopprice" controls-position="right" @change="handleChange" :step="1" :min="1" :max="1000000"></el-input-number>
+        <el-input-number v-model="addshop.shopprice" controls-position="right"
+                         :step="1" :min="1" :max="1000000"
+                         style="width: 620px;"></el-input-number>
       </el-form-item>
+
       <el-form-item label="商品图片">
-      <el-upload
-        action="#"
-        list-type="picture-card"
-        :auto-upload="false">
-        <i slot="default" class="el-icon-plus"></i>
-        <div slot="file" slot-scope="{file}">
-          <img
-            class="el-upload-list__item-thumbnail"
-            :src="file.url" alt=""
-          >
-          <span class="el-upload-list__item-actions">
-        <span
-          class="el-upload-list__item-preview"
-          @click="handlePictureCardPreview(file)"
-        >
-          <i class="el-icon-zoom-in"></i>
-        </span>
-        <span
-          v-if="!disabled"
-          class="el-upload-list__item-delete"
-          @click="handleDownload(file)"
-        >
-          <i class="el-icon-download"></i>
-        </span>
-        <span
-          v-if="!disabled"
-          class="el-upload-list__item-delete"
-          @click="handleRemove(file)"
-        >
-          <i class="el-icon-delete"></i>
-        </span>
-      </span>
-        </div>
-      </el-upload>
-      <el-dialog :visible.sync="dialogVisible">
-        <img width="100%" :src="dialogImageUrl" alt="">
-      </el-dialog>
-      </el-form-item>
-      <el-form-item label="商品详情图片">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="http://localhost:8080/fileUpload?dir=shop"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
@@ -71,8 +35,9 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
+
       <el-form-item label="单位">
-        <el-select v-model="value" placeholder="请选择">
+        <el-select v-model="addshop.shopdanwei" placeholder="请选择" style="width: 620px;">
           <el-option
             v-for="item in optionsdw"
             :key="item.value"
@@ -85,64 +50,105 @@
   </div>
 </template>
 <script>
-export default {
-  name: 'app',
-  data() {
-    return {
-      dialogImageUrl: '',
-      dialogVisible: false,
-      disabled: false,
-      options: [],
-      optionsdw: [{
-        value: '选项1',
-        label: '斤'
-      }, {
-        value: '选项2',
-        label: '克'
-      }],
-      value: '',
-      addshop: {
-        shopname: '',
-        shoptyid: '',
-        shopmiaoshu:'',
-        shopprice:1,
+  export default {
+    name: 'app',
+    data() {
+      return {
+        //------------------------------------其他自定义数据
+        optionsdw: [{
+          value: '斤',
+          label: '斤'
+        }, {
+          value: 'L',
+          label: 'L'
+        },
+          {
+            value: '袋',
+            label: '袋'
+          }, {
+            value: '包',
+            label: '包'
+          }, {
+            value: '个',
+            label: '个'
+          }, {
+            value: '支',
+            label: '支'
+          },
+          {
+            value: 'kg',
+            label: 'kg'
+          },
+          {
+            value: '把',
+            label: '把'
+          },
+        ],
+        value: '',
+        addshop: {
+          shopname: '',
+          shoptyid: '',
+          shopmiaoshu: '',
+          shopdanwei: '',
+          shopprice: 1
+        },
+        shoptylist1: {},
+        imageUrl: ''
+      }
+    },
+    methods: {
+      handleAvatarSuccess(res, file) {
+        if (res.flag) { //成功
+          this.imageUrl = "http://localhost:8080/" + res.msg;
+        } else { //失败
+          this.$message.error(res.msg)
+        }
+        console.log(res);
       },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
 
-    }
-  },
-  methods: {
-    handleChange(value) {
-      console.log(value);
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      }
     },
-    handleRemove(file) {
-      console.log(file);
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
-    handleDownload(file) {
-      console.log(file);
-    },
-    getData() { //获取数据方法
+    created() { //钩子函数  vue对象初始化完成后  执行
 
-      var _this = this;
-
-      var params = new URLSearchParams();
-      this.$axios.post("shoptype/querylike.action", params).then(function (result) {
-        _this.options = result.data;
-      }).catch(function (error) {
-        alert(error)
-      });
     },
-
-  },
-  created() { //钩子函数  vue对象初始化完成后  执行
-    this.getData();
-  },
-}
+  }
 </script>
 
 <style>
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
 
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
 </style>

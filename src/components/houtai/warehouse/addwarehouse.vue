@@ -8,7 +8,7 @@
         <el-input-number v-model="addwarehouse.warecount" style="width: 620px;" controls-position="right"  :min="1" :max="10000000"></el-input-number>
 			</el-form-item>
 			<el-form-item label="负责人:">
-				<el-select style="width: 620px;" v-model="addwarehouse.empid.empid" filterable placeholder="请选择">
+				<el-select style="width: 620px;" v-model="addwarehouse.empid" filterable placeholder="请选择">
 					<el-option v-for="item in addemploys" :key="item.empid" :label="item.empname" :value="item.empid">
 					</el-option>
 				</el-select>
@@ -33,7 +33,7 @@
           warename: '',
 					wareremark: '',
 					warecount: '',
-          empid: {},
+          empid: '',
 					wareaddress: ''
 				},
 				addemploys:{}
