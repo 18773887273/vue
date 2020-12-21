@@ -13,6 +13,7 @@ import Store from './vuex/store.js'
 Axios.defaults.baseURL = "http://localhost:8080/Buysystem"
 // 将API方法绑定到全局
 Vue.prototype.$axios = Axios
+Vue.prototype.$host = "http://localhost:10086/vue/images/shop/"
 
 Vue.use(ElementUI)
 import Router from './router/index';

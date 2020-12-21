@@ -6,17 +6,11 @@
       <el-button size="small" type="success" plain style="margin-left: 868px;">查看更多</el-button>
     </el-col>
   </el-row>
-  <el-row :gutter="20" style="margin-top: 15px;">
-    <el-col :span="20" style="margin-left: 98px;">
-      <el-button style="width: 120px;height: 100px;text-align: center;">海鲜</el-button>
-      <el-button style="width: 120px;height: 100px;text-align: center;">牛奶和鸡蛋</el-button>
-      <el-button style="width: 120px;height: 100px;text-align: center;">面包</el-button>
-      <el-button style="width: 120px;height: 100px;text-align: center;">冰冻的</el-button>
-      <el-button style="width: 120px;height: 100px;text-align: center;">有机</el-button>
-      <el-button style="width: 120px;height: 100px;text-align: center;">蔬菜</el-button>
-      <el-button style="width: 120px;height: 100px;text-align: center;">水果</el-button>
-      <el-button style="width: 120px;height: 100px;text-align: center;">肉</el-button>
+  <el-row :gutter="22" style="margin-top: 15px;">
+    <el-col :span="24" >
+    <sypeye></sypeye>
     </el-col>
+
     <el-col :span="1" style="margin-left: 98px;">
 
     </el-col>
@@ -28,15 +22,9 @@
       <el-button size="small" type="success" plain style="margin-left: 908px;">查看更多</el-button>
     </el-col>
   </el-row>
-  <el-row :gutter="1">
-    <el-col :span="20" style="margin-left: 98px;">
-      <template>
-        <el-carousel :interval="4000" type="card" height="200px">
-          <el-carousel-item v-for="item in 6" :key="item">
-            <h3 class="medium">{{ item }}</h3>
-          </el-carousel-item>
-        </el-carousel>
-      </template>
+  <el-row :gutter="22" style="margin-top: 15px;">
+    <el-col :span="24" >
+      <lunbo></lunbo>
     </el-col>
   </el-row>
 
@@ -46,95 +34,8 @@
       <el-button size="small" type="success" plain style="margin-left: 908px;">查看更多</el-button>
     </el-col>
   </el-row>
-  <el-row :gutter="20" style="margin-left: 98px;">
-    <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-      <div>
-        <el-image
-          style="width: 230px; height: 155px;margin-top: 20px;"
-          src="../images/v1.jpg"
-          >
-        </el-image>
-        辣椒<br />
-        $ 0.8 /公斤
-      </div>
-    </el-col>
-    <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-      <div>
-        <el-image
-          style="width: 230px; height: 155px;margin-top: 20px;"
-          src="../images/v1.jpg"
-         >
-        </el-image>
-        辣椒<br />
-        $ 0.8 /公斤
-      </div>
-    </el-col>
-    <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-      <div>
-        <el-image
-          style="width: 230px; height: 155px;margin-top: 20px;"
-          src="../images/v1.jpg"
-         >
-        </el-image>
-        辣椒<br />
-        $ 0.8 /公斤
-      </div>
-    </el-col>
-    <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-      <div>
-        <el-image
-          style="width: 230px; height: 155px;margin-top: 20px;"
-          src="../images/v1.jpg"
-          >
-        </el-image>
-        辣椒<br />
-        $ 0.8 /公斤
-      </div>
-    </el-col>
-    <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-      <div>
-        <el-image
-          style="width: 230px; height: 155px;margin-top: 20px;"
-          src="../images/v1.jpg"
-         >
-        </el-image>
-        辣椒<br />
-        $ 0.8 /公斤
-      </div>
-    </el-col>
-    <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-      <div>
-        <el-image
-          style="width: 230px; height: 155px;margin-top: 20px;"
-          src="../images/v1.jpg"
-          >
-        </el-image>
-        辣椒<br />
-        $ 0.8 /公斤
-      </div>
-    </el-col>
-    <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-      <div>
-        <el-image
-          style="width: 230px; height: 155px;margin-top: 20px;"
-          src="../images/v1.jpg"
-         >
-        </el-image>
-        辣椒<br />
-        $ 0.8 /公斤
-      </div>
-    </el-col>
-    <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;">
-      <div>
-        <el-image
-          style="width: 230px; height: 155px;margin-top: 20px;"
-          src="../images/v1.jpg"
-          >
-        </el-image>
-        辣椒<br />
-        $ 0.8 /公斤
-      </div>
-    </el-col>
+  <el-row :gutter="24" style="margin-left: 98px;">
+    <distilled></distilled>
   </el-row>
 
 
@@ -177,6 +78,20 @@
 </template>
 
 <script>
+
+import Tupianqie1 from  '../../components/qiantai/shouyetype/typeye'
+import Shouyelunbo from "./shouyetype/shouyelunbo";
+import Shouyedistilled from "./shouyetype/shouyedistilled";
+import Shopbottom from "./shouyetype/shopbottom";
+
+import {
+  Hooper,
+  Slide,
+  Progress as HooperProgress,
+  Pagination as HooperPagination,
+  Navigation as HooperNavigation
+} from 'hooper';
+
 export default {
   name: 'shouye01',
   data() {
@@ -197,7 +112,17 @@ export default {
       timer: null,
     }
   },
-
+  components: {
+    shopbottom:Shopbottom,
+    sypeye:Tupianqie1,
+    lunbo:Shouyelunbo,
+    distilled:Shouyedistilled,
+    Hooper,
+    Slide,
+    HooperProgress,
+    HooperPagination,
+    HooperNavigation
+  },
   methods: {
     handleEdit(index, row) {
       console.log(index, row);
@@ -223,6 +148,7 @@ export default {
         })
         .catch(_ => {});
     },
+
     cancelForm() {
       this.loading = false;
       this.dialog = false;
@@ -243,4 +169,5 @@ export default {
 .bg-purple-dark {
   background: #99a9bf;
 }
+
 </style>
