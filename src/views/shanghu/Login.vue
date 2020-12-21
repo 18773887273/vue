@@ -6,7 +6,7 @@
             <el-container>
                 <el-header style="height: 30px;">
                     <div id="topmydiv" >
-                        <router-link id="router1" to="/home" :style=[colors] @mouseover="a" @mouseout="b">小跳购首页</router-link>
+                        <router-link id="router1" to="/back" :style=[colors] @mouseover="a" @mouseout="b">小跳购首页</router-link>
                 </div>
                 </el-header>
                 <el-main>
@@ -87,29 +87,27 @@
           shdenglu(){
             var _this = this;
             var params = new URLSearchParams();
-            params.append("shname", this.shname);
-            params.append("shpass", this.shpass);
+            params.append("username", this.shname);
+            params.append("userpass", this.shpass);
 
-            this.$axios.post("/shanghu/queryByShnameShpass.action",params).
+            this.$axios.post("/user/login2.action",params).
             then(function(result) {
-              if(result.data!="登录失败"){
+              if(result.data.code=="1"){
                 _this.$message({
-                  message:result.data,
+                  message:result.data.msg,
                   type:"success"
                 })
                 setTimeout(function () {
-                  if(result.data!="登录失败") {
-                    alert("111")
+                  if(result.data.code=="1") {
+                    sessionStorage.setItem("shid",result.data.id)
+                    sessionStorage.setItem("shname",result.data.shname)
                     _this.$router.push({path: '/shshouye'})
                     //document.getElementById("date").style.display = "none";
                   }
                 },2000)
-
-
-
               }else{
                 _this.$message({
-                  message:result.data,
+                  message:result.data.msg,
                   type:"error"
                 })
                 _this.username=""

@@ -1,6 +1,8 @@
 <template>
   <div>
     <el-menu
+      router
+      :unique-opened="true"
       :default-active="activeIndex2"
       class="el-menu-demo"
       mode="horizontal"
@@ -17,7 +19,7 @@
       </el-submenu>
       <el-submenu index="2">
         <template slot="title"><i class="el-icon-postcard"></i>资料维护</template>
-        <el-menu-item index="2-1">个人资料维护</el-menu-item>
+        <router-link to="personal"><el-menu-item index="personal">个人资料维护</el-menu-item></router-link>
         <el-menu-item index="2-2">门店资料维护</el-menu-item>
       </el-submenu>
       <el-menu-item index="3"><i class="el-icon-s-data"></i>统计营收</el-menu-item>
@@ -29,17 +31,26 @@
         </div>
       </el-col>
         <div style="margin-top: 20px;margin-left: 100px;color: #daf6ff;float: left;font-size: 14px">欢迎:
-      <label>用户名</label>
+      <label >{{shname}}</label>
       </div>
     </el-menu>
+    <div>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
+    import Personal from '../../components/shanghu/maintain/personal'
     export default {
         name: "shmenu.vue",
+      comments:{
+          personal:Personal
+      },
       data() {
         return {
+          shid:sessionStorage.getItem('shid'),
+          shname: sessionStorage.getItem('shname'),
           activeIndex: '1',
           activeIndex2: '1',
           date:'',
@@ -78,6 +89,14 @@
           }
           return (zero + num).slice(-digit);
         }
+      },
+      created() {   //钩子函数  组件创建好后，去浏览器获取登录成功的用户名，如果没有，跳转登录页面
+        var shname = sessionStorage.getItem("shname");
+        console.log(shname)
+        if (shname == undefined || shname == null || shname == '') {
+          this.$router.push("/login2");
+        }
+
       }
     }
 </script>

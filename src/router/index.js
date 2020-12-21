@@ -30,13 +30,14 @@ import  Role from '../views/houtai/rolelist'
 
 import  Shoptype from '../views/houtai/shoptylist.vue'
 import  Addshopty from '../components/houtai/shopty/addshopty'
-
+import  Caigou from '../views/houtai/caigou.vue'
 import Alldingdan from "../components/qiantai/dingdan/alldingdan";
 import Daifukuan from "../components/qiantai/dingdan/daifukuan";
 import Daitihuo from "../components/qiantai/dingdan/daitihuo";
 import Yiwancheng from '../components/qiantai/dingdan/yiwancheng'
 /*登录*/
 import Denglu from "../components/qiantai/dengluzuche/denglu"
+import Personal from "../components/shanghu/maintain/personal";
 
 Vue.use(VueRouter)
 
@@ -70,6 +71,9 @@ const routes = [
        },
        {path:'/shoplist',
          component: Shop
+       },
+       {path:'/caigou',
+         component: Caigou
        }
      ]
   },
@@ -134,7 +138,11 @@ const routes = [
   {
     path: '/shshouye',
     component: shmenu,
-   //children: Shanghu
+    redirect: '/personal',
+   children: [{
+      path: '/personal',
+     component: Personal,
+   }]
    },
   {
     path: '/shouyetest',

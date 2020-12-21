@@ -7,7 +7,7 @@ import 'hooper/dist/hooper.css';
 
 import Axios from 'axios'
 
-import Router from './router/index';
+
 import Store from './vuex/store.js'
 
 Axios.defaults.baseURL = "http://localhost:8080/Buysystem"
@@ -16,6 +16,7 @@ Vue.prototype.$axios = Axios
 Vue.prototype.$host = "http://localhost:10086/vue/images/shop/"
 
 Vue.use(ElementUI)
+import Router from './router/index';
 
 new Vue({
   el: '#app',
