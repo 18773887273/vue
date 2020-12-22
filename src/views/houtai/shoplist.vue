@@ -106,7 +106,8 @@
         maxprice: 1000000,
         shoptypelist: [],
         queryshoptyid: 0,
-        suoyou: "全部"
+        suoyou: "全部",
+        multipleSelection:[]
       }
     },
     methods: {
@@ -159,6 +160,11 @@
         var _this = this;
         var editshop = this.$refs.editshopchild.editshop;
         var shopimg = this.$refs.editshopchild.imageUrl;
+        var fileList=_this.$refs.editshopchild.fileList;
+        var fileurl = "";
+        for (var i = 0; i < fileList.length; i++) {
+          fileurl += fileList[i].url + ",";
+        }
         var shops = new URLSearchParams();
         shops.append("shopid", editshop.shopid);
         shops.append("shopname", editshop.shopname);
@@ -167,22 +173,25 @@
         shops.append("shopprice", editshop.shopprice);
         shops.append("shopimg", shopimg);
         shops.append("shopdanwei", editshop.shopdanwei);
-
-        this.$axios.post("shop/editshop.action", shops)
-          .then(function (result) {
+        shops.append("fileurl", fileurl);
+        this.$axios.post("shop/editshop.action", shops).then(function (result) {
+          _this.getData(() => {
             _this.$message({
               message: result.data.msg,
               type: 'success'
             });
-            _this.getData();
-            _this.editshopdialogFormVisible = false;
-          })
+          });
+        })
           .catch(function (error) {
             _this.$message({
               message: '修改失败',
               type: 'error'
             });
           });
+        _this.editshopdialogFormVisible = false;
+        this.$refs.editshopchild.editshop = {};
+        this.$refs.editshopchild.fileList = [];
+        this.$refs.editshopchild.imageUrl = '';
       },
       delshop(row){
         var _this = this;
@@ -215,6 +224,9 @@
           this.selectDate = {
             ...row
           }
+          for (var i=0;i<this.selectDate.shopxqs.length;i++){
+            _this.$refs.editshopchild.fileList.push({url:this.selectDate.shopxqs[i].shopimg})
+          }
           _this.$refs.editshopchild.imageUrl = this.selectDate.shopimg;
           this.$refs.editshopchild.editshop = this.selectDate;
           this.$refs.editshopchild.editshop.shoptyid = this.selectDate.shoptyid.shoptyid;
@@ -237,10 +249,18 @@
       rowClass() { //表格数据居中显示
         return "text-align:center"
       },
+      changeFun1(val) {
+        this.multipleSelection = val;
+      },
       shopadd() {
         var _this = this;
-        var addshop = this.$refs.addshopchild.addshop;
-        var shopimg = this.$refs.addshopchild.imageUrl;
+        var addshop = _this.$refs.addshopchild.addshop;
+        var shopimg = _this.$refs.addshopchild.imageUrl;
+        var fileList=_this.$refs.addshopchild.fileList;
+        var fileurl = "";
+        for (var i = 0; i < fileList.length; i++) {
+          fileurl += fileList[i].url + ",";
+        }
         var shops = new URLSearchParams();
         shops.append("shopname", addshop.shopname);
         shops.append("shoptyid.shoptyid", addshop.shoptyid);
@@ -248,14 +268,15 @@
         shops.append("shopprice", addshop.shopprice);
         shops.append("shopimg", shopimg);
         shops.append("shopdanwei", addshop.shopdanwei);
-        this.$axios.post("shop/editshop.action", shops)
-          .then(function (result) {
+        shops.append("fileurl",fileurl);
+        this.$axios.post("shop/editshop.action", shops).then(function (result) {
+          _this.getData(() => {
             _this.$message({
               message: result.data.msg,
               type: 'success'
             });
-            _this.getData();
-          })
+          });
+        })
           .catch(function (error) {
             _this.$message({
               message: '添加失败',
@@ -263,6 +284,8 @@
             });
           });
         this.$refs.addshopchild.addshop = {};
+        this.$refs.addshopchild.fileList = [];
+        this.$refs.addshopchild.imageUrl = '';
         this.addshopdialogFormVisible = false;
       },
       tableRowClassName({

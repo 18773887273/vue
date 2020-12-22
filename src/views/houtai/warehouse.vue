@@ -42,6 +42,9 @@
                   <el-table-column prop="shopid.shopname" label="商品名">
                   </el-table-column>
                   <el-table-column prop="shopid.shopimg " label="图片">
+                    <template slot-scope="scope">
+                      <img :src="scope.row.shopid.shopimg" min-width="70"  height="70"/>
+                    </template>
                   </el-table-column>
                   <el-table-column prop="shopcount" label="库存">
                   </el-table-column>
@@ -364,7 +367,7 @@
             _this.getData(() => {
               _this.$message({
                 message: result.data.msg,
-                type: 'success'
+                type: result.data.type
               });
               _this.wareshopzhuanyidialogTableVisible = false;
             });

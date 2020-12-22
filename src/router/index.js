@@ -41,7 +41,11 @@ import Denglu from "../components/qiantai/dengluzuche/denglu"
 import Personal from "../components/shanghu/maintain/personal";
 
 Vue.use(VueRouter)
-
+/*订单管理*/
+import Allorders from '../views/houtai/allorder.vue'
+import Daipeisong from '../views/houtai/daipsorder.vue'
+import Peisongzhong from '../views/houtai/peiszorder.vue'
+import Yipeisong from '../views/houtai/yipsorder.vue'
 /**
  * 这里的嵌套路由不需要加上父级路由地址,后面的处理器会自动加上
  */
@@ -80,6 +84,22 @@ const routes = [
       {
         path: '/shoplist',
         component: Shop
+      },
+      {
+        path: '/allorder',
+        component: Allorders
+      },
+      {
+        path: '/daipeisong',
+        component: Daipeisong
+      },
+      {
+        path: '/peisongzhong',
+        component: Peisongzhong
+      },
+      {
+        path: '/yipeisong',
+        component: Yipeisong
       },
       {
         path: '/caigou',

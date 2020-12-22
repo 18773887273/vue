@@ -46,6 +46,19 @@
           </el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="商品详情图片">
+        <el-upload
+          class="upload-demo"
+          action="http://localhost:8080/fileUpload?dir=shop"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :on-success="success"
+          :file-list="fileList"
+          list-type="picture">
+          <el-button size="small" type="primary">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
+      </el-form-item>
     </el-form>
   </div>
 </template>
@@ -93,7 +106,8 @@
           shopprice: 1
         },
         shoptylist1: {},
-        imageUrl: ''
+        imageUrl: '',
+        fileList: []
       }
     },
     methods: {
@@ -116,7 +130,22 @@
           this.$message.error('上传头像图片大小不能超过 2MB!');
         }
         return isJPG && isLt2M;
-      }
+      },
+      handleRemove(file, fileList) {
+        this.fileList=fileList;
+        console.log(file, fileList);
+      },
+      handlePreview(file) {
+        console.log(file);
+      },
+      success(res, file,fileList) {
+        this.fileList=fileList;
+        if (res.flag) { //成功
+          file.url = "http://localhost:8080/" + res.msg
+        } else { //失败
+          this.$message.error(res.msg)
+        }
+      },
     },
     created() { //钩子函数  vue对象初始化完成后  执行
 

@@ -4,7 +4,7 @@
       <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;margin-bottom: 20px">
           <div @click="getDescribe(item.shopid.shopid)">
             <img
-              style="width: 230px; height: 155px;margin-top: 20px;"
+              style="width: 200px; height: 155px;margin-top: 20px;"
               :src="item.shopid.shopimg"
             >
             </img>

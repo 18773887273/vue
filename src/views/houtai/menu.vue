@@ -64,6 +64,11 @@
   import  Shoptype from '../../views/houtai/shoptylist.vue'
   import  Shop from '../../views/houtai/shoplist.vue'
   import  Caigou from '../../views/houtai/caigou.vue'
+  /*订单管理*/
+  import Allorders from '../../views/houtai/allorder.vue'
+  import Daipeisong from '../../views/houtai/daipsorder.vue'
+  import Peisongzhong from '../../views/houtai/peiszorder.vue'
+  import Yipeisong from '../../views/houtai/yipsorder.vue'
   export default {
     components:{
       yonghu:Yonghu,
@@ -73,7 +78,11 @@
       rolelist:Role,
       shoptype:Shoptype,
       shoplist:Shop,
-      caigou:Caigou
+      caigou:Caigou,
+      peisongzhong:Peisongzhong,
+      allorder:Allorders,
+      daipeisong:Daipeisong,
+      yipeisong:Yipeisong
     },
     data() {
       return {
