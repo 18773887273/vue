@@ -3,7 +3,7 @@
     <el-col :span="22" :offset="1">
       <div id="app">
         <!-- 条件查询-->
-        <el-form :inline="true" class="demo-form-inline" style="margin-top: -50px">
+        <el-form :inline="true" class="demo-form-inline" style="margin-top: 0px">
           <el-form-item label="姓名">
             <el-input v-model="queryempname" placeholder=""></el-input>
           </el-form-item>
@@ -99,22 +99,7 @@
   </el-row>
 </template>
 <style>
-  .el-table .warning-row {
-    background: oldlace;
-  }
 
-  .el-table .success-row {
-    background: #f0f9eb;
-  }
-
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
 
 </style>
 
@@ -143,6 +128,7 @@
                           row,
                           rowIndex
                         }) {
+        row.height=20;
         if (rowIndex % 2 == 1) {
           return 'info-row';
         } else {
