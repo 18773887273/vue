@@ -2,7 +2,7 @@
   <el-row :gutter="20">
     <el-col :span="22" :offset="1">
       <div id="app">
-        <el-form  :inline="true" class="demo-form-inline" style="margin-top: -50px">
+        <el-form  :inline="true" class="demo-form-inline" >
           <el-form-item label="商品名">
             <el-input v-model="queryshopname" style="width: 400px;"></el-input>
             <el-button type="primary" plain @click="getData()">查询</el-button>

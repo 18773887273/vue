@@ -3,7 +3,7 @@
     <el-row :gutter="20">
       <el-col :span="22" :offset="1">
         <!-- 条件查询-->
-        <el-form :inline="true" class="demo-form-inline" style="margin-top: -50px">
+        <el-form :inline="true" class="demo-form-inline">
           <el-form-item label="仓库名">
             <el-input v-model="querywarehousename" placeholder=""></el-input>
           </el-form-item>
