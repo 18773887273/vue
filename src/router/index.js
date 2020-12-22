@@ -39,6 +39,7 @@ import Yiquxiao from "../components/qiantai/dingdan/yiquxiao";
 
 import Shiming from "../components/qiantai/shiming";
 import Shangjiashen from "../components/qiantai/shangjiashen";
+import Chanpinxiangqing from "../components/qiantai/shouyetype/jiezhangliucheng/chanpinxiangqing";
 
 
 
@@ -140,6 +141,9 @@ const routes = [
     children: [{
       path: '/main',
       component: Shouye01
+    }, {
+      path: '/xiangqing',
+      component: Chanpinxiangqing
     },
       {
         path: '/mys',
