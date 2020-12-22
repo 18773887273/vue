@@ -32,6 +32,7 @@
               <router-link to="/mys">我的账号</router-link>
             </el-dropdown-item>
             <el-dropdown-item>我的地址</el-dropdown-item>
+            <el-dropdown-item><router-link to="/personal">商户中心</router-link></el-dropdown-item>
             <el-dropdown-item>登出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -45,7 +46,7 @@
         <el-row :gutter="10">
 
           <el-col :span="1" style="margin-left: 89px;">
-            <el-link :underline="false" style="color: #FFFAE8;">家</el-link>
+            <el-link :underline="false" style="color: #FFFAE8;"><router-link to="/back">家</router-link></el-link>
           </el-col>
           <el-col :span="2" style="margin-left: -10px;">
             <el-dropdown>
@@ -228,7 +229,7 @@ export default {
   data() {
     return {
       image1: require("../../images/qianduan/mxt.png"),
-      shouyeusername: sessionStorage.getItem("username"),
+      shouyeusername: sessionStorage.getItem("yonghuname"),
       coldiv1: {borderBottom: "2px #42b983 solid"},
       coldiv2: {borderBottom: "2px #42b983 solid"},
       coldiv3: {borderBottom: "2px #42b983 solid"},
@@ -252,6 +253,15 @@ export default {
   },
 
   methods: {
+    asdasd2(){
+     // alert("q1212")
+      if(this.shouyeusername!=null || this.shouyeusername!=""){
+        this.touxian=true
+        //alert(shouyeusername)
+      }else{
+
+      }
+    },
     dengluclose(msg, msg2) {
       console.log(msg,msg2)
       if (!msg) {
@@ -319,6 +329,12 @@ export default {
 
 
   },
+  created() {
+    //alert(12312)
+    this.asdasd2()
+   // localStorage.getItem('state') && this.$store.replaceState(JSON.parse(localStorage.getItem('state')));
+  }
+
 
 
 }

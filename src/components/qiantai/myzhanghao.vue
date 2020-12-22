@@ -3,7 +3,7 @@
           <el-col :span="24" style="margin-top: 5px">
             <div class="grid-content bg-purple-dark"><h2>我的账号</h2></div>
           </el-col>
-      <el-form :label-position="top" :model="tableData">
+      <el-form>
         <el-col :span="24" style="margin-top: 5px">
         <el-form-item label="用户名">
           <el-input v-model="tableData.username"></el-input>
@@ -20,7 +20,7 @@
         </el-form-item>
         </el-col>
         <el-button type="success" round  class="but1"   size="medium">修改信息</el-button>
-        <el-button type="warning" round  class="but2"    size="medium">更改密码</el-button>
+        <el-button type="warning" round  class="but2"   size="medium">更改密码</el-button>
       </el-form>
     </div>
 </template>
@@ -28,26 +28,19 @@
         export default {
           data() {
             return {
-              formLabelAlign: {
-                name: '',
-                region: '',
-                type: ''
-              },
               tableData:[],
               yonghuname: sessionStorage.getItem('yonghuname'),
             }
           },
           methods:{
-
             getdata(){
               var _this = this;
               var params = new URLSearchParams();
               params.append("username",this.yonghuname);
-              this.$axios.post("/user/queryuser.action", params,{
-                emulateJSON:true
-              }).
+              alert(this.yonghuname)
+              this.$axios.post("/user/queryuser.action",params).
               then(function(result) {
-
+                  alert("133321")
                 _this.tableData = result.data;
               }).
               catch(function(error) {

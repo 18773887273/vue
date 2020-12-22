@@ -61,7 +61,6 @@
     export default {
       name:"my",
     components:{
-
       myzhanghao:Myzhanghao,
       dingdan:Dingdan,
       shiming:Shiming,
@@ -69,9 +68,9 @@
     },
       data(){
       return {
-        tupian:'../../images/shanghu/logo.png',
+        tupian:require('../../images/shanghu/logo.png'),
         yonghuming:"12345",
-        yonghuname: sessionStorage.getItem('username'),
+        yonghuname: sessionStorage.getItem('yonghuname'),
 
       }
       },
