@@ -34,7 +34,7 @@
           </el-table-column>
           <el-table-column prop="shopimg " label="图片">
             <template slot-scope="scope">
-              <img :src="scope.row.shopimg" min-width="70"  height="70"/>
+              <img :src="scope.row.shopimg" min-width="70"  height="50"/>
             </template>
           </el-table-column>
           <el-table-column label="操作">
@@ -313,23 +313,5 @@
 </script>
 
 <style>
-  #app1 {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-
-  }
-
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
-    text-align: center;
-
-  }
-
 
 </style>

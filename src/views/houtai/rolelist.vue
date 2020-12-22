@@ -3,7 +3,7 @@
     <el-row :gutter="20">
       <el-col :span="22" :offset="1">
         <!-- 条件查询-->
-        <el-form :inline="true" class="demo-form-inline" style="margin-top: -50px">
+        <el-form :inline="true" class="demo-form-inline" >
           <el-form-item label="角色名">
             <el-input v-model="queryrname" placeholder=""></el-input>
           </el-form-item>
@@ -85,24 +85,6 @@
     </el-row>
   </div>
 </template>
-<style>
-  .el-table .warning-row {
-    background: oldlace;
-  }
-
-  .el-table .success-row {
-    background: #f0f9eb;
-  }
-
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
-</style>
 
 <script>
   import Editrole from "../../components/houtai/role/editrole.vue"

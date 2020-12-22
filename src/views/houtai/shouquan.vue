@@ -17,38 +17,22 @@
 	</div>
 </template>
 <style>
-	.el-table .warning-row {
-		background: oldlace;
-	}
-	
-	.el-table .success-row {
-		background: #f0f9eb;
-	}
-	
-	#app {
-		font-family: 'Avenir', Helvetica, Arial, sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-align: center;
-		color: #2c3e50;
-		margin-top: 60px;
-	}
-	
+
 	h1,
 	h2 {
 		font-weight: normal;
 	}
-	
+
 	ul {
 		list-style-type: none;
 		padding: 0;
 	}
-	
+
 	li {
 		display: inline-block;
 		margin: 0 10px;
 	}
-	
+
 	a {
 		color: #42b983;
 	}
@@ -98,7 +82,7 @@
 							alert(error)
 						});
 					},
-			
+
 					select(selection, row) {
 						if(selection.length > 1) {
 							let del_row = selection.shift()
