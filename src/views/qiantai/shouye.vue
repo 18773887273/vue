@@ -254,12 +254,12 @@ export default {
 
   methods: {
     asdasd2(){
-     // alert("q1212")
-      if(this.shouyeusername!=null || this.shouyeusername!=""){
+      alert(this.shouyeusername)
+      if(this.shouyeusername!=null){
         this.touxian=true
         //alert(shouyeusername)
       }else{
-
+        this.touxian=false
       }
     },
     dengluclose(msg, msg2) {
