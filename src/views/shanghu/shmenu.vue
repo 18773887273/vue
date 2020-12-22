@@ -52,7 +52,7 @@
           shid:sessionStorage.getItem('shid'),
           shname: sessionStorage.getItem('shname'),
           activeIndex: '1',
-          activeIndex2: '1',
+          activeIndex2: 'personal',
           date:'',
           time:'',
           week : ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
