@@ -1,34 +1,43 @@
 <template>
   <div>
-  <div v-for="item of items" :key="item">
-    <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;margin-bottom: 20px">
-      <div>
-        <img
-          style="width: 230px; height: 155px;margin-top: 20px;"
-          :src="$host + item.shopid.shopimg"
-        >
-        </img>
-        <br>
-        {{ item.shopid.shopname }}<br><br>
-        <a  style="color: red;font-size: 22px;">￥ {{ item.shopputprice }} /{{ item.shopid.shopdanwei }}</a>
-        <del  style="color: #999999;font-size: 14px;">￥ {{ item.shopputprice }} /{{ item.shopid.shopdanwei }}</del>
-        <br> <br>
-      </div>
-    </el-col>
-  </div>
+    <div v-for="item of items" :key="item">
+      <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;margin-bottom: 20px">
+          <div @click="getDescribe(item.shopid.shopid)">
+            <img
+              style="width: 230px; height: 155px;margin-top: 20px;"
+              :src="item.shopid.shopimg"
+            >
+            </img>
+            <br>
+            {{ item.shopid.shopname }}<br><br>
+            <a style="color: red;font-size: 22px;">￥ {{ item.shopputprice }} /{{ item.shopid.shopdanwei }}</a>
+            <del style="color: #999999;font-size: 14px;">￥ {{ item.shopputprice }} /{{ item.shopid.shopdanwei }}</del>
+            <br> <br>
+          </div>
+      </el-col>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "shouyedistilled",
-  data(){
-    return{
-      items:[],
-      imagesrc:'../../../images/shop/',
+  data() {
+    return {
+      items: [],
+      imagesrc: '../../../images/shop/',
     }
   },
-  methods:{
+  methods: {
+    getDescribe(id){
+    //直接调用$router.push 实现携带参数的跳转
+      this.$router.push({
+        path:'/xiangqing',
+        query:{
+          id:id
+        }
+      })
+    },
     getData(func) { //获取数据方法
       var _this = this;
       this.$axios.post("shopput/querydistilled.action").then(function (result) {

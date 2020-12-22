@@ -1,36 +1,37 @@
-
 import Vue from 'vue'
 import VueRouter from "vue-router";
 
 import Houtai from '../router/houtai/router.config'
 import Qiantai from '../router/qiantai/router.config'
 import Shanghu from '../router/shanghu/router.config'
-import  Qiantaishouye from '../views/qiantai/shouye.vue'
-import  Shouyetest from '../views/houtai/shoplist.vue'
-import  Shoptytest from '../views/houtai/shoptylist.vue'
-import  Shoptyadd from '../components/houtai/shopty/addshopty'
-import  Shop from '../views/houtai/shoplist.vue'
+import Qiantaishouye from '../views/qiantai/shouye.vue'
+import Shouyetest from '../views/houtai/shoplist.vue'
+import Shoptytest from '../views/houtai/shoptylist.vue'
+import Shoptyadd from '../components/houtai/shopty/addshopty'
+import Shop from '../views/houtai/shoplist.vue'
+import Shopcard from "../components/qiantai/shouyetype/jiezhangliucheng/shopcard";
+import Chanpinxiangqing from "../components/qiantai/shouyetype/jiezhangliucheng/chanpinxiangqing";
 /*首页分类展示*/
-import Shouyetyshow from  '../components/qiantai/shouyetype/typeye'
+import Shouyetyshow from '../components/qiantai/shouyetype/typeye'
 /*头像上传测试*/
-import  Uploadtest from '../views/houtai/uploadtest.vue'
+import Uploadtest from '../views/houtai/uploadtest.vue'
 import Yonghu from '../components/houtai/yuangong'
-import  Houtaishouye from '../views/houtai/menu.vue'
-import  Login from '../views/houtai/login'
-import  Employ from '../views/houtai/employlist'
-import  Login2 from '../views/shanghu/Login'
+import Houtaishouye from '../views/houtai/menu.vue'
+import Login from '../views/houtai/login'
+import Employ from '../views/houtai/employlist'
+import Login2 from '../views/shanghu/Login'
 import shmenu from "../views/shanghu/shmenu.vue";
-import  Shouquan from '../views/houtai/shouquan'
-import  Warehouse from '../views/houtai/warehouse'
-import   Shouye01 from '../components/qiantai/shouye01'
-import  My from '../components/qiantai/my'
-import  Myzhanghao from '../components/qiantai/myzhanghao'
-import  Dingdan from '../components/qiantai/dingdan'
-import  Role from '../views/houtai/rolelist'
+import Shouquan from '../views/houtai/shouquan'
+import Warehouse from '../views/houtai/warehouse'
+import Shouye01 from '../components/qiantai/shouye01'
+import My from '../components/qiantai/my'
+import Myzhanghao from '../components/qiantai/myzhanghao'
+import Dingdan from '../components/qiantai/dingdan'
+import Role from '../views/houtai/rolelist'
 
-import  Shoptype from '../views/houtai/shoptylist.vue'
-import  Addshopty from '../components/houtai/shopty/addshopty'
-import  Caigou from '../views/houtai/caigou.vue'
+import Shoptype from '../views/houtai/shoptylist.vue'
+import Addshopty from '../components/houtai/shopty/addshopty'
+import Caigou from '../views/houtai/caigou.vue'
 import Alldingdan from "../components/qiantai/dingdan/alldingdan";
 import Daifukuan from "../components/qiantai/dingdan/daifukuan";
 import Daitihuo from "../components/qiantai/dingdan/daitihuo";
@@ -51,31 +52,40 @@ const routes = [
   {
     path: '/caidan',
     component: Houtaishouye,
-     children:[
-      {path:'/yonghu',
-         component: Yonghu},
-       {path:'/employlist',
-         component: Employ
-       },
-       {path:'/shouquan',
-         component: Shouquan
-       },
-       {path:'/warehouse',
-         component: Warehouse
-       },
-       {path:'/rolelist',
-         component: Role
-       },
-       {path:'/shoptype',
-         component: Shoptype
-       },
-       {path:'/shoplist',
-         component: Shop
-       },
-       {path:'/caigou',
-         component: Caigou
-       }
-     ]
+    children: [
+      {
+        path: '/yonghu',
+        component: Yonghu
+      },
+      {
+        path: '/employlist',
+        component: Employ
+      },
+      {
+        path: '/shouquan',
+        component: Shouquan
+      },
+      {
+        path: '/warehouse',
+        component: Warehouse
+      },
+      {
+        path: '/rolelist',
+        component: Role
+      },
+      {
+        path: '/shoptype',
+        component: Shoptype
+      },
+      {
+        path: '/shoplist',
+        component: Shop
+      },
+      {
+        path: '/caigou',
+        component: Caigou
+      }
+    ]
   },
   {
     path: '/',
@@ -84,6 +94,10 @@ const routes = [
   {
     path: '/shouyetypeshow',
     component: Shouyetyshow
+  },
+  {
+    path: '/shopcard',
+    component: Shopcard
   },
 
   {
@@ -104,46 +118,50 @@ const routes = [
   {
     path: '/back',
     component: Qiantaishouye,
-    redirect:'/main',
+    redirect: '/main',
     children: [{
       path: '/main',
       component: Shouye01
+    }, {
+      path: '/xiangqing',
+      component: Chanpinxiangqing
     },
       {
         path: '/mys',
         component: My,
-        children:[{
-          path:'/myzhanghao',
-          component:Myzhanghao,
+        children: [{
+          path: '/myzhanghao',
+          component: Myzhanghao,
         },
           {
             path: '/dingdan',
             component: Dingdan,
-            children:[{
-              path:'/alldingdan',
-              component:Alldingdan
-            },{
-                path:'/daifukuan',
-                component:Daifukuan
-              },{
-              path:'/daitihuo',
-              component:Daitihuo
-              },{
+            children: [{
+              path: '/alldingdan',
+              component: Alldingdan
+            }, {
+              path: '/daifukuan',
+              component: Daifukuan
+            }, {
+              path: '/daitihuo',
+              component: Daitihuo
+            }, {
               path: '/yiwancheng',
-              component:Yiwancheng
+              component: Yiwancheng
             }]
-          }]
+          },
+        ]
       }]
   },
   {
     path: '/shshouye',
     component: shmenu,
     redirect: '/personal',
-   children: [{
+    children: [{
       path: '/personal',
-     component: Personal,
-   }]
-   },
+      component: Personal,
+    }]
+  },
   {
     path: '/shouyetest',
     component: Shouyetest,
@@ -165,11 +183,11 @@ const routes = [
   //...FontRouter,
 ];
 const router = new VueRouter({
-  routes:routes
+  routes: routes
 })
 // 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
 const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push (location) {
+VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 
