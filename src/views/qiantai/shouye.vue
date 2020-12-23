@@ -254,7 +254,7 @@ export default {
 
   methods: {
     asdasd2(){
-      alert(this.shouyeusername)
+      //alert(this.shouyeusername)
       if(this.shouyeusername!=null){
         this.touxian=true
         //alert(shouyeusername)

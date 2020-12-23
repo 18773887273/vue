@@ -27,7 +27,7 @@
                   </div>
                 </div>
               </el-col>
-              <el-col :span="2" :offset="5" style="background: white;width: 150px;height: 150px;">
+              <el-col :span="2" :offset="4" style="background: white;width: 150px;height: 150px;">
                 <div class="grid-content bg-purple" style="background: white">
                   <div style="border-radius:45%;width: 100px;height: 40px;background: #F7F7F8;text-align: center;">
                     <div style="margin-top: 100px;padding-top: 6px">
@@ -96,8 +96,8 @@ export default {
     getData(func) { //获取数据方法
       var _this = this;
       var params = new URLSearchParams();
-      var shopid = sessionStorage.getItem('')
-      params.append("shopid.shopid",shopid)
+      var username = sessionStorage.getItem('yonghuname')
+      params.append("shopid.username",username)
       this.$axios.post("shopcard/querylike.action",params).then(function (result) {
         _this.items = result.data[0];
         // alert(result.data[0].shopputid)
@@ -106,6 +106,9 @@ export default {
         alert(error)
       });
     },
+  },
+  created() {
+    this.getData();
   }
 }
 </script>

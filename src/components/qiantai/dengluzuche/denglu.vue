@@ -57,6 +57,8 @@ export default {
             alert(result.data.msg)
             //将登录成功的用户名存入store中
             sessionStorage.setItem("yonghuname",result.data.username);
+            //将登录成功的用户名存入store中
+            sessionStorage.setItem("yonghuid",result.data.userid);
             _this.$emit("propvalue",false,true);
             /* _this.$emit("propvalue",_this.propvalue);*/
 
