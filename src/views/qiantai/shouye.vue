@@ -214,7 +214,7 @@
 
 <script>
 import Shouyemain from "../../components/qiantai/shouye01"
-import My from "../../components/qiantai/my"
+import My from "../../components/qiantai/Mys/my"
 import Denglu from "../../components/qiantai/dengluzuche/denglu"
 import Zuche from "../../components/qiantai/dengluzuche/zuche"
 

@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-table :data="tableData" :row-class-name="tableRowClassName" border max-height="437px"
-              :header-cell-style="headClass" :cell-style="rowClass">
-      <el-table-column prop="orderbianhao" label="编号">
+              :header-cell-style="headClass" :cell-style="rowClass" width="100%">
+      <el-table-column prop="orderbianhao" label="编号" fixed="left" width="140px">
       </el-table-column>
       <!--<el-table-column label="姓名">
         <template slot-scope="scope">
@@ -15,16 +15,20 @@
           </el-popover>
         </template>
       </el-table-column>-->
-      <el-table-column prop="ordertime" label="创建时间">
+      <el-table-column prop="ordertime" label="创建时间" width="300px">
       </el-table-column>
-      <el-table-column prop="ordercount" label="总数量">
+      <el-table-column prop="ordercount" label="总数量" width="140px">
       </el-table-column>
-      <el-table-column prop="ordermoney" label="总金额">
+      <el-table-column prop="ordermoney" label="总金额" width="140px">
       </el-table-column>
-      <el-table-column prop="orderstate" label="状态">
+      <el-table-column prop="orderstate" label="订单状态" width="140px">
         <template slot-scope="scope">
-          <span v-if="scope.row.orderstate==1">已提货</span>
-          <span v-if="scope.row.orderstate==2">代取货</span>
+          <span v-if="scope.row.orderstate==1">待付款</span>
+          <span v-if="scope.row.orderstate==2">发货中</span>
+          <span v-if="scope.row.orderstate==3">已取消</span>
+          <span v-if="scope.row.orderstate==4">发货中</span>
+          <span v-if="scope.row.orderstate==5">待提货</span>
+          <span v-if="scope.row.orderstate==6">已提货</span>
         </template>
       </el-table-column>
       <!--<el-table-column
@@ -34,7 +38,7 @@
           <img  :src="scope.row.img" style="width: 30px"/>
         </template>
       </el-table-column>-->
-      <el-table-column label="操作">
+      <el-table-column label="操作" fixed="right" width="140px">
         <template slot-scope="scope">
           <el-button type="success" @click="editemploy(scope.row)" circle plain>查看详情</el-button>
         </template>
@@ -59,11 +63,26 @@
             tableData: [],
             total: 1,
             page: 1,
-            rows: 6,
+            rows: 5,
             selectDate: {},
+            username:sessionStorage.getItem('yonghuname'),
+            userid:""
           }
       },
       methods: {
+        userids(){
+          var _this = this;
+          //alert(12312312)
+          var params = new URLSearchParams();
+          params.append("username",this.username);
+          this.$axios.post("/user/queryuser.action", params).then(function (result) {
+            _this.userid=result.data.userid
+            //alert( _this.userid)
+            _this.getData();
+          }).catch(function (error) {
+            alert(error)
+          });
+        },
         tableRowClassName({
                             row,
                             rowIndex
@@ -78,16 +97,19 @@
         getData() { //获取数据方法
           var _this = this;
           //alert(12312312)
+         // alert("id"+this.userid)
           var params = new URLSearchParams();
           params.append("page", this.page);
-          params.append("rows", 6);
+          params.append("rows", this.rows);
+          params.append("userid.userid",this.userid);
           this.$axios.post("/orders/querylike.action", params).then(function (result) {
             _this.tableData = result.data.rows;
             _this.total = result.data.total;
           }).catch(function (error) {
             alert(error)
           });
-        }, pagechange(pageindex) { //页码变更时
+        },
+        pagechange(pageindex) { //页码变更时
           //console.log(pageindex)
           this.page = pageindex;
           //根据pageindex  获取数据
@@ -98,12 +120,12 @@
         },
         rowClass() { //表格数据居中显示
           return "text-align:center"
-        }
-
+        },
 
       },
       created() {
-          this.getData();
+          this.userids();
+
       }
 
     }
