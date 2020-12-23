@@ -214,7 +214,7 @@
 
 <script>
 import Shouyemain from "../../components/qiantai/shouye01"
-import My from "../../components/qiantai/my"
+import My from "../../components/qiantai/Mys/my"
 import Denglu from "../../components/qiantai/dengluzuche/denglu"
 import Zuche from "../../components/qiantai/dengluzuche/zuche"
 
@@ -254,7 +254,7 @@ export default {
 
   methods: {
     asdasd2(){
-      alert(this.shouyeusername)
+      //alert(this.shouyeusername)
       if(this.shouyeusername!=null){
         this.touxian=true
         //alert(shouyeusername)

@@ -57,6 +57,12 @@ export default {
             alert(result.data.msg)
             //将登录成功的用户名存入store中
             sessionStorage.setItem("yonghuname",result.data.username);
+            //将登录成功的用户id存入store中
+            sessionStorage.setItem("yonghuid",result.data.userid);
+            //将登录成功的用户会员存入store中
+            sessionStorage.setItem("hyname",result.data.hyname);
+            //将登录成功的会员折扣存入store中
+            sessionStorage.setItem("hyzhekou",result.data.hyzhekou);
             _this.$emit("propvalue",false,true);
             /* _this.$emit("propvalue",_this.propvalue);*/
 

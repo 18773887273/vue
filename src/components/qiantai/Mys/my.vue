@@ -68,7 +68,7 @@
     },
       data(){
       return {
-        tupian:require('../../images/shanghu/logo.png'),
+        tupian:require('../../.././images/shanghu/logo.png'),
         yonghuming:"12345",
         yonghuname: sessionStorage.getItem('yonghuname'),
 

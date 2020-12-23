@@ -8,7 +8,7 @@
          <el-tag>待付款</el-tag>
        </router-link>
        <router-link to="/daitihuo">
-         <el-tag>代提货</el-tag>
+         <el-tag>待收货</el-tag>
        </router-link>
        <router-link to="/yiwancheng">
          <el-tag>已完成</el-tag>
@@ -24,11 +24,11 @@
 </template>
 
 <script>
-  import  Alldingdan from './dingdan/alldingdan'
-  import  Daifukuan from './dingdan/daifukuan'
-  import  Daitihuo from './dingdan/daitihuo'
-  import  Yiwancheng from './dingdan/yiwancheng'
-  import Yiquxiao from "./dingdan/yiquxiao";
+  import  Alldingdan from '../dingdan/alldingdan'
+  import  Daifukuan from '../dingdan/daifukuan'
+  import  Daitihuo from '../dingdan/daitihuo'
+  import  Yiwancheng from '../dingdan/yiwancheng'
+  import Yiquxiao from "../dingdan/yiquxiao";
     export default {
     components:{
       alldingdan:Alldingdan,

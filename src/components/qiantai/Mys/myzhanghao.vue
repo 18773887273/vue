@@ -19,13 +19,18 @@
           <el-input v-model="tableData.usernumber"></el-input>
         </el-form-item>
         </el-col>
-        <el-button type="success" round  class="but1"   size="medium">修改信息</el-button>
+        <el-button type="success" round  class="but1"  @click="xiugai()"   size="medium">修改信息</el-button>
         <el-button type="warning" round  class="but2"   size="medium">更改密码</el-button>
       </el-form>
     </div>
 </template>
   <script>
+    import Mimaxiugai from "./mimaxiugai";
+
         export default {
+          components:{
+            mimaxiugai:Mimaxiugai,
+          },
           data() {
             return {
               tableData:[],
@@ -37,15 +42,39 @@
               var _this = this;
               var params = new URLSearchParams();
               params.append("username",this.yonghuname);
-              alert(this.yonghuname)
+              //alert(this.yonghuname)
               this.$axios.post("/user/queryuser.action",params).
               then(function(result) {
-                  alert("133321")
+                 // alert("133321")
                 _this.tableData = result.data;
               }).
               catch(function(error) {
                 alert(error)
               });
+            },
+            /*修改个人信息*/
+            xiugai(){
+              var _this = this;
+              var params = new URLSearchParams();
+              params.append("username",this.yonghuname)
+              params.append("sex",this.tableData.sex);
+              params.append("usernumber",this.tableData.usernumber)
+              this.$axios.post("/user/xiugaigeren.action", params,{
+                emulateJSON:true
+              }).
+              then(function(result){
+                if(result.data==1){
+                  alert("修改成功")
+                  _this.flag=false;
+                }else{
+                }
+              }).
+              catch(function(error) {
+                alert(error)
+              });
+            },
+            gaimima(){
+
             }
 
           },

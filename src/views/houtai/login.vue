@@ -32,6 +32,7 @@
     },
     methods: {
       denglu(){
+        //alert(1111)
         var _this = this;
         var params = new URLSearchParams();
         params.append("username", this.username);

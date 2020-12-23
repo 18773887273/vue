@@ -23,9 +23,9 @@ import shmenu from "../views/shanghu/shmenu.vue";
 import  Shouquan from '../views/houtai/shouquan'
 import  Warehouse from '../views/houtai/warehouse'
 import   Shouye01 from '../components/qiantai/shouye01'
-import  My from '../components/qiantai/my'
-import  Myzhanghao from '../components/qiantai/myzhanghao'
-import  Dingdan from '../components/qiantai/dingdan'
+import  My from '../components/qiantai/Mys/my'
+import  Myzhanghao from '../components/qiantai/Mys/myzhanghao'
+import  Dingdan from '../components/qiantai/Mys/dingdan'
 import  Role from '../views/houtai/rolelist'
 
 import  Shoptype from '../views/houtai/shoptylist.vue'
@@ -37,8 +37,8 @@ import Daitihuo from "../components/qiantai/dingdan/daitihuo";
 import Yiwancheng from '../components/qiantai/dingdan/yiwancheng'
 import Yiquxiao from "../components/qiantai/dingdan/yiquxiao";
 
-import Shiming from "../components/qiantai/shiming";
-import Shangjiashen from "../components/qiantai/shangjiashen";
+import Shiming from "../components/qiantai/Mys/shiming";
+import Shangjiashen from "../components/qiantai/Mys/shangjiashen";
 import Chanpinxiangqing from "../components/qiantai/shouyetype/jiezhangliucheng/chanpinxiangqing";
 import Shanghulist from "../views/houtai/shanghulist";
 
@@ -119,10 +119,7 @@ const routes = [
     path: '/shouyetypeshow',
     component: Shouyetyshow
   },
-  {
-    path: '/shopcard',
-    component: Shopcard
-  },
+
 
   {
     path: '/login2',
@@ -149,6 +146,9 @@ const routes = [
     }, {
       path: '/xiangqing',
       component: Chanpinxiangqing
+    },{
+      path: '/shopcard',
+      component: Shopcard
     },
       {
         path: '/mys',
