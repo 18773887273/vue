@@ -64,6 +64,7 @@
   import  Shoptype from '../../views/houtai/shoptylist.vue'
   import  Shop from '../../views/houtai/shoplist.vue'
   import  Caigou from '../../views/houtai/caigou.vue'
+  import  Shanghulist from '../../views/houtai/shanghulist'
   /*订单管理*/
   import Allorders from '../../views/houtai/allorder.vue'
   import Daipeisong from '../../views/houtai/daipsorder.vue'
@@ -82,7 +83,8 @@
       peisongzhong:Peisongzhong,
       allorder:Allorders,
       daipeisong:Daipeisong,
-      yipeisong:Yipeisong
+      yipeisong:Yipeisong,
+      shanghulist:Shanghulist
     },
     data() {
       return {

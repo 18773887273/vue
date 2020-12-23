@@ -12,7 +12,7 @@
       active-text-color="#ffd04b">
       <el-submenu index="1">
         <template slot="title"><vab-colorful-icon icon-class="file" /><i class="el-icon-sell"></i>订单管理</template>
-        <el-menu-item index="1-1">全部订单</el-menu-item>
+        <router-link to="orders"><el-menu-item index="orders">全部订单</el-menu-item></router-link>
         <el-menu-item index="1-2">待收货订单</el-menu-item>
         <el-menu-item index="1-3">待提货订单</el-menu-item>
         <el-menu-item index="1-4">已提货订单</el-menu-item>
@@ -42,10 +42,12 @@
 
 <script>
     import Personal from '../../components/shanghu/maintain/personal'
+    import Orders from '../../components/shanghu/orders/orders'
     export default {
         name: "shmenu.vue",
       comments:{
-          personal:Personal
+          personal:Personal,
+          orders:Orders
       },
       data() {
         return {

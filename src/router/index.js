@@ -40,12 +40,14 @@ import Yiquxiao from "../components/qiantai/dingdan/yiquxiao";
 import Shiming from "../components/qiantai/shiming";
 import Shangjiashen from "../components/qiantai/shangjiashen";
 import Chanpinxiangqing from "../components/qiantai/shouyetype/jiezhangliucheng/chanpinxiangqing";
+import Shanghulist from "../views/houtai/shanghulist";
 
 
 
 /*登录*/
 import Denglu from "../components/qiantai/dengluzuche/denglu"
 import Personal from "../components/shanghu/maintain/personal";
+import Orders from "../components/shanghu/orders/orders";
 
 Vue.use(VueRouter)
 /*订单管理*/
@@ -103,6 +105,9 @@ const routes = [
       },
       {path:'/caigou',
         component: Caigou
+      },
+      {path:'/shanghulist',
+        component: Shanghulist
       }
     ]
   },
@@ -190,7 +195,11 @@ const routes = [
     children: [{
       path: '/personal',
       component: Personal,
-    }]
+    },
+      {
+        path: '/orders',
+        component: Orders,
+      }]
   },
   {
     path: '/shouyetest',
