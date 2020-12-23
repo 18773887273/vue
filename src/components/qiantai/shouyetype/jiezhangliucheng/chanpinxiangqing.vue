@@ -103,8 +103,8 @@ export default {
       var params = new URLSearchParams();
       var shopid = _this.items.shopid.shopid;
       var userid = sessionStorage.getItem("yonghuid");
-      params.append("shopid.shopid", 1);
-      params.append("userid.userid", 1);
+      params.append("shopid.shopid", shopid);
+      params.append("userid.userid", shopid);
       if (userid == '' || userid == null){
         this.$message('请先登录');
         return
