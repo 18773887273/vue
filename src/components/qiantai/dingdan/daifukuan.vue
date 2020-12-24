@@ -23,8 +23,7 @@
       </el-table-column>
       <el-table-column prop="orderstate" label="状态">
         <template slot-scope="scope">
-          <span v-if="scope.row.orderstate==1">已提货</span>
-          <span v-if="scope.row.orderstate==2">代取货</span>
+          <span v-if="scope.row.orderstate==1">代付款</span>
         </template>
       </el-table-column>
       <!--<el-table-column
@@ -52,15 +51,17 @@
 
 <script>
     export default {
-        name: "daifukuan",
-      data(){
-        return{
+      name: "daifukuan",
+      data() {
+        return {
           num: 1,
           tableData: [],
           total: 1,
           page: 1,
           rows: 6,
           selectDate: {},
+          username:sessionStorage.getItem('yonghuname'),
+          userid:""
         }
       },
       methods: {
@@ -80,20 +81,48 @@
           //alert(12312312)
           var params = new URLSearchParams();
           params.append("page", this.page);
-          params.append("rows", 6);
-          params.append("orderstate",2)
+          params.append("rows", this.rows);
+          params.append("orderstate", 1)
+          params.append("userid.userid",this.userid)
           this.$axios.post("/orders/querylike.action", params).then(function (result) {
             _this.tableData = result.data.rows;
             _this.total = result.data.total;
           }).catch(function (error) {
             alert(error)
           });
-        }
+        },
+        userids() {
+          var _this = this;
+          //alert(12312312)
+          var params = new URLSearchParams();
+          params.append("username", this.username);
+          this.$axios.post("/user/queryuser.action", params).then(function (result) {
+            _this.userid = result.data.userid
+            //alert( _this.userid)
+            _this.getData();
+          }).catch(function (error) {
+            alert(error)
+          });
+        },
+        pagechange(pageindex) { //页码变更时
+          //console.log(pageindex)
+          this.page = pageindex;
+          //根据pageindex  获取数据
+          this.getData();
+        },
+        headClass() { //表头居中显示
+          return "text-align:center"
+        },
+        rowClass() { //表格数据居中显示
+          return "text-align:center"
+        },
+
 
 
       },
+
       created() {
-        this.getData();
+        this.userids();
       }
 
 

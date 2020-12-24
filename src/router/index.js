@@ -19,32 +19,34 @@ import Login from '../views/houtai/login'
 import Employ from '../views/houtai/employlist'
 import Login2 from '../views/shanghu/Login'
 import shmenu from "../views/shanghu/shmenu.vue";
-import Shouquan from '../views/houtai/shouquan'
-import Warehouse from '../views/houtai/warehouse'
-import Shouye01 from '../components/qiantai/shouye01'
-import My from '../components/qiantai/my'
-import Myzhanghao from '../components/qiantai/myzhanghao'
-import Dingdan from '../components/qiantai/dingdan'
-import Role from '../views/houtai/rolelist'
+import  Shouquan from '../views/houtai/shouquan'
+import  Warehouse from '../views/houtai/warehouse'
+import   Shouye01 from '../components/qiantai/shouye01'
+import  My from '../components/qiantai/Mys/my'
+import  Myzhanghao from '../components/qiantai/Mys/myzhanghao'
+import  Dingdan from '../components/qiantai/Mys/dingdan'
+import  Role from '../views/houtai/rolelist'
 
-import Shoptype from '../views/houtai/shoptylist.vue'
-import Addshopty from '../components/houtai/shopty/addshopty'
-import Caigou from '../views/houtai/caigou.vue'
+import  Shoptype from '../views/houtai/shoptylist.vue'
+import  Addshopty from '../components/houtai/shopty/addshopty'
+import  Caigou from '../views/houtai/caigou.vue'
 import Alldingdan from "../components/qiantai/dingdan/alldingdan";
 import Daifukuan from "../components/qiantai/dingdan/daifukuan";
 import Daitihuo from "../components/qiantai/dingdan/daitihuo";
 import Yiwancheng from '../components/qiantai/dingdan/yiwancheng'
 import Yiquxiao from "../components/qiantai/dingdan/yiquxiao";
 
-import Shiming from "../components/qiantai/shiming";
-import Shangjiashen from "../components/qiantai/shangjiashen";
+import Shiming from "../components/qiantai/Mys/shiming";
+import Shangjiashen from "../components/qiantai/Mys/shangjiashen";
 import Chanpinxiangqing from "../components/qiantai/shouyetype/jiezhangliucheng/chanpinxiangqing";
+import Shanghulist from "../views/houtai/shanghulist";
+
 
 
 /*登录*/
 import Denglu from "../components/qiantai/dengluzuche/denglu"
 import Personal from "../components/shanghu/maintain/personal";
-
+import Orders from "../components/shanghu/orders/orders";
 Vue.use(VueRouter)
 /*订单管理*/
 import Allorders from '../views/houtai/allorder.vue'
@@ -111,6 +113,9 @@ const routes = [
       {
         path: '/caigou',
         component: Caigou
+      },
+      {path:'/shanghulist',
+        component: Shanghulist
       }
     ]
   },
@@ -205,7 +210,11 @@ const routes = [
     children: [{
       path: '/personal',
       component: Personal,
-    }]
+    },
+      {
+        path: '/orders',
+        component: Orders,
+      }]
   },
   {
     path: '/shouyetest',

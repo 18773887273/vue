@@ -9,7 +9,7 @@
             </el-table-column>
             <el-table-column prop="zhucetime" label="注册时间" width="180">
             </el-table-column>
-            <el-table-column prop="name" label="姓名" width="180">
+            <el-table-column prop="shname" label="姓名" width="180">
             </el-table-column>
             <el-table-column prop="sex" label="性别">
               <template slot-scope="scope">
@@ -49,7 +49,16 @@
 </style>
 
 <script>
-  export default {
+  export default {data() {
+      return {
+        tableData: [],
+        dialogFormVisible: false,
+        editid: "",
+        editname: "",
+        editbirthday: "",
+        editsalary: ""
+      }
+    },
     methods: {
       tableRowClassName({ row, rowIndex }) {
         if(rowIndex === 1) {
@@ -90,35 +99,23 @@
         });
       },
       getdata() {
+        //alert(1111)
         var _this = this;
         this.$axios
           .post('/user/querylike.action').
         then(function(result) {
 
           _this.tableData = result.data.rows;
+         // alert(55555)
         }).
         catch(function(error) {
           alert(error)
         });
       },
     },
-    data() {
-      return {
-        tableData: [],
-        dialogFormVisible: false,
-        editid: "",
-        editname: "",
-        editbirthday: "",
-        editsalary: ""
-      }
-    },
+
     created() {
       this.getdata();
-    },
-    watch: {
-      tableData: function() {
-        this.getdata();
-      }
     }
   }
 </script>
