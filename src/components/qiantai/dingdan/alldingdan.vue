@@ -28,7 +28,7 @@
           <span v-if="scope.row.orderstate==3">已取消</span>
           <span v-if="scope.row.orderstate==4">发货中</span>
           <span v-if="scope.row.orderstate==5">待提货</span>
-          <span v-if="scope.row.orderstate==6">已提货</span>
+          <span v-if="scope.row.orderstate==6">已完成</span>
         </template>
       </el-table-column>
       <!--<el-table-column
@@ -40,7 +40,7 @@
       </el-table-column>-->
       <el-table-column label="操作" fixed="right" width="140px">
         <template slot-scope="scope">
-          <el-button type="success" @click="xiangqing(scope.row)" circle plain>查看详情</el-button>
+          <el-button type="success" @click="xiangqing(scope.row)" circle plain size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -56,30 +56,23 @@
 
 
     <!--订单详情-->
-    <el-dialog :visible.sync="addemploydialogFormVisible" :before-close="addemployhandleClose">
-      <div slot="title" class="dialog-title">
-        <i class="el-icon-circle-plus-outline"></i>
-        <span class="title-text">订单详情</span>
-        <div class="button-right">
-          <span class="title-close"></span>
-        </div>
-      </div>
-      <dingdangxiangqing :order="this.ordersid"   ref="ordersid"></dingdangxiangqing>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="quxiaogaimi()">取 消</el-button>
-        <el-button type="primary" @click="gaimima()">确认</el-button>
-      </div>
+    <el-dialog title="订单详情" :visible.sync="addemploydialogFormVisible" style="width: 1550px">
+      <el-table :data="orderxqs" :header-cell-style="headClass" :cell-style="rowClass" :row-class-name="tableRowClassName" max-height="600px">
+        <el-table-column property="shopid.shopname" label="商品名称" width="150"></el-table-column>
+        <el-table-column prop="shopid.shopimg " label="图片">
+          <template slot-scope="scope">
+            <img :src="scope.row.shopid.shopimg" min-width="70"  height="50"/>
+          </template>
+        </el-table-column>
+        <el-table-column property="shopid.shopprice" label="商品单价" width="150"></el-table-column>
+        <el-table-column property="orderxqcount" label="购买数量"  width="150"></el-table-column>
+        <el-table-column property="orderxqmoney" label="商品总金额"  width="150"></el-table-column>
+      </el-table>
     </el-dialog>
   </div>
 </template>
-
 <script>
-  import Dingdanxiangqing from "./dingdanxiangqing";
     export default {
-      components:{
-        dingdangxiangqing:Dingdanxiangqing,
-
-      },
         name: "alldingdan",
       data(){
           return{
@@ -92,7 +85,7 @@
             username:sessionStorage.getItem('yonghuname'),
             userid:"",
             addemploydialogFormVisible:false,
-            ordersid:""
+            orderxqs:[]
           }
       },
       methods: {
@@ -138,8 +131,8 @@
         },
         /*查看详情*/
         xiangqing(row){
-          //alert(row.orderid)
-          this.ordersid=row.orderid
+         // alert(row.orderxqs)
+          this.orderxqs=row.orderxqs
           this.addemploydialogFormVisible = true;
         },
         pagechange(pageindex) { //页码变更时

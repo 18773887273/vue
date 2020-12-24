@@ -1,4 +1,4 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
 
   <div id="my">
 
@@ -12,33 +12,31 @@
           </div>
           <el-divider></el-divider>
           <div>
-            <router-link to="/myzhanghao">
+            <router-link to="/myzhanghao" class="my-luyou">
           <div class="icons">
-            <i class="el-icon-user" style="font-size: 30px"></i>
-            <label >我的账户</label>
+            <i class="el-icon-user my-edit-a" style="font-size: 30px" ></i>
+            <label class="my-edit-a">我的账户</label>
           </div>
             </router-link>
             <el-divider></el-divider>
-            <router-link to="/dingdan">
+            <router-link to="/dingdan" class="my-luyou">
             <div class="icons">
-              <i class="el-icon-sell" style="font-size: 30px"></i>
-              <label>我的订单</label>
+              <i class="el-icon-sell my-edit-a" style="font-size: 30px" ></i>
+              <label class="my-edit-a">我的订单</label>
             </div>
             </router-link>
             <el-divider></el-divider>
-            <router-link to="/shiming">
+            <router-link to="/shiming" class="my-luyou">
             <div class="icons">
-              <i class="el-icon-setting" style="font-size: 30px"></i>
-              <label>实名认证</label>
+              <i class="el-icon-setting my-edit-a" style="font-size: 30px" ></i>
+              <label class="my-edit-a">实名认证</label>
             </div>
             </router-link>
             <el-divider></el-divider>
-            <router-link to="/shangjiashen">
             <div class="icons">
-              <i class="el-icon-s-goods" style="font-size: 30px"></i>
-              <label>商家认证</label>
+              <i class="el-icon-s-goods  my-edit-a" style="font-size: 30px"></i>
+              <label @click="shangjia()"  class="my-edit-a">商家认证</label>
             </div>
-            </router-link>
           </div>
         </div>
       </el-col>
@@ -69,13 +67,31 @@
       data(){
       return {
         tupian:require('../../.././images/shanghu/logo.png'),
-        yonghuming:"12345",
         yonghuname: sessionStorage.getItem('yonghuname'),
 
       }
       },
       methods:{
-
+          shangjia(){
+            var _this = this;
+            var params = new URLSearchParams();
+            params.append("username", this.yonghuname);
+            this.$axios.post("/user/queryuser.action", params, {
+              emulateJSON: true
+            }).then(function (result) {
+              if (result.data.usercard == null) {
+                _this.$message({
+                  showClose: true,
+                  message: '请您先实名认证！！'
+                });
+                _this.$router.push({path:'/shiming'})
+              } else {
+                _this.$router.push({path:'/shangjiashen'})
+              }
+            }).catch(function (error) {
+              alert(error)
+            });
+          }
 
       },
 
@@ -93,4 +109,19 @@
   /*.icons{
     font-size: 50px;
   }*/
+.my-luyou{
+  text-decoration:none;
+}
+
+.my-edit-a {
+  color: #28A745;
+  font-size: 22px;
+  cursor: pointer;
+
+}
+
+.my-edit-a:hover{
+  color: #19692C;
+  font-size: 22px;
+}
 </style>

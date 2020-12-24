@@ -65,6 +65,9 @@
   import  Shop from '../../views/houtai/shoplist.vue'
   import  Caigou from '../../views/houtai/caigou.vue'
   import  Shanghulist from '../../views/houtai/shanghulist'
+  import Xbbaobiao from "./xbbaobiao";
+  import Churukubaobiao from "./churukubaobiao";
+  import Caiwubaobiao from "./caiwubaobiao";
   /*订单管理*/
   import Allorders from '../../views/houtai/allorder.vue'
   import Daipeisong from '../../views/houtai/daipsorder.vue'
@@ -84,7 +87,10 @@
       allorder:Allorders,
       daipeisong:Daipeisong,
       yipeisong:Yipeisong,
-      shanghulist:Shanghulist
+      shanghulist:Shanghulist,
+      xbbaobiao:Xbbaobiao,
+      caiwubaobiao:Caiwubaobiao,
+      churukubaobiao:Churukubaobiao
     },
     data() {
       return {

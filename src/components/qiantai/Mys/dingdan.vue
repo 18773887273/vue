@@ -7,8 +7,11 @@
        <router-link to="/daifukuan">
          <el-tag>待付款</el-tag>
        </router-link>
+       <router-link to="/fahuozhong">
+         <el-tag>发货中</el-tag>
+       </router-link>
        <router-link to="/daitihuo">
-         <el-tag>待收货</el-tag>
+         <el-tag>待提货</el-tag>
        </router-link>
        <router-link to="/yiwancheng">
          <el-tag>已完成</el-tag>
@@ -29,13 +32,15 @@
   import  Daitihuo from '../dingdan/daitihuo'
   import  Yiwancheng from '../dingdan/yiwancheng'
   import Yiquxiao from "../dingdan/yiquxiao";
+  import Fahouzhong from "../dingdan/fahouzhong";
     export default {
     components:{
       alldingdan:Alldingdan,
       daifukuan:Daifukuan,
       daitihuo:Daitihuo,
       yiwancheng:Yiwancheng,
-      yiquxiao:Yiquxiao
+      yiquxiao:Yiquxiao,
+      fahuozhong:Fahouzhong
     },
         name: "dingdan",
       data(){

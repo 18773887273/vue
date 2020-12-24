@@ -23,7 +23,8 @@
       </el-table-column>
       <el-table-column prop="orderstate" label="状态">
         <template slot-scope="scope">
-          <span v-if="scope.row.orderstate==5">待提货</span>
+          <span v-if="scope.row.orderstate==2">发货中</span>
+          <span v-if="scope.row.orderstate==4">发货中</span>
         </template>
       </el-table-column>
       <!--<el-table-column
@@ -67,88 +68,88 @@
 </template>
 
 <script>
-    export default {
-        name: "daitihuo",
-      data(){
-        return{
-          num: 1,
-          tableData: [],
-          total: 1,
-          page: 1,
-          rows: 5,
-          selectDate: {},
-          addemploydialogFormVisible:false,
-          username:sessionStorage.getItem('yonghuname'),
-          userid:"",
-          orderxqs:[]
-        }
-      },
-      methods: {
-        tableRowClassName({
-                            row,
-                            rowIndex
-                          }) {
-          if (rowIndex % 2 == 1) {
-            return 'info-row';
-          } else {
-            return 'success-row';
-          }
-          return '';
-        },
-        getData(func) { //获取数据方法
-          var _this = this;
-          //alert(12312312)
-          var params = new URLSearchParams();
-          params.append("page", this.page);
-          params.append("rows", this.rows);
-          params.append("orderstate", 5)
-          params.append("userid.userid",this.userid)
-          this.$axios.post("/orders/querylike.action", params).then(function (result) {
-            _this.tableData = result.data.rows;
-            _this.total = result.data.total;
-          }).catch(function (error) {
-            alert(error)
-          });
-        },
-        userids(){
-          var _this = this;
-          //alert(12312312)
-          var params = new URLSearchParams();
-          params.append("username",this.username);
-          this.$axios.post("/user/queryuser.action", params).then(function (result) {
-            _this.userid=result.data.userid
-            //alert( _this.userid)
-            _this.getData();
-          }).catch(function (error) {
-            alert(error)
-          });
-        },
-        /*查看详情*/
-        xiangqing(row){
-          // alert(row.orderxqs)
-          this.orderxqs=row.orderxqs
-          this.addemploydialogFormVisible = true;
-        },
-        pagechange(pageindex) { //页码变更时
-          //console.log(pageindex)
-          this.page = pageindex;
-          //根据pageindex  获取数据
-          this.getData();
-        },
-        headClass() { //表头居中显示
-          return "text-align:center"
-        },
-        rowClass() { //表格数据居中显示
-          return "text-align:center"
-        },
-
-
-
-      },
-      created() {
-        this.userids();
+  export default {
+    name: "daitihuo",
+    data(){
+      return{
+        num: 1,
+        tableData: [],
+        total: 1,
+        page: 1,
+        rows: 5,
+        selectDate: {},
+        addemploydialogFormVisible:false,
+        username:sessionStorage.getItem('yonghuname'),
+        userid:"",
+        orderxqs:[]
       }
+    },
+    methods: {
+      tableRowClassName({
+                          row,
+                          rowIndex
+                        }) {
+        if (rowIndex % 2 == 1) {
+          return 'info-row';
+        } else {
+          return 'success-row';
+        }
+        return '';
+      },
+      getData(func) { //获取数据方法
+        var _this = this;
+        //alert(12312312)
+        var params = new URLSearchParams();
+        params.append("page", this.page);
+        params.append("rows", this.rows);
+        params.append("orderstate", 2)
+        params.append("userid.userid",this.userid)
+        this.$axios.post("/orders/querylike.action", params).then(function (result) {
+          _this.tableData = result.data.rows;
+          _this.total = result.data.total;
+        }).catch(function (error) {
+          alert(error)
+        });
+      },
+      userids(){
+        var _this = this;
+        //alert(12312312)
+        var params = new URLSearchParams();
+        params.append("username",this.username);
+        this.$axios.post("/user/queryuser.action", params).then(function (result) {
+          _this.userid=result.data.userid
+          //alert( _this.userid)
+          _this.getData();
+        }).catch(function (error) {
+          alert(error)
+        });
+      },
+      /*查看详情*/
+      xiangqing(row){
+        // alert(row.orderxqs)
+        this.orderxqs=row.orderxqs
+        this.addemploydialogFormVisible = true;
+      },
+      pagechange(pageindex) { //页码变更时
+        //console.log(pageindex)
+        this.page = pageindex;
+        //根据pageindex  获取数据
+        this.getData();
+      },
+      headClass() { //表头居中显示
+        return "text-align:center"
+      },
+      rowClass() { //表格数据居中显示
+        return "text-align:center"
+      },
+
+
+
+    },
+    created() {
+      this.userids();
     }
+  }
 </script>
 
 <style scoped>

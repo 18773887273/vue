@@ -26,15 +26,20 @@ import  My from '../components/qiantai/Mys/my'
 import  Myzhanghao from '../components/qiantai/Mys/myzhanghao'
 import  Dingdan from '../components/qiantai/Mys/dingdan'
 import  Role from '../views/houtai/rolelist'
+import Xbbaobiao from "../views/houtai/xbbaobiao";
+import Caiwubaobiao from "../views/houtai/caiwubaobiao";
+import Churukubaobiao from "../views/houtai/churukubaobiao";
 
 import  Shoptype from '../views/houtai/shoptylist.vue'
 import  Addshopty from '../components/houtai/shopty/addshopty'
 import  Caigou from '../views/houtai/caigou.vue'
+/*用户订单*/
 import Alldingdan from "../components/qiantai/dingdan/alldingdan";
 import Daifukuan from "../components/qiantai/dingdan/daifukuan";
 import Daitihuo from "../components/qiantai/dingdan/daitihuo";
 import Yiwancheng from '../components/qiantai/dingdan/yiwancheng'
 import Yiquxiao from "../components/qiantai/dingdan/yiquxiao";
+import Fahouzhong from "../components/qiantai/dingdan/fahouzhong";
 
 import Shiming from "../components/qiantai/Mys/shiming";
 import Shangjiashen from "../components/qiantai/Mys/shangjiashen";
@@ -116,6 +121,16 @@ const routes = [
       },
       {path:'/shanghulist',
         component: Shanghulist
+      },
+      {path:'/xbbaobiao',
+        component: Xbbaobiao
+      },{
+      path: '/caiwubaobiao',
+        component:Caiwubaobiao
+      },
+      {
+        path: '/churukubaobiao',
+        component: Churukubaobiao
       }
     ]
   },
@@ -191,6 +206,10 @@ const routes = [
               {
                 path: '/yiquxiao',
                 component: Yiquxiao
+              },
+              {
+                path: '/fahuozhong',
+                component: Fahouzhong
               }]
           },
           {

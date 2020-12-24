@@ -2,7 +2,7 @@
   <div>
     <el-table :data="tableData" :row-class-name="tableRowClassName" border max-height="437px"
               :header-cell-style="headClass" :cell-style="rowClass">
-      <el-table-column prop="orderbianhao" label="编号">
+      <el-table-column prop="orderbianhao" label="编号" width="140px">
       </el-table-column>
       <!--<el-table-column label="姓名">
         <template slot-scope="scope">
@@ -15,13 +15,13 @@
           </el-popover>
         </template>
       </el-table-column>-->
-      <el-table-column prop="ordertime" label="创建时间">
+      <el-table-column prop="ordertime" label="创建时间"  width="300px">
       </el-table-column>
-      <el-table-column prop="ordercount" label="总数量">
+      <el-table-column prop="ordercount" label="总数量" width="140px">
       </el-table-column>
-      <el-table-column prop="ordermoney" label="总金额">
+      <el-table-column prop="ordermoney" label="总金额" width="140px">
       </el-table-column>
-      <el-table-column prop="orderstate" label="状态">
+      <el-table-column prop="orderstate" label="状态" width="140px">
         <template slot-scope="scope">
           <span v-if="scope.row.orderstate==6">已提货</span>
         </template>
@@ -33,9 +33,10 @@
           <img  :src="scope.row.img" style="width: 30px"/>
         </template>
       </el-table-column>-->
-      <el-table-column label="操作">
+      <el-table-column label="操作" fixed="right" width="200px">
         <template slot-scope="scope">
-          <el-button type="success" @click="editemploy(scope.row)" circle plain>查看详情</el-button>
+          <el-button type="success" @click="xiangqing(scope.row)" circle plain size="small">查看订单</el-button>
+          <el-button type="success" @click="editemploy(scope.row)" circle plain size="small">评价</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -46,6 +47,24 @@
                    layout="total, prev, pager, next, jumper"
                    :total="total">
     </el-pagination>
+
+
+
+
+    <!--订单详情-->
+    <el-dialog title="订单详情" :visible.sync="addemploydialogFormVisible" style="width: 1550px">
+      <el-table :data="orderxqs" :header-cell-style="headClass" :cell-style="rowClass" :row-class-name="tableRowClassName" max-height="600px">
+        <el-table-column property="shopid.shopname" label="商品名称" width="150"></el-table-column>
+        <el-table-column prop="shopid.shopimg " label="图片">
+          <template slot-scope="scope">
+            <img :src="scope.row.shopid.shopimg" min-width="70"  height="50"/>
+          </template>
+        </el-table-column>
+        <el-table-column property="shopid.shopprice" label="商品单价" width="150"></el-table-column>
+        <el-table-column property="orderxqcount" label="购买数量"  width="150"></el-table-column>
+        <el-table-column property="orderxqmoney" label="商品总金额"  width="150"></el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -60,11 +79,19 @@
           page: 1,
           rows: 5,
           selectDate: {},
+          addemploydialogFormVisible:false,
           username:sessionStorage.getItem('yonghuname'),
-          userid:""
+          userid:"",
+          orderxqs:[]
         }
       },
       methods: {
+        /*查看详情*/
+        xiangqing(row){
+          // alert(row.orderxqs)
+          this.orderxqs=row.orderxqs
+          this.addemploydialogFormVisible = true;
+        },
         tableRowClassName({
                             row,
                             rowIndex
