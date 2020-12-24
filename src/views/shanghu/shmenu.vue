@@ -11,17 +11,11 @@
       text-color="#fff"
       active-text-color="#ffd04b">
       <el-submenu index="1">
-        <template slot="title"><vab-colorful-icon icon-class="file" /><i class="el-icon-sell"></i>订单管理</template>
-        <router-link to="orders"><el-menu-item index="orders">全部订单</el-menu-item></router-link>
-        <el-menu-item index="1-2">待收货订单</el-menu-item>
-        <el-menu-item index="1-3">待提货订单</el-menu-item>
-        <el-menu-item index="1-4">已提货订单</el-menu-item>
-      </el-submenu>
-      <el-submenu index="2">
         <template slot="title"><i class="el-icon-postcard"></i>资料维护</template>
         <router-link to="personal"><el-menu-item index="personal">个人资料维护</el-menu-item></router-link>
         <el-menu-item index="2-2">门店资料维护</el-menu-item>
       </el-submenu>
+      <router-link to="orders"><el-menu-item index="orders" style="float: left"><i class="el-icon-sell"></i>订单管理</el-menu-item></router-link>
       <el-menu-item index="3"><i class="el-icon-s-data"></i>统计营收</el-menu-item>
       <el-menu-item index="4"><i class="el-icon-chat-dot-square"></i>消息中心</el-menu-item>
       <el-col :span="8" style="float: right;margin-top: 10px">

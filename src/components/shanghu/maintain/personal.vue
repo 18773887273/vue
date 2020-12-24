@@ -114,7 +114,7 @@
       getdata(func) {
         var _this = this
         var params = new URLSearchParams();
-        params.append("shid", this.shid)
+        params.append("userid", this.shid)
         this.$axios.post("/user/Shanghugrwh.action", params).then(function (result) {
           _this.user = result.data
           func && func();

@@ -8,7 +8,7 @@
         <el-input v-model="edituser.shname" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="性别">
-        <el-select v-model="edituser.sex" autocomplete="off" style="width:620px;" filterable>
+        <el-select v-model="edituser.sex" autocomplete="off" style="width:320px;float: left" filterable>
           <el-option v-for="item in sexs" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
