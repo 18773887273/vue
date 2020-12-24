@@ -175,7 +175,11 @@
         var params = new URLSearchParams();
         params.append("page", this.page);
         params.append("orderbianhao", this.query.orderbianhao);
-        params.append("time", this.query.time)
+        var time=this.query.time;
+        if(time==null){
+          time=""
+        }
+        params.append("time", time)
         params.append("ordercount", this.query.orderstate);
         params.append("rows", this.rows);
         this.$axios.post("orders/querylikept.action", params).then(function (result) {

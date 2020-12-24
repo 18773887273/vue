@@ -295,7 +295,7 @@
         var _this = this;
         if (this.multipleSelection[0] == undefined) {
           this.$message({
-            message: '请现在商品进行转移',
+            message: '请选择商品进行转移',
             type: 'error'
           });
           return;

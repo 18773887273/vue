@@ -5,18 +5,30 @@
         <!-- 条件查询-->
         <el-form :inline="true" class="demo-form-inline" >
           <el-form-item label="角色名">
-            <el-input v-model="queryrname" placeholder=""></el-input>
+            <el-input v-model="queryrname" placeholder="" size="small"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="queryrole()" plain>查询</el-button>
-            <el-button type="success" @click="addrole()" plain>添加</el-button>
+            <el-button type="primary" @click="queryrole()" plain size="small">查询</el-button>
+            <el-button type="success" @click="addrole()" plain size="small">添加</el-button>
           </el-form-item>
         </el-form>
-        <el-table :data="roletableData" style="width: 100%" :row-class-name="tableRowClassName" max-height="437px"
+        <el-table :data="roletableData" style="width: 100%" :row-class-name="tableRowClassName"
                   border :header-cell-style="headClass"  :cell-style="rowClass">
           <el-table-column prop="rid" label="编号">
           </el-table-column>
           <el-table-column prop="rname" label="角色名">
+            <template slot-scope="scope">
+              <el-popover trigger="hover" placement="top" >
+                <el-table :data="scope.row.employList" max-height="500" border style="width: 400px">
+                  <el-table-column property="empname" label="姓名" width="100" ></el-table-column>
+                  <el-table-column property="empnumber" label="手机号" width="170"></el-table-column>
+                  <el-table-column property="username" label="用户名" width="120"></el-table-column>
+                </el-table>
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium">{{ scope.row.rname }}</el-tag>
+                </div>
+              </el-popover>
+            </template>
           </el-table-column>
           <el-table-column prop="rremart" label="角色备注">
           </el-table-column>
@@ -24,11 +36,10 @@
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button type="success" @click="editrole(scope.row)" plain circle>编辑</el-button>
-              <el-popconfirm title="确定删除这条记录吗？" @confirm="delrole(scope.row)">
-                <el-button type="danger" slot="reference" plain circle>删除</el-button>
+              <el-button type="success" @click="editrole(scope.row)" plain circle size="small">编辑</el-button>
+              <el-popconfirm title="确定删除这条记录吗？" @confirm="delrole(scope.row)" >
+                <el-button type="danger" slot="reference" plain circle size="small">删除</el-button>
               </el-popconfirm>
-              <el-button type="info" plain circle @click="roleemploy(scope.row)">员工</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -134,11 +145,6 @@
         }).catch(function (error) {
           alert(error)
         });
-      },
-      roleemploy(row) {
-        this.employroleDate = row.employList;
-        this.rolexiangqing = row.rname + "----员工列表";
-        this.roledialogTableVisible = true;
       },
       addrolehandleClose(done) {
         this.$confirm('确认关闭？')
