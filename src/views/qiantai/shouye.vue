@@ -259,7 +259,6 @@ export default {
       window.location.reload();
     },
     asdasd2(){
-      alert(this.shouyeusername)
       if(this.shouyeusername!=null){
         this.touxian=true
         //alert(shouyeusername)

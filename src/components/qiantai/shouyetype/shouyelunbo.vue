@@ -1,29 +1,33 @@
 <template>
-  <div id="banner">
-    <div style="width:1050px;margin-left: 100px ">
-      <hooper :itemsToShow="3" :infiniteScroll="true">
-        <slide>
-          <img :src="image1" width="297px" height="155px" />
-        </slide>
-        <slide>
-          <img :src="image2" width="297px" height="155px"  />
-        </slide>
-        <slide>
-          <img :src="image3" width="297px" height="155px"  />
-        </slide>
-        <slide>
-          <img :src="image4" width="297px" height="155px"  />
-        </slide>
-        <slide>
-          <img :src="image5" width="297px" height="155px"  />
-        </slide>
-        <slide>
-          <img :src="image6" width="297px" height="155px"  />
-        </slide>
+  <el-row :gutter="24">
+    <el-col :span="21"  :offset="1">
+      <div id="banner">
+        <div style="width:1093px;margin-left: 0px ">
+          <hooper itemsToShow="3" :infiniteScroll="true">
+            <slide>
+              <img class="main_body_commodityImg" :src="image1" width="344px" height="168px"/>
+            </slide>
+            <slide>
+              <img class="main_body_commodityImg" :src="image2" width="344px" height="168px"/>
+            </slide>
+            <slide>
+              <img class="main_body_commodityImg" :src="image3" width="344px" height="168px"/>
+            </slide>
+            <slide>
+              <img class="main_body_commodityImg" :src="image4" width="344px" height="168px"/>
+            </slide>
+            <slide>
+              <img class="main_body_commodityImg" :src="image5" width="344px" height="168px"/>
+            </slide>
+            <slide>
+              <img class="main_body_commodityImg" :src="image6" width="344px" height="168px"/>
+            </slide>
 
-      </hooper>
-    </div>
-  </div>
+          </hooper>
+        </div>
+      </div>
+    </el-col>
+  </el-row>
 </template>
 <script>
 import 'hooper/dist/hooper.css';
@@ -60,5 +64,17 @@ export default {
 <style>
 .hooper:focus {
   outline: none;
+}
+
+.main_body_commodityImg {
+  transition: all 0.5s; /*鼠标经过图片放大*/
+  cursor: pointer;
+  height: 85%;
+  width: 98%;
+  margin-top: 15px;
+}
+
+.main_body_commodityImg:hover {
+  transform: scale(1.1); /*动画效果放慢*/
 }
 </style>

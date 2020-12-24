@@ -2,7 +2,7 @@
   <div>
     <el-row :gutter="20">
       <el-col :span="14" :offset="2">
-        <div class="grid-content">
+        <div>
           <div id="jiesuan-title-btn" class="jiesuan-title-div-off" @click="openAndClose"><span>购物车</span>
           </div>
           <div id="box" class="box-off">
@@ -49,7 +49,7 @@
           </div>
         </div>
         <div>
-          <div id="jiesuan-body-btn" class="jiesuan-body-div-off" @click="openAndClosebody"><span>订单地址</span>
+          <div id="jiesuan-body-btn" class="jiesuan-body-div-off" @click="openAndClosebody"><span style="margin-left: 319px">订单地址</span><a class="addr-edit-a"><i class="el-icon-circle-plus el-icon--left"></i>添加新的收货地址</a>
           </div>
           <div id="jiesuan-body-box" class="jiesuan-body-box-off">
             <div v-for="addr of address" :key="addr">
@@ -57,16 +57,24 @@
                 <el-col :span="10":offset="1">
                   <el-card style="border: 1px solid #28A745;" :body-style="{ padding: '0px' }" shadow="hover">
                     <div style="padding: 14px;">
-                      <div class="font-class">{{addr.nicheng}}</div>
+                      <div class="font-class">地址备注：{{addr.nicheng}}
+                        <el-tag size="mini" style="margin-left: 84px" type="success">默认<i class="el-icon-success"></i></el-tag>
+                      </div>
                       <div class="bottom clearfix">
 
-                        <div style="margin-top: 10px" class="font-class">{{addr.shid.storename}}</div>
+                        <div style="margin-top: 15px" class="font-class">提货地址：{{addr.shid.storename}}</div>
+                        <div style="margin-top: 15px" class="font-class">联系电话：{{addr.telephone}}</div>
+                        <a style="margin-top: 3px;margin-left: 225px" class="addr-edit" >编辑</a>
                       </div>
                     </div>
                   </el-card>
                 </el-col>
               </el-row>
             </div>
+          </div>
+        </div>
+        <div>
+          <div id="jiesuan-bottem-btn" class="jiesuan-bottem-div-off" @click=""><span>付款</span>
           </div>
         </div>
       </el-col>
@@ -131,7 +139,7 @@ export default {
     };
   },
   methods: {
-    getData(func) { //获取数据方法
+    getData() { //获取数据方法
       var _this = this;
       var params = new URLSearchParams();
       var userid = sessionStorage.getItem('yonghuid')
@@ -141,10 +149,7 @@ export default {
         for (let item of _this.items) {
           _this.numberprice = _this.addNum(_this.numberprice, item.price);
         }
-
         console.log(_this.items)
-        // alert(result.data[0].shopputid)
-        func && func();
       }).catch(function (error) {
         alert(error)
       });
@@ -157,8 +162,6 @@ export default {
       this.$axios.post("shopcardaddress/queryByuserid.action", params).then(function (result) {
         _this.address = result.data;
         console.log(_this.address)
-        // alert(result.data[0].shopputid)
-        func && func();
       }).catch(function (error) {
         alert(error)
       });
@@ -284,6 +287,9 @@ export default {
       return (curr - next) / m;
     },
 
+    editblur(){
+      alert(1)
+    },
   },
   created() {
     this.getData();
@@ -357,21 +363,20 @@ export default {
 }
 
 .jiesuan-body-div-off {
+  margin-top: 10px;
   padding-top: 20px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
   border-bottom: 3px solid #28A745;
-  text-align: center;
   width: 720px;
   height: 45px;
   background: white;
-  margin-top: 5px;
 }
 
 .jiesuan-body-div-oppen {
-  margin-top: 5px;
+  margin-top: 10px;
   padding-top: 20px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -401,5 +406,52 @@ export default {
 .font-class{
   color: #28A745;
   font-size: 16px;
+}
+.addr-edit {
+  color: #62ABD1;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.addr-edit:hover{
+  color: #0F0808;
+  font-size: 12px;
+}
+
+.addr-edit-a {
+  margin-left: 180px;
+  color: #28A745;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.addr-edit-a:hover{
+  color: #19692C;
+  font-size: 14px;
+}
+
+.jiesuan-bottem-div-off{
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom: 3px solid #28A745;
+  text-align: center;
+  width: 720px;
+  height: 45px;
+  background: white;
+}
+
+.jiesuan-bottem-div-oppen {
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  text-align: center;
+  width: 720px;
+  height: 45px;
+  background: white;
 }
 </style>
