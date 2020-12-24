@@ -50,20 +50,26 @@ export default {
       if (this.loading) {
         return;
       }
-      this.$confirm('确定要提交表单吗？')
+      this.$confirm('确定要登录？')
         .then(_ => {
           this.loading = true;
           this.$axios.post("user/login.action",params).then(function(result) {
             alert(result.data.msg)
-            //将登录成功的用户名存入store中
-            sessionStorage.setItem("yonghuname",result.data.username);
-            //将登录成功的用户id存入store中
-            sessionStorage.setItem("yonghuid",result.data.userid);
-            //将登录成功的用户会员存入store中
-            sessionStorage.setItem("hyname",result.data.hyname);
-            //将登录成功的会员折扣存入store中
-            sessionStorage.setItem("hyzhekou",result.data.hyzhekou);
-            _this.$emit("propvalue",false,true);
+            if (result.data.code=0){
+              alert(result.data.msg)
+              return
+            }else {
+              //将登录成功的用户名存入store中
+              sessionStorage.setItem("yonghuname",result.data.username);
+              //将登录成功的用户id存入store中
+              sessionStorage.setItem("yonghuid",result.data.userid);
+              //将登录成功的用户会员存入store中
+              sessionStorage.setItem("hyname",result.data.hyname);
+              //将登录成功的用户id存入store中
+              sessionStorage.setItem("hyzhekou",result.data.hyzhekou);
+              _this.$emit("propvalue",false,true);
+            }
+
             /* _this.$emit("propvalue",_this.propvalue);*/
 
          /*   _this.$router.push("/back");*/

@@ -104,18 +104,16 @@ export default {
       var shopid = _this.items.shopid.shopid;
       var userid = sessionStorage.getItem("yonghuid");
       params.append("shopid.shopid", shopid);
-      params.append("userid.userid", shopid);
+      params.append("userid.userid", userid);
       if (userid == '' || userid == null){
         this.$message('请先登录');
         return
       }
       this.$axios.post("shopcard/query.action", params).then(function (result) {
         if (result.data[0] != null){
-          //alert('已添加的');
           _this.editgouwu(result.data[0].shopgwid);
 
         }else {
-          //alert('为添加的');
          _this.addgouwu();
         }
 
@@ -141,7 +139,7 @@ export default {
       this.$axios.post("shopcard/addshopgouwu.action", params).then(function (result) {
         alert(result.data.msg)
         // alert(result.data[0].shopputid)
-        _this.$router.push("/shopcard")
+        _this.$router.push("shopcard")
       }).catch(function (error) {
         alert(error)
       });
@@ -159,7 +157,7 @@ export default {
       this.$axios.post("shopcard/editshopgouwu.action", params).then(function (result) {
         alert(result.data.msg)
         // alert(result.data[0].shopputid)
-        _this.$router.push("/shopcard")
+        _this.$router.push("shopcard")
       }).catch(function (error) {
         alert(error)
       });

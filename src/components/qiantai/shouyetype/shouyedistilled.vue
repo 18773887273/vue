@@ -3,15 +3,16 @@
     <div v-for="item of items" :key="item">
       <el-col :span="5" style="background-color: white;margin-left: 15px;margin-top: 20px;margin-bottom: 20px">
           <div @click="getDescribe(item.shopid.shopid)">
-            <img
-              style="width: 200px; height: 155px;margin-top: 20px;"
-              :src="item.shopid.shopimg"
-            >
-            </img>
+            <el-card shadow="hover" body-style="border:0px;">
+              <img
+                style="width: 200px; height: 155px;margin-top: 10px;"
+                :src="item.shopid.shopimg"
+              >
+            </el-card>
             <br>
             {{ item.shopid.shopname }}<br><br>
-            <a style="color: red;font-size: 22px;">￥ {{ item.shopputprice }} /{{ item.shopid.shopdanwei }}</a>
-            <del style="color: #999999;font-size: 14px;">￥ {{ item.shopputprice }} /{{ item.shopid.shopdanwei }}</del>
+            <a style="color: red;font-size: 22px;">￥ {{ item.shopid.shopprice }} /{{ item.shopid.shopdanwei }}</a>
+            <del style="color: #999999;font-size: 14px;">￥ {{ item.shopid.shopprice + 0.5 }} /{{ item.shopid.shopdanwei }}</del>
             <br> <br>
           </div>
       </el-col>
