@@ -142,6 +142,7 @@
         params.append("empname", this.queryempname);
         params.append("empaddress", this.queryaddress);
         params.append("page", this.page);
+        params.append("time",this.query.time)
         params.append("rows", 6);
         this.$axios.post("employ/querylike.action", params).then(function (result) {
           _this.tableData = result.data.rows;

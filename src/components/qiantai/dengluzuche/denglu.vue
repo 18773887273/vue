@@ -50,13 +50,14 @@ export default {
       if (this.loading) {
         return;
       }
-      this.$confirm('确定要登录？')
+      this.$confirm('确定要提交表单吗？')
         .then(_ => {
           this.loading = true;
           this.$axios.post("user/login.action",params).then(function(result) {
             alert(result.data.msg)
             if (result.data.code=0){
-              alert(result.data.msg)
+              alert(result.data.msg);
+              _this.loginform.userpass="";
               return
             }else {
               //将登录成功的用户名存入store中

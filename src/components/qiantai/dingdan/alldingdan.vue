@@ -40,7 +40,7 @@
       </el-table-column>-->
       <el-table-column label="操作" fixed="right" width="140px">
         <template slot-scope="scope">
-          <el-button type="success" @click="editemploy(scope.row)" circle plain>查看详情</el-button>
+          <el-button type="success" @click="xiangqing(scope.row)" circle plain>查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -51,11 +51,35 @@
                    layout="total, prev, pager, next, jumper"
                    :total="total">
     </el-pagination>
+
+
+
+
+    <!--订单详情-->
+    <el-dialog :visible.sync="addemploydialogFormVisible" :before-close="addemployhandleClose">
+      <div slot="title" class="dialog-title">
+        <i class="el-icon-circle-plus-outline"></i>
+        <span class="title-text">订单详情</span>
+        <div class="button-right">
+          <span class="title-close"></span>
+        </div>
+      </div>
+      <dingdangxiangqing :order="this.ordersid"   ref="ordersid"></dingdangxiangqing>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="quxiaogaimi()">取 消</el-button>
+        <el-button type="primary" @click="gaimima()">确认</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+  import Dingdanxiangqing from "./dingdanxiangqing";
     export default {
+      components:{
+        dingdangxiangqing:Dingdanxiangqing,
+
+      },
         name: "alldingdan",
       data(){
           return{
@@ -66,7 +90,9 @@
             rows: 5,
             selectDate: {},
             username:sessionStorage.getItem('yonghuname'),
-            userid:""
+            userid:"",
+            addemploydialogFormVisible:false,
+            ordersid:""
           }
       },
       methods: {
@@ -104,10 +130,17 @@
           params.append("userid.userid",this.userid);
           this.$axios.post("/orders/querylike.action", params).then(function (result) {
             _this.tableData = result.data.rows;
+
             _this.total = result.data.total;
           }).catch(function (error) {
             alert(error)
           });
+        },
+        /*查看详情*/
+        xiangqing(row){
+          //alert(row.orderid)
+          this.ordersid=row.orderid
+          this.addemploydialogFormVisible = true;
         },
         pagechange(pageindex) { //页码变更时
           //console.log(pageindex)
@@ -120,6 +153,16 @@
         },
         rowClass() { //表格数据居中显示
           return "text-align:center"
+        },
+        addemployhandleClose(done) {
+          this.$confirm('确认关闭？')
+            .then(_ => {
+              this.addemploydialogFormVisible = false;
+              this.$refs.addemploychild.addemploy = {};
+              done();
+            })
+            .catch(_ => {
+            });
         },
 
       },

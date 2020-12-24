@@ -33,7 +33,7 @@
             </el-dropdown-item>
             <el-dropdown-item>我的地址</el-dropdown-item>
             <el-dropdown-item><router-link to="/personal">商户中心</router-link></el-dropdown-item>
-            <el-dropdown-item>登出</el-dropdown-item>
+            <el-dropdown-item><div @click="tuichu()">登出</div></el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <el-button size="mini" circle style="background-color: #F8F9FA; "><i class="el-icon-bell"></i></el-button>
@@ -253,8 +253,13 @@ export default {
   },
 
   methods: {
+    tuichu(){
+      sessionStorage.clear();
+      this.$router.push({path: '/back'})
+      window.location.reload();
+    },
     asdasd2(){
-      //alert(this.shouyeusername)
+      alert(this.shouyeusername)
       if(this.shouyeusername!=null){
         this.touxian=true
         //alert(shouyeusername)
@@ -289,7 +294,7 @@ export default {
       if (this.loading) {
         return;
       }
-      this.$confirm('确定要提交表单吗？')
+      this.$confirm('确认登录吗？')
         .then(_ => {
           this.loading = true;
           this.timer = setTimeout(() => {
@@ -333,6 +338,12 @@ export default {
     //alert(12312)
     this.asdasd2()
    // localStorage.getItem('state') && this.$store.replaceState(JSON.parse(localStorage.getItem('state')));
+  },
+  watch:{
+    shouyeusername:function (newVal,oldVal) {
+       this.asdasd2();
+
+    }
   }
 
 
