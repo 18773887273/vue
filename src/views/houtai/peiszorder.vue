@@ -160,7 +160,11 @@
         params.append("orderbianhao", this.query.orderbianhao)
         params.append("orderstate",4)
         params.append("rows", this.rows);
-        params.append("time",this.query.time)
+        var time=this.query.time;
+        if(time==null){
+          time=""
+        }
+        params.append("time",time)
         this.$axios.post("orders/querylikept.action", params).then(function (result) {
           _this.tableData = result.data.rows;
           _this.total = result.data.total;
