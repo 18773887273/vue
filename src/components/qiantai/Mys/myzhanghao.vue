@@ -20,8 +20,24 @@
         </el-form-item>
         </el-col>
         <el-button type="success" round  class="but1"  @click="xiugai()"   size="medium">修改信息</el-button>
-        <el-button type="warning" round  class="but2"   size="medium">更改密码</el-button>
+        <el-button type="warning" round  class="but2"  @click="addemploy()"  size="medium">更改密码</el-button>
       </el-form>
+
+        <!--修改密码模态框-->
+      <el-dialog :visible.sync="addemploydialogFormVisible" :before-close="addemployhandleClose">
+        <div slot="title" class="dialog-title">
+          <i class="el-icon-circle-plus-outline"></i>
+          <span class="title-text">修改密码</span>
+          <div class="button-right">
+            <span class="title-close"></span>
+          </div>
+        </div>
+        <mimaxiugai ref="addemploychild"></mimaxiugai>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="quxiaogaimi()">取 消</el-button>
+          <el-button type="primary" @click="gaimima()">确认</el-button>
+        </div>
+      </el-dialog>
     </div>
 </template>
   <script>
@@ -33,6 +49,7 @@
           },
           data() {
             return {
+              addemploydialogFormVisible: false,
               tableData:[],
               yonghuname: sessionStorage.getItem('yonghuname'),
             }
@@ -73,8 +90,59 @@
                 alert(error)
               });
             },
+            /*打开模态框*/
+            addemploy() {
+              //index 索引  row对象 修改该条记录对象
+              this.addemploydialogFormVisible = true;
+            },
+            addemployhandleClose(done) {
+              this.$confirm('确认关闭？')
+                .then(_ => {
+                  this.$refs.addemploychild.addemploy = {};
+                  done();
+                })
+                .catch(_ => {
+                });
+            },
+            /*取消修改密码*/
+            quxiaogaimi() {
+              this.addemploydialogFormVisible = false;
+              this.$refs.addemploychild.addemploy = {};
+            },
+            /*修改密码*/
             gaimima(){
+              alert(1111)
+              var addemploy = this.$refs.addemploychild.addemploy;
+              var _this = this;
+              var employs = new URLSearchParams();
+              employs.append("username", addemploy.username);
+              employs.append("userpass", addemploy.passworld);
+              alert(11112)
+              this.$axios.post("/user/xiugaimima.action", employs).then(function (result) {
+                      if(result.data==1){
+                        _this.$message({
+                          message:"修改成功",
+                          type: 'success'
+                        });
+                        sessionStorage.clear();
+                        _this.$router.push({path: '/back'})
+                        window.location.reload();
+                      }else{
+                        _this.$message({
+                          message: "修改失败",
+                          type: 'success'
+                        });
+                      }
 
+                })
+                .catch(function (error) {
+                  _this.$message({
+                    message: '添加失败',
+                    type: 'error'
+                  });
+                });
+              this.$refs.addemploychild.addemploy = {};
+              this.addemploydialogFormVisible = false;
             }
 
           },
