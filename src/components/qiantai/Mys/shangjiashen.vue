@@ -1,5 +1,7 @@
 <template>
   <div id="shangjiashen">
+    <!--未认证-->
+    <div v-if="!flag">
     <el-col :span="24" style="margin-top: 5px">
       <div class="grid-content bg-purple-dark"><h2>商家认证</h2></div>
     </el-col>
@@ -31,7 +33,41 @@
       </el-col>
       <el-button type="success" round  class="but1"  @click="shenqing()"   size="medium">确认申请</el-button>
     </el-form>
-
+    </div>
+    <!--审核中-->
+    <div v-if="flag">
+      <el-col :span="24" style="margin-top: 5px">
+        <div class="grid-content bg-purple-dark"><h2>商家认证</h2></div>
+      </el-col>
+      <el-form>
+        <el-col :span="12" style="margin-top: 5px">
+          <el-form-item label="姓名">
+            <el-input v-model="tableData.names" readonly="readonly"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12" style="margin-top: 5px">
+          <el-form-item label="身份证号码">
+            <el-input v-model="tableData.userID" readonly="readonly"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12" style="margin-top: 5px">
+          <el-form-item label="门店名">
+            <el-input v-model="tableData.storename"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12" style="margin-top: 5px">
+          <el-form-item label="门店联系方式">
+            <el-input v-model="tableData.storenumber"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24" style="margin-top: 5px">
+          <el-form-item label="门店地址">
+            <el-input v-model="tableData.shaddress"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-button type="success" round  class="but1" size="medium"  isabled>申请中</el-button>
+      </el-form>
+    </div>
   </div>
 </template>
 
@@ -52,6 +88,7 @@
             shaddress:''
           },
           yonghuname: sessionStorage.getItem('yonghuname'),
+          flag:false
 
         }
       },
@@ -64,9 +101,23 @@
             emulateJSON: true
           }).then(function (result) {
            // alert(result.data.shname)
-            //alert(result.data.usercard)
+            //alert(result.data.useard)
+            if(result.data.shstate==2){
               _this.tableData.names = result.data.shname
               _this.tableData.userID = result.data.usercard
+              _this.tableData.storename = result.data.storename
+              _this.tableData.storenumber = result.data.storenumber
+              _this.tableData.shaddress = result.data.shaddress
+              _this.flag=true
+            }else{
+              _this.tableData.names = result.data.shname
+              _this.tableData.userID = result.data.usercard
+              _this.tableData.storename = result.data.storename
+              _this.tableData.storenumber = result.data.storenumber
+              _this.tableData.shaddress = result.data.shaddress
+
+            }
+
           }).catch(function (error) {
             alert(error)
   });
@@ -86,12 +137,12 @@
             // alert(result.data.shname)
             //alert(result.data.usercard)
             if(result.data.code=="1"){
-              this.$message({
+              _this.$message({
                 showClose: true,
                 message: '申请成功，待管理员审核！！'
               });
             }else{
-              this.$message({
+              _this.$message({
                 showClose: true,
                 message: '申请失败！！'
               });
