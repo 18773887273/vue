@@ -5,17 +5,17 @@
         <!-- 条件查询-->
         <el-form :inline="true" class="demo-form-inline">
           <el-form-item label="仓库名">
-            <el-input v-model="querywarehousename" placeholder=""></el-input>
+            <el-input v-model="querywarehousename" placeholder="" size="small"></el-input>
           </el-form-item>
           <el-form-item label="仓库地址">
-            <el-input v-model="querywarehouseaddress" placeholder=""></el-input>
+            <el-input v-model="querywarehouseaddress" placeholder="" size="small"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="querywarehouse()" plain>查询</el-button>
-            <el-button type="success" @click="addwarehouse()" plain>添加</el-button>
+            <el-button type="primary" @click="querywarehouse()" plain size="small">查询</el-button>
+            <el-button type="success" @click="addwarehouse()" plain size="small">添加</el-button>
           </el-form-item>
         </el-form>
-        <el-table :data="warehousetableData" style="width: 100%" :row-class-name="tableRowClassName" max-height="437px"
+        <el-table :data="warehousetableData" style="width: 100%" :row-class-name="tableRowClassName"
                   border :header-cell-style="headClass" :cell-style="rowClass">
           <el-table-column prop="wareid" label="编号">
           </el-table-column>
@@ -61,12 +61,12 @@
           </el-table-column>
           <el-table-column label="操作" width="260">
             <template slot-scope="scope">
-              <el-button type="success" @click="editwarehouse(scope.row)" plain circle>编辑</el-button>
+              <el-button type="success" @click="editwarehouse(scope.row)" plain circle size="small">编辑</el-button>
               <el-popconfirm title="确定删除这条记录吗？" @confirm="delwarehouse(scope.row)">
-                <el-button type="danger" slot="reference" plain circle>删除</el-button>
+                <el-button type="danger" slot="reference" plain circle size="small">删除</el-button>
               </el-popconfirm>
-              <el-button type="primary" plain circle @click="wareshopzhuanyi(scope.row)">转移</el-button>
-              <el-button type="info" plain circle @click="wareshoptuihuo(scope.row)">退货</el-button>
+              <el-button type="primary" plain circle @click="wareshopzhuanyi(scope.row)"size="small">转移</el-button>
+              <el-button type="info" plain circle @click="wareshoptuihuo(scope.row)" size="small">退货</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -131,12 +131,12 @@
                 </el-table-column>
                 <el-table-column prop="shopid.wareid" label="转移仓库" width="180">
                   <template slot-scope="scope">
-                    <el-select v-model="scope.row.shopid.wareid">
+                    <el-select v-model="scope.row.shopid.wareid" size="small">
                       <el-option :key="0" :label="xuanze"
                                  :value="0">
                       </el-option>
                       <el-option v-for="item in warehouseData" :key="item.wareid" :label="item.warename"
-                                 :value="item.wareid">
+                                 :value="item.wareid" size="small">
                       </el-option>
                     </el-select>
                   </template>
@@ -145,7 +145,7 @@
                 <el-table-column prop="shopid.number" label="转移数量" width="180">
                   <template slot-scope="scope">
                     <el-input-number style="width: 150px" v-model="scope.row.shopid.number" controls-position="right"
-                                     :min="0" :max="scope.row.shopcount"></el-input-number>
+                                     :min="0" :max="scope.row.shopcount" size="small"></el-input-number>
                   </template>
                 </el-table-column>
               </el-table>
@@ -184,10 +184,10 @@
                 </el-table-column>
                 <el-table-column prop="shopcount" label="库存">
                 </el-table-column>
-                <el-table-column prop="shopid.number" label="退货数量" width="180">
+                <el-table-column prop="shopid.number" label="退货数量"  width="180">
                   <template slot-scope="scope">
                     <el-input-number style="width: 150px" v-model="scope.row.shopid.number" controls-position="right"
-                                     :min="0" :max="scope.row.shopcount"></el-input-number>
+                                     :min="0" :max="scope.row.shopcount" size="small"></el-input-number>
                   </template>
                 </el-table-column>
               </el-table>
@@ -223,7 +223,7 @@
         multipleSelection: [],
         total: 1,
         page: 1,
-        rows: 6,
+        rows: 8,
         xuanze: "请选择",
         selectDate: {},
         querywarehousename: "",
@@ -334,7 +334,6 @@
             shopcount += this.multipleSelection[i].shopid.number + ",";
             wsshid += this.multipleSelection[i].wsshid + ",";
           }
-          // alert(shopid+"商品id"+"/n"+warehouseid+"转移仓库id"+"/n"+shopcount+"转移数量")
           var warehouses = new URLSearchParams();
           warehouses.append("shopid", shopid);
           warehouses.append("warehouseid", warehouseid);

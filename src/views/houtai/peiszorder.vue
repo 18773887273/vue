@@ -41,7 +41,7 @@
           <el-table-column prop="orderstate" label="订单状态" width="120">
             <template slot-scope="scope">
               <span v-if="scope.row.orderstate==1" style="color:blue">待付款</span>
-              <span v-if="scope.row.orderstate==2" style="color: #dc3545">待发货</span>
+              <span v-if="scope.row.orderstate==2" style="color: #dc3545">待出货</span>
               <span v-if="scope.row.orderstate==3" style="color: wheat">已取消</span>
               <span v-if="scope.row.orderstate==4" style="color: #39b6f0">配送中</span>
               <span v-if="scope.row.orderstate==5" style="color: #58cdd1">已配送，待提货</span>
@@ -61,10 +61,9 @@
           </el-table-column>
           <el-table-column prop="consigneeaddress" label="客户收货地址" width="350">
           </el-table-column>
-          <el-table-column label="操作" fixed="right" width="250">
+          <el-table-column label="操作" fixed="right" width="150">
             <template slot-scope="scope">
-              <el-button type="primary" @click="" plain>发货</el-button>
-              <el-button type="success" @click="" plain>订单详情</el-button>
+              <el-button type="success" @click="xiangqing(scope.row)" plain>订单详情</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -74,7 +73,19 @@
                        layout="total, prev, pager, next, jumper"
                        :total="total">
         </el-pagination>
-
+        <el-dialog title="订单详情" :visible.sync="orderxiangqingdialogTableVisible" style="width: 1550px">
+          <el-table :data="orderxqs" :header-cell-style="headClass" :cell-style="rowClass" :row-class-name="tableRowClassName" max-height="600px">
+            <el-table-column property="shopid.shopname" label="商品名称" width="150"></el-table-column>
+            <el-table-column prop="shopid.shopimg " label="图片">
+              <template slot-scope="scope">
+                <img :src="scope.row.shopid.shopimg" min-width="70"  height="50"/>
+              </template>
+            </el-table-column>
+            <el-table-column property="shopid.shopprice" label="商品单价" width="150"></el-table-column>
+            <el-table-column property="orderxqcount" label="购买数量"  width="150"></el-table-column>
+            <el-table-column property="orderxqmoney" label="商品总金额"  width="150"></el-table-column>
+          </el-table>
+        </el-dialog>
       </div>
     </el-col>
   </el-row>
@@ -122,11 +133,15 @@
         total: 1,
         page: 1,
         rows: 7,
-
+        orderxiangqingdialogTableVisible: false,
         username: sessionStorage.getItem('username')
       }
     },
     methods: {
+      xiangqing(row) {
+        this.orderxqs =row.orderxqs;
+        this.orderxiangqingdialogTableVisible = true;
+      },
       tableRowClassName({
                           row,
                           rowIndex
@@ -145,7 +160,7 @@
         params.append("orderbianhao", this.query.orderbianhao)
         params.append("orderstate",4)
         params.append("rows", this.rows);
-
+        params.append("time",this.query.time)
         this.$axios.post("orders/querylikept.action", params).then(function (result) {
           _this.tableData = result.data.rows;
           _this.total = result.data.total;

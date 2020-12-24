@@ -4,15 +4,13 @@
       <div id="app">
         <el-form  :inline="true" class="demo-form-inline">
           <el-form-item label="商品名">
-            <el-input v-model="queryshopname" style="width: 400px;"></el-input>
-            <el-button type="primary" plain @click="getData()">查询</el-button>
-            <el-button type="primary" plain @click="addcaigou()">采购</el-button>
+            <el-input v-model="queryshopname" style="width: 400px;" size="small"></el-input>
+            <el-button type="primary" plain @click="getData()" size="small">查询</el-button>
+            <el-button type="primary" plain @click="addcaigou()" size="small">采购</el-button>
           </el-form-item>
         </el-form>
         <el-table :data="tableData" stripe style="width: 100%" border
-                  :header-cell-style="headClass" :cell-style="rowClass" :row-class-name="tableRowClassName"
-
-                  max-height="500"  border ref="multipleTable"
+                  :header-cell-style="headClass" :cell-style="rowClass" :row-class-name="tableRowClassName" border ref="multipleTable"
                   @selection-change="changeFun"
         >
           <el-table-column
@@ -40,7 +38,7 @@
           </el-table-column>
           <el-table-column prop="wareid" label="进货仓库" width="180">
             <template slot-scope="scope">
-              <el-select v-model="scope.row.wareid">
+              <el-select v-model="scope.row.wareid" size="small">
                 <el-option :key="0" :label="xuanze"
                            :value="0">
                 </el-option>
@@ -53,7 +51,7 @@
           <el-table-column prop="number" label="采购数量" width="180">
             <template slot-scope="scope">
               <el-input-number style="width: 150px" v-model="scope.row.number" controls-position="right"
-                               :min="0"></el-input-number>
+                               :min="0" size="small"></el-input-number>
             </template>
           </el-table-column>
         </el-table>
@@ -91,7 +89,7 @@
         addshopdialogFormVisible: false,
         total: 1,
         page: 1,
-        rows:6,
+        rows:8,
         minprice: 0,
         maxprice: 1000000,
         multipleSelection:"",
