@@ -1,11 +1,10 @@
 <template>
   <div>
     <el-row :gutter="20">
-      <el-col :span="14" :offset="3">
+      <el-col :span="14" :offset="2">
         <div class="grid-content">
-          <div id="jiesuan-title-btn" class="jiesuan-title-div-off" @click="openAndClose"><span class="jiesuan-title-p">购物车</span>
+          <div id="jiesuan-title-btn" class="jiesuan-title-div-off" @click="openAndClose"><span>购物车</span>
           </div>
-
           <div id="box" class="box-off">
             <el-divider></el-divider>
             <div v-for="item of items" :key="item">
@@ -26,9 +25,10 @@
                       <del style="color: #28a745;font-size:13px;">￥1.20斤</del>
                       <span style="color: #6c757d;font-size:13px;">￥{{ item.shopid.shopprice }}斤</span><br>
                       <div style="font-size:20px;margin-top: 8px">￥{{
-                         chenNum(item.number,item.shopid.shopprice)
-
-                        }}</div><br><br>
+                          chenNum(item.number, item.shopid.shopprice)
+                        }}
+                      </div>
+                      <br><br>
                     </div>
                   </div>
                 </el-col>
@@ -45,7 +45,27 @@
                 </el-col>
               </el-row>
               <el-divider style="margin-top: -10px"></el-divider>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div id="jiesuan-body-btn" class="jiesuan-body-div-off" @click="openAndClosebody"><span>订单地址</span>
+          </div>
+          <div id="jiesuan-body-box" class="jiesuan-body-box-off">
+            <div v-for="addr of address" :key="addr">
+              <el-row :gutter="20">
+                <el-col :span="10":offset="1">
+                  <el-card style="border: 1px solid #28A745;" :body-style="{ padding: '0px' }" shadow="hover">
+                    <div style="padding: 14px;">
+                      <div class="font-class">{{addr.nicheng}}</div>
+                      <div class="bottom clearfix">
 
+                        <div style="margin-top: 10px" class="font-class">{{addr.shid.storename}}</div>
+                      </div>
+                    </div>
+                  </el-card>
+                </el-col>
+              </el-row>
             </div>
           </div>
         </div>
@@ -84,18 +104,14 @@
               <a style="font-size: 20px;color: #212529">支付</a>
               <span
                 style="font-size: 20px;color: #dc3545;margin-left: 150px">￥ {{
-                this.accSub(this.numberprice, this.chenNum(this.numberprice, (this.huiyuanzhekou / 100)))
+                  this.accSub(this.numberprice, this.chenNum(this.numberprice, (this.huiyuanzhekou / 100)))
                 }}</span>
             </el-col>
           </el-row>
         </div>
         <el-button @click="jiesuan" style="margin-top: 12px;width: 308px" type="success" round>结算</el-button>
-      </el-col >
-
-      <el-col>
-        <div id="jiesuan-zhifu-btn" class="jiesuan-zhifu-div-off" @click=""><span>购物车</span>
-        </div>
       </el-col>
+
     </el-row>
 
 
@@ -109,14 +125,12 @@ export default {
       huiyuan: sessionStorage.getItem('hyname'),
       huiyuanzhekou: sessionStorage.getItem('hyzhekou'),
       items: [],
+      address: [],
       numberprice: 0,
-      sumprice:0,
+      sumprice: 0,
     };
   },
   methods: {
-    handleChange(val) {
-
-    },
     getData(func) { //获取数据方法
       var _this = this;
       var params = new URLSearchParams();
@@ -135,41 +149,81 @@ export default {
         alert(error)
       });
     },
+    getAddress() {
+      var _this = this;
+      var params = new URLSearchParams();
+      var userid = sessionStorage.getItem('yonghuid')
+      params.append("userid", userid)
+      this.$axios.post("shopcardaddress/queryByuserid.action", params).then(function (result) {
+        _this.address = result.data;
+        console.log(_this.address)
+        // alert(result.data[0].shopputid)
+        func && func();
+      }).catch(function (error) {
+        alert(error)
+      });
+    },
     jiesuan() {
       /*sessionStorage.setItem("carditems", this.items)
       sessionStorage.setItem("numberprice", this.numberprice)
       this.$router.push("/Jiesuan")*/
     },
     openAndClose() {
-
-      let divheight=153;
-
-      /*for (let item of this.items){
-        divheight = divheight + 153;
-      }*/
-      let as = divheight*this.items.length;
+      let divheight = 153;
+      let as = 0;
+      if (this.items.length > 1) {
+        as = (divheight * this.items.length) - 75;
+      } else if (this.items.length == 1) {
+        as = divheight * this.items.length;
+      }
       let el = document.getElementById("box");
       let dl = document.getElementById("jiesuan-title-btn");
-      let zl = document.getElementById("jiesuan-zhifu-btn");
       if (window.getComputedStyle(el).height == "0px") {
         // mac Safari下，貌似auto也会触发transition, 故要none下~
         el.style.transition = "none";
         el.style.height = "auto";
         el.style.transition = "height 600ms"
-        el.style.height = ""+as+"px";
-        el.style.maxHeight = ""+as+"px";
-        el.style.height = ""+as+"px";
-
+        el.style.height = "" + as + "px";
+        el.style.maxHeight = "" + as + "px";
+        el.style.height = "" + as + "px";
         dl.className = 'jiesuan-title-div-oppen'
-
         el.className = 'box-oppen'
       } else {
         el.style.height = "0px";
         setTimeout(() => {
-
           dl.className = 'jiesuan-title-div-off'
           el.className = 'box-off'
-        }, 600);
+        }, 500);
+      }
+    },
+
+
+    openAndClosebody() {
+      let divheight = 153;
+      let as = 200;
+      /*  if (this.address.length>1){
+          as = (divheight * this.items.length)-75;
+        }else if (this.address.length == 1) {
+          as = divheight * this.address.length;
+        }*/
+      let el = document.getElementById("jiesuan-body-box");
+      let dl = document.getElementById("jiesuan-body-btn");
+      if (window.getComputedStyle(el).height == "0px") {
+        // mac Safari下，貌似auto也会触发transition, 故要none下~
+        el.style.transition = "none";
+        el.style.height = "auto";
+        el.style.transition = "height 600ms"
+        el.style.height = "" + as + "px";
+        el.style.maxHeight = "" + as + "px";
+        el.style.height = "" + as + "px";
+        dl.className = 'jiesuan-body-div-oppen'
+        el.className = 'jiesuan-body-box-oppen'
+      } else {
+        el.style.height = "0px";
+        setTimeout(() => {
+          dl.className = 'jiesuan-body-div-off'
+          el.className = 'jiesuan-body-box-off'
+        }, 500);
 
       }
     },
@@ -204,14 +258,12 @@ export default {
       var curr_l, next_l, m, c;
       try {
         curr_l = curr.toString().split(".")[1].length;
-      }
-      catch (e) {
+      } catch (e) {
         curr_l = 0;
       }
       try {
         next_l = next.toString().split(".")[1].length;
-      }
-      catch (e) {
+      } catch (e) {
         next_l = 0;
       }
       c = Math.abs(curr_l - next_l);
@@ -229,12 +281,13 @@ export default {
         curr = Number(curr.toString().replace(".", ""));
         next = Number(next.toString().replace(".", ""));
       }
-      return (curr- next) / m;
+      return (curr - next) / m;
     },
 
   },
   created() {
     this.getData();
+    this.getAddress();
   }
 }
 </script>
@@ -258,6 +311,7 @@ export default {
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
 }
+
 .box-off {
   background: white;
   overflow: hidden;
@@ -265,7 +319,7 @@ export default {
   max-width: 720px;
 }
 
-.jia-div-btn{
+.jia-div-btn {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -302,7 +356,7 @@ export default {
   background: white;
 }
 
-.jiesuan-zhifu-div-off {
+.jiesuan-body-div-off {
   padding-top: 20px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -313,12 +367,11 @@ export default {
   width: 720px;
   height: 45px;
   background: white;
-  z-index: 9999;
-  position: absolute ! important;
-  left:  174px; top: 100px;
+  margin-top: 5px;
 }
 
-.jiesuan-zhifu-div-oppen{
+.jiesuan-body-div-oppen {
+  margin-top: 5px;
   padding-top: 20px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -326,5 +379,27 @@ export default {
   width: 720px;
   height: 45px;
   background: white;
+}
+
+.jiesuan-body-box-off {
+  background: white;
+  overflow: hidden;
+  max-height: 0px;
+  max-width: 720px;
+}
+
+.jiesuan-body-box-oppen {
+  background: white;
+  overflow: hidden;
+  max-height: 0px;
+  max-width: 720px;
+  border-bottom: 3px solid #28A745;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.font-class{
+  color: #28A745;
+  font-size: 16px;
 }
 </style>
