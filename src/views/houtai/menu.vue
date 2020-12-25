@@ -68,6 +68,7 @@
   import Xbbaobiao from "./xbbaobiao";
   import Churukubaobiao from "./churukubaobiao";
   import Caiwubaobiao from "./caiwubaobiao";
+  import Shshenhe from "./shshenhe";
   /*订单管理*/
   import Allorders from '../../views/houtai/allorder.vue'
   import Daipeisong from '../../views/houtai/daipsorder.vue'
@@ -90,7 +91,8 @@
       shanghulist:Shanghulist,
       xbbaobiao:Xbbaobiao,
       caiwubaobiao:Caiwubaobiao,
-      churukubaobiao:Churukubaobiao
+      churukubaobiao:Churukubaobiao,
+      shshenhe:Shshenhe
     },
     data() {
       return {
