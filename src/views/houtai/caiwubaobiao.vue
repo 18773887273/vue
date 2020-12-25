@@ -1,65 +1,86 @@
 <template>
-  <div id="cai" :style="{width: '600px', height: '450px'}"></div>
+  <div id="chu" :style="{width: '600px', height: '450px'}"></div>
 </template>
 
 <script>
-  // 引入基本模板
-  let echarts = require('echarts/lib/echarts')
-  // 引入柱状图组件
-  require('echarts/lib/chart/bar')
-  // 引入提示框和title组件
-  require('echarts/lib/component/tooltip')
-  require('echarts/lib/component/title')
-    export default {
-        name: "caiwubaobiao",
-
-      data () {
-        return {
-          msg: '财务明细'
-        }
-      },
-      methods: {
-        drawLine () {
-          var echarts = require('echarts');
-          var myChart = echarts.init(document.getElementById('cai'));
-          myChart.setOption({
-            tooltip: {
-              trigger: 'item',
-              formatter: '{a} <br/>{b} : {c} ({d}%)'
+  export default {
+    name: "churukubaobiao",
+    data () {
+      return {
+        msg: '出入库明细'
+      }
+    },
+    methods: {
+      drawLine () {
+        var echarts = require('echarts');
+        var myChart = echarts.init(document.getElementById('chu'));
+        myChart.setOption({
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+              type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+          },
+          legend: {
+            data: ['利润', '支出', '收入']
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: [
+            {
+              type: 'value'
+            }
+          ],
+          yAxis: [
+            {
+              type: 'category',
+              axisTick: {
+                show: false
+              },
+              data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            }
+          ],
+          series: [
+            {
+              name: '利润',
+              type: 'bar',
+              label: {
+                show: true,
+                position: 'inside'
+              },
+              data: [200, 170, 240, 244, 200, 220, 210]
             },
-            legend: {
-              orient: 'vertical',
-              left: 'left',
-              data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+            {
+              name: '收入',
+              type: 'bar',
+              stack: '总量',
+              label: {
+                show: true
+              },
+              data: [320, 302, 341, 374, 390, 450, 420]
             },
-            series: [
-              {
-                name: '访问来源',
-                type: 'pie',
-                radius: '55%',
-                center: ['50%', '60%'],
-                data: [
-                  {value: 335, name: '直接访问'},
-                  {value: 310, name: '邮件营销'},
-                  {value: 234, name: '联盟广告'},
-                  {value: 135, name: '视频广告'},
-                  {value: 1548, name: '搜索引擎'}
-                ],
-                emphasis: {
-                  itemStyle: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                  }
-                }
-              }]
-          });
-        }
-      },
-      mounted () {
-        this.drawLine();
-      },
-    }
+            {
+              name: '支出',
+              type: 'bar',
+              stack: '总量',
+              label: {
+                show: true,
+                position: 'left'
+              },
+              data: [-120, -132, -101, -134, -190, -230, -210]
+            }
+          ]
+        });
+      }
+    },
+    mounted () {
+      this.drawLine();
+    },
+  }
 </script>
 
 <style scoped>
