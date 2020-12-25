@@ -3,7 +3,7 @@
     <el-col :span="21"  :offset="1">
       <div id="banner">
         <div style="width:1093px;margin-left: 0px ">
-          <hooper itemsToShow="3" :infiniteScroll="true">
+          <hooper :itemsToShow="3" :infiniteScroll="true">
             <slide>
               <img class="main_body_commodityImg" :src="image1" width="344px" height="168px"/>
             </slide>

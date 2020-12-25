@@ -30,7 +30,7 @@
             <el-col>
               <div style="margin-top: 20px;margin-left: 20px">
                 <a class="a-color" style="font-size:27px;">{{ items.shopid.shopname }}</a><br><br>
-                <a class="a-color" style="font-size:18px;">产品价格: ￥{{ items.shopid.shopprice }}</a><br><br>
+                <a class="a-color" style="font-size:18px;">产品价格 : ￥{{chenNum(items.shopputprice,(items.shopzhe/10))}}</a><br><br>
                 <div>
                   <el-rate
                     value="5"
@@ -98,12 +98,24 @@ export default {
         alert(error)
       });
     },
+    chenNum(curr, next) {
+      let m = 0, s1 = curr.toString(), s2 = next.toString();
+      try {
+        m += s1.split(".")[1].length
+      } catch (e) {
+      }
+      try {
+        m += s2.split(".")[1].length
+      } catch (e) {
+      }
+      return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+    },
     checkgouwu(){
       var _this = this;
       var params = new URLSearchParams();
       var shopid = _this.items.shopid.shopid;
       var userid = sessionStorage.getItem("yonghuid");
-      params.append("shopid.shopid", shopid);
+      params.append("shopputid.shopid.shopid", shopid);
       params.append("userid.userid", userid);
       if (userid == '' || userid == null){
         this.$message('请先登录');
@@ -127,12 +139,12 @@ export default {
     addgouwu() {
       var _this = this;
       var params = new URLSearchParams();
-      var shopid = _this.items.shopid.shopid;
+      var shopid = _this.items.shopputid;
       var userid = sessionStorage.getItem("yonghuid");
       var number = 1;
-      var price = _this.items.shopid.shopprice;
-
-      params.append("shopid.shopid", shopid);
+      var price = _this.chenNum(_this.items.shopputprice,(_this.items.shopzhe/10));
+      alert(shopid)
+      params.append("shopid.shopputid", shopid);
       params.append("userid.userid", userid)
       params.append("number", number)
       params.append("price", price)
@@ -149,7 +161,7 @@ export default {
       var params = new URLSearchParams();
 
       var number = 1;
-      var price = _this.items.shopid.shopprice;
+      var price = _this.chenNum(_this.items.shopputprice,(_this.items.shopzhe/10));
 
       params.append("shopgwid", shopgwid);
       params.append("number", number)
