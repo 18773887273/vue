@@ -61,6 +61,7 @@ import Yipeisong from '../views/houtai/yipsorder.vue'
 import Shopcard from "../components/qiantai/shouyetype/jiezhangliucheng/shopcard";
 import Jiesuan from "../components/qiantai/shouyetype/jiezhangliucheng/jiesuan";
 import Shshenhe from "../views/houtai/shshenhe";
+import Mendianweihu from "../components/shanghu/maintain/mendianweihu";
 /**
  * 这里的嵌套路由不需要加上父级路由地址,后面的处理器会自动加上
  */
@@ -238,6 +239,10 @@ const routes = [
       {
         path: '/orders',
         component: Orders,
+      },
+      {
+        path: '/mendianweihu',
+        component: Mendianweihu,
       }]
   },
   {

@@ -13,7 +13,7 @@
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-postcard"></i>资料维护</template>
         <router-link to="personal"><el-menu-item index="personal">个人资料维护</el-menu-item></router-link>
-        <el-menu-item index="2-2">门店资料维护</el-menu-item>
+        <el-menu-item to="mendianweihu" index="mendianweihu">门店资料维护</el-menu-item>
       </el-submenu>
       <router-link to="orders"><el-menu-item index="orders" style="float: left"><i class="el-icon-sell"></i>订单管理</el-menu-item></router-link>
       <el-menu-item index="3"><i class="el-icon-s-data"></i>统计营收</el-menu-item>
@@ -37,11 +37,13 @@
 <script>
     import Personal from '../../components/shanghu/maintain/personal'
     import Orders from '../../components/shanghu/orders/orders'
+    import Mendianweihu from "../../components/shanghu/maintain/mendianweihu";
     export default {
         name: "shmenu.vue",
       comments:{
           personal:Personal,
-          orders:Orders
+          orders:Orders,
+          mendianweihu:Mendianweihu
       },
       data() {
         return {
