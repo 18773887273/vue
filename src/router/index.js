@@ -29,6 +29,7 @@ import  Role from '../views/houtai/rolelist'
 import Xbbaobiao from "../views/houtai/xbbaobiao";
 import Caiwubaobiao from "../views/houtai/caiwubaobiao";
 import Churukubaobiao from "../views/houtai/churukubaobiao";
+import Shshenhe from "../views/houtai/shshenhe";
 
 import  Shoptype from '../views/houtai/shoptylist.vue'
 import  Addshopty from '../components/houtai/shopty/addshopty'
@@ -61,7 +62,6 @@ import Yipeisong from '../views/houtai/yipsorder.vue'
 import Shopcard from "../components/qiantai/shouyetype/jiezhangliucheng/shopcard";
 import Jiesuan from "../components/qiantai/shouyetype/jiezhangliucheng/jiesuan";
 import Shouyequery from "../components/qiantai/shouyetype/shouyequery";
-import Shshenhe from "../views/houtai/shshenhe";
 /**
  * 这里的嵌套路由不需要加上父级路由地址,后面的处理器会自动加上
  */
@@ -124,6 +124,10 @@ const routes = [
       {path:'/shanghulist',
         component: Shanghulist
       },
+      {
+        path: '/shshenhe',
+        component: Shshenhe
+      },
       {path:'/xbbaobiao',
         component: Xbbaobiao
       },{
@@ -179,6 +183,10 @@ const routes = [
       {
         path: '/Jiesuan',
         component: Jiesuan
+      },
+      {
+        path: '/shouyequery',
+        component: Shouyequery
       },
       {
         path: '/mys',
