@@ -9,13 +9,13 @@
           <div class="grid-content bg-purple">
             <hooper style="height: 350px" :progress="true" :autoPlay="true" :playSpeed="2000">
               <slide>
-                <img :src="image2" width="547px" height="350px"/>
+                <img :src="images[0]" width="547px" height="350px"/>
               </slide>
               <slide>
-                <img :src="image3" width="547px" height="350px"/>
+                <img :src="images[1]" width="547px" height="350px"/>
               </slide>
               <slide>
-                <img :src="image4" width="547px" height="350px"/>
+                <img :src="images[2]" width="547px" height="350px"/>
               </slide>
               <hooper-pagination slot="hooper-addons"></hooper-pagination>
             </hooper>
@@ -82,6 +82,7 @@ export default {
       image2: require("../../../../images/qianduan/lunbo/lunbo1.jpg"),
       image3: require("../../../../images/qianduan/lunbo/lunbo2.jpg"),
       image4: require("../../../../images/qianduan/lunbo/lunbo3.jpg"),
+      images:[],
     }
   },
   methods: {
@@ -92,7 +93,12 @@ export default {
       params.append("shopid.shopid", shopid)
       this.$axios.post("shopput/querylike.action", params).then(function (result) {
         _this.items = result.data[0];
-        // alert(result.data[0].shopputid)
+        // alert(result.data[0].shopputid)l
+        console.log(_this.items)
+        for(let img of _this.items.shopid.shopxqs){
+          _this.images.push(img.shopimg)
+        }
+        console.log(_this.images)
         func && func();
       }).catch(function (error) {
         alert(error)

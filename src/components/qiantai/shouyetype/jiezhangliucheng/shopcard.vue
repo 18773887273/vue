@@ -65,13 +65,15 @@
             class="el-icon-circle-plus el-icon--left"></i>添加新的收货地址</a>
           </div>
           <div id="jiesuan-body-box" class="jiesuan-body-box-off">
-            <div v-for="addr of address">
-              <el-row :gutter="20">
+            <el-row :gutter="20">
+              <div v-for="addr of address">
                 <el-col :span="10" :offset="1">
-                  <el-card style="border: 1px solid #28A745;" :body-style="{ padding: '0px' }" shadow="hover">
-                    <div style="padding: 14px;">
-                      <div class="font-class">地址备注：{{ addr.nicheng }}
-                        <el-tag size="mini" style="margin-left: 84px" type="success">默认<i class="el-icon-success"></i>
+                  <el-card style="border: 1px solid #28A745; margin-top: 10px" :body-style="{ padding: '0px' }"
+                           shadow="hover">
+                    <div style="padding: 14px;" v-on:click="addrClick(addr.addressid)">
+                      <div class="font-class">昵称：{{ addr.nicheng }}
+                        <el-tag v-if="addr.delivery" size="mini" style="margin-left: 84px" type="success">默认<i
+                          class="el-icon-success"></i>
                         </el-tag>
                       </div>
                       <div class="bottom clearfix">
@@ -83,12 +85,45 @@
                     </div>
                   </el-card>
                 </el-col>
-              </el-row>
-            </div>
+              </div>
+            </el-row>
           </div>
         </div>
         <div>
-          <div id="jiesuan-bottem-btn" class="jiesuan-bottem-div-off" @click=""><span>付款</span>
+          <div id="jiesuan-bottem-btn" class="jiesuan-bottem-div-off" @click="openAndCloseBotten"><span>付款</span>
+          </div>
+          <div id="jiesuan-bottem-box" class="jiesuan-bottem-box-off">
+            <div>
+              <el-row :gutter="20">
+                <el-col :span="6" class="title-jiesuan"> 订单号</el-col>
+                <el-col :span="8">
+                  <el-input readonly class="input-jiesuan" type="text" v-model="tradeno"></el-input>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="6" class="title-jiesuan"> 支付金额</el-col>
+                <el-col :span="8">
+                  <el-input readonly class="input-jiesuan" type="text" v-model="this.zhifus.ordermoney"></el-input>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="6" class="title-jiesuan">订单名称</el-col>
+                <el-col :span="8">
+                  <el-input readonly class="input-jiesuan" type="text" v-model="tradename"></el-input>
+                </el-col>
+              </el-row>
+              <br>
+
+              <el-button @click="pay" class="butten-jiesuan" type="success" round>结算</el-button>
+
+              <!-- 添加模态框-->
+              <el-dialog id="paydialog" title="支付" :visible.sync="dialogFormVisible">
+                <div id="mydiv">
+
+                </div>
+              </el-dialog>
+
+            </div>
           </div>
         </div>
       </el-col>
@@ -100,8 +135,8 @@
                          src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"></el-avatar>
             </el-col>
             <el-col :span="18" style="margin-top: 20px ">
-              <a>大阪府新鲜商店</a><br>
-              <a style="font-size: 10px">2036 2ND AVE，纽约，纽约10029</a>
+              <a>小跳新鲜商店</a><br>
+              <a style="font-size: 10px">2020 2ND AVE，长沙，岳麓10029</a>
             </el-col>
             <el-col :span="24">
               <el-divider></el-divider>
@@ -116,7 +151,7 @@
               <br>
               <span style="font-size: 16px;color: #28a745;">总折扣</span>
               <span style="color: #28a745;margin-left: 159px;font-size: 16px">￥ {{
-                  this.chenNum(this.numberprice, (this.huiyuanzhekou / 100))
+                  this.zhifus.youhuiprice = this.chenNum(this.numberprice, (this.huiyuanzhekou / 100))
                 }}</span><br>
             </el-col>
             <el-col :span="24">
@@ -126,12 +161,12 @@
               <a style="font-size: 20px;color: #212529">支付</a>
               <span
                 style="font-size: 20px;color: #dc3545;margin-left: 150px">￥ {{
-                  this.accSub(this.numberprice, this.chenNum(this.numberprice, (this.huiyuanzhekou / 100)))
+                  this.zhifus.ordermoney = this.accSub(this.numberprice, this.chenNum(this.numberprice, (this.huiyuanzhekou / 100)))
                 }}</span>
             </el-col>
           </el-row>
         </div>
-        <el-button @click="jiesuan" style="margin-top: 12px;width: 308px" type="success" round>结算</el-button>
+
       </el-col>
       <el-dialog
         title="添加收货地址"
@@ -139,20 +174,20 @@
         width="30%"
       >
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-          <el-form-item label="交货地址" prop="dizhi">
-            <el-select v-model="ruleForm.dizhi" placeholder="请选择活动区域">
+          <el-form-item label="提货地址" prop="dizhi">
+            <el-select filterable v-model="ruleForm.dizhi" placeholder="请选择提货地址">
               <el-option v-for="item in stroename" :label="item.storename" :value="item.userid">
               </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="联系电话" prop="telephone">
-            <el-input v-model="ruleForm.telephone"></el-input>
+            <el-input v-model="ruleForm.telephone" placeholder="联系电话"></el-input>
           </el-form-item>
           <el-form-item label="地址备注" prop="beizhu">
-            <el-input v-model="ruleForm.beizhu"></el-input>
+            <el-input v-model="ruleForm.beizhu" placeholder="地址备注"></el-input>
           </el-form-item>
           <el-form-item label="昵称" prop="nicheng">
-            <el-input v-model="ruleForm.nicheng"></el-input>
+            <el-input v-model="ruleForm.nicheng" placeholder="昵称"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
@@ -179,32 +214,49 @@ export default {
       address: [],
       numberprice: 0,
       sumprice: 0,
-      stroename:[],
+      addrflag: false,
+      addrflag2: false,
+      stroename: [],
       ruleForm: {
         dizhi: '',
-        telephone:'',
+        telephone: '',
         beizhu: '',
         delivery: false,
         nicheng: ''
       },
       rules: {
         telephone: [
-          { required: true, message: '请输入联系电话', trigger: 'blur' },
-          { min: 11, max: 11, message: '请输入联系电话', trigger: 'blur' }
+          {required: true, message: '请输入联系电话', trigger: 'blur'},
+          {min: 11, max: 11, message: '请输入联系电话', trigger: 'blur'}
         ],
         beizhu: [
-          { required: true, message: '请填写备注信息', trigger: 'blur' },
+          {required: true, message: '请填写备注信息', trigger: 'blur'},
         ],
         dizhi: [
-          { required: true, message: '请选择配送地址', trigger: 'change' }
+          {required: true, message: '请选择配送地址', trigger: 'change'}
         ],
         nicheng: [
-          { required: true, message: '请选择昵称', trigger: 'blur' },
-          { min: 1, max: 8, message: '昵称 1 到 8 个文字', trigger: 'blur' }
+          {required: true, message: '请选择昵称', trigger: 'blur'},
+          {min: 1, max: 8, message: '昵称 1 到 8 个文字', trigger: 'blur'}
         ],
 
-      }
+      },
+      tradeno: "",
+      price: "",
+      tradename: "",
+      dialogFormVisible: false,
 
+      zhifus: {
+        userid: sessionStorage.getItem('yonghuid'),
+        shid: '',
+        ordercount: 0,
+        ordermoney: 0,
+        orderbianhao: '',
+        consigneename: '',
+        consigneenumber: '',
+        consigneeaddress: '',
+        youhuiprice: 0
+      },
     };
   },
   methods: {
@@ -217,7 +269,7 @@ export default {
         _this.items = result.data;
         for (let item of _this.items) {
           _this.numberprice = _this.addNum(_this.numberprice, item.price);
-
+          _this.zhifus.ordercount = _this.zhifus.ordercount + item.number;
         }
         console.log(_this.items)
       }).catch(function (error) {
@@ -230,16 +282,22 @@ export default {
       params.append("userid", userid)
       this.$axios.post("shopcardaddress/queryByuserid.action", params).then(function (result) {
         _this.address = result.data;
+        for (let addrs of _this.address) {
+          if (addrs.delivery == true) {
+            _this.zhifus.shid = addrs.shid.userid;
+            _this.zhifus.consigneename = addrs.nicheng;
+            _this.zhifus.consigneenumber = addrs.telephone;
+            _this.zhifus.consigneeaddress = addrs.beizhu;
+          }
+
+        }
+        console.log(_this.zhifus)
         console.log(_this.address)
       }).catch(function (error) {
         alert(error)
       });
     },
-    jiesuan() {
-      /*sessionStorage.setItem("carditems", this.items)
-      sessionStorage.setItem("numberprice", this.numberprice)
-      this.$router.push("/Jiesuan")*/
-    },
+
     openAndClose() {
       let divheight = 153;
       let as = 0;
@@ -270,13 +328,13 @@ export default {
     },
 
     openAndClosebody() {
-      let divheight = 153;
-      let as = 200;
-      /*  if (this.address.length>1){
-          as = (divheight * this.items.length)-75;
-        }else if (this.address.length == 1) {
-          as = divheight * this.address.length;
-        }*/
+      let divheight = 167;
+      let as = 0;
+      if (this.address.length > 2) {
+        as = divheight * this.address.length;
+      } else if (this.address.length <= 2) {
+        as = divheight+20;
+      }
       let el = document.getElementById("jiesuan-body-box");
       let dl = document.getElementById("jiesuan-body-btn");
       if (window.getComputedStyle(el).height == "0px") {
@@ -294,6 +352,36 @@ export default {
         setTimeout(() => {
           dl.className = 'jiesuan-body-div-off'
           el.className = 'jiesuan-body-box-off'
+        }, 500);
+
+      }
+    },
+
+    openAndCloseBotten() {
+      let divheight = 163;
+      let as = 400;
+      /*if (this.address.length>1){
+        as = divheight * this.items.length;
+      }else if (this.address.length == 1) {
+        as = divheight * this.address.length;
+      }*/
+      let el = document.getElementById("jiesuan-bottem-box");
+      let dl = document.getElementById("jiesuan-bottem-btn");
+      if (window.getComputedStyle(el).height == "0px") {
+        // mac Safari下，貌似auto也会触发transition, 故要none下~
+        el.style.transition = "none";
+        el.style.height = "auto";
+        el.style.transition = "height 600ms"
+        el.style.height = "" + as + "px";
+        el.style.maxHeight = "" + as + "px";
+        el.style.height = "" + as + "px";
+        dl.className = 'jiesuan-bottem-div-oppen'
+        el.className = 'jiesuan-bottem-box-oppen'
+      } else {
+        el.style.height = "0px";
+        setTimeout(() => {
+          dl.className = 'jiesuan-bottem-div-off'
+          el.className = 'jiesuan-bottem-box-off'
         }, 500);
 
       }
@@ -398,7 +486,6 @@ export default {
     },
 
     addAddress() {
-      this.$message("打开")
       this.centerDialogVisible = true;
       this.getStroename();
     },
@@ -415,7 +502,29 @@ export default {
     submitForm(formName) {//添加收货地址
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
+          let _this = this;
+          let params = new URLSearchParams();
+          let userid = sessionStorage.getItem('yonghuid')
+          let shid = this.ruleForm.dizhi;
+          let beizhu = this.ruleForm.beizhu;
+          let telephone = this.ruleForm.telephone;
+          let nicheng = this.ruleForm.nicheng;
+          params.append("userid.userid", userid);
+          params.append("shid.userid", shid);
+          params.append("beizhu", decodeURI(encodeURI(beizhu)));
+          params.append("telephone", telephone);
+          params.append("nicheng", decodeURI(encodeURI(nicheng)));
+          this.$axios.post("shopcardaddress/insertAddress.action", params).then(function (result) {
+            _this.$message({
+              message: result.data.msg,
+              type: 'success'
+            });
+            _this.getAddress()
+
+          }).catch(function (error) {
+            alert("错误信息：" + error)
+          });
+
         } else {
           console.log('error submit!!');
           return false;
@@ -424,17 +533,128 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
+    },
+    clearDel(addrid) {
+      let _this = this;
+      let params = new URLSearchParams();
+      let userid = sessionStorage.getItem('yonghuid')
+      params.append("userid.userid", userid);
+      /* alert(params)*/
+      this.$axios.post("shopcardaddress/clearDel.action", params).then(function (result) {
+        /*_this.$message({
+          message: result.data.msg,
+          type: 'success'
+        });*/
+        _this.setDel(addrid)
+
+      }).catch(function (error) {
+        alert("错误信息：" + error)
+      });
+    },
+    setDel(addressida) {
+      let _this = this;
+      let params = new URLSearchParams();
+      let addressid = addressida;
+      params.append("addressid", addressid);
+      this.$axios.post("shopcardaddress/setDel.action", params).then(function (result) {
+        _this.$message({
+          message: result.data.msg,
+          type: 'success'
+        });
+        _this.getAddress()
+
+
+      }).catch(function (error) {
+        alert("错误信息：" + error)
+      });
+    },
+    addrClick(addrid) {
+      this.clearDel(addrid);
+    },
+    pay() {
+      this.zhifu()
+      var params = new URLSearchParams();
+      params.append("tradeno", this.tradeno);  //订单号
+      params.append("price", this.zhifus.ordermoney);    //价格
+      params.append("tradename", this.tradename);  //订单名字
+
+      this.$axios.post("orders/pay.action", params).then(function (result) {
+
+        var bodystr = result.data;  //后端返回的支付页面代码
+        console.log(bodystr)
+        bodystr = bodystr.substr(0, bodystr.indexOf("<script>"));
+        console.log(bodystr)
+        document.getElementById("mydiv").innerHTML = bodystr;
+        document.forms[0].submit();   //返回代码中需要表单提交得到真实的支付页面
+
+      }).catch();
+
+      this.dialogFormVisible = true;
+    },
+    zhifu() {
+      let _this = this;
+      let params = new URLSearchParams();
+      params.append("userid.userid", this.zhifus.userid);
+      params.append("shid.userid", this.zhifus.shid);
+      params.append("ordercount", this.zhifus.ordercount);
+      params.append("ordermoney", this.zhifus.ordermoney);
+      params.append("orderbianhao", this.zhifus.orderbianhao);
+      params.append("consigneename", this.zhifus.consigneename);
+      params.append("consigneenumber", this.zhifus.consigneenumber);
+      params.append("consigneeaddress", this.zhifus.consigneeaddress);
+
+      this.$axios.post("orders/createOrder.action", params).then(function (result) {
+        //_this.$message(result.data.msg);
+
+      }).catch(function (error) {
+        alert(error)
+      });
+    },
+    /*zhifujieguo(){
+      this.$axios.post("orders/returnUrl.action").then(function (result) {
+        //_this.$message(result.data.msg);
+
+      }).catch(function (error) {
+        alert(error)
+      });
+    },*/
+    createNumber() {
+      var code = "";
+      for (var i = 1; i <= 6; i++) {
+        const num = Math.floor(Math.random() * 10);
+        code += num;
+      }
+      this.tradeno = "1905JA"+code;
+    },
+    createName() {
+      var code = "";
+      for (var i = 1; i <= 6; i++) {
+        const num = Math.floor(Math.random() * 10);
+        code += num;
+      }
+      this.tradename = "1905JAVue"+code+"E";
+    },
+  },
+  watch: {
+    tradeno: function (val) {
+      this.zhifus.ordercount = val;
+    },
+    /*tradename:function (val) {
+      this.
+    }*/
   },
   created() {
     this.getData();
     this.getAddress();
+    this.createNumber();
+    this.createName();
   }
 }
 </script>
 <style scoped>
 
 .bg-purple {
+
   background: white;
 }
 
@@ -589,5 +809,38 @@ export default {
   width: 720px;
   height: 45px;
   background: white;
+}
+
+.jiesuan-bottem-box-off {
+  background: white;
+  overflow: hidden;
+  max-height: 0px;
+  max-width: 720px;
+}
+
+.jiesuan-bottem-box-oppen {
+  background: white;
+  overflow: hidden;
+  max-height: 0px;
+  max-width: 720px;
+  border-bottom: 3px solid #28A745;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.title-jiesuan {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.input-jiesuan {
+  width: 420px;
+  margin-top: 22px;
+}
+
+.butten-jiesuan {
+  margin-left: 222px;
+  margin-top: 12px;
+  width: 308px
 }
 </style>
