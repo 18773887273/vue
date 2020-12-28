@@ -7,13 +7,13 @@
           </div>
           <div id="box" class="box-off">
             <el-divider></el-divider>
-            <div v-for="item of items" :key="item">
+            <div v-for="item of items">
               <el-row :gutter="20" style="margin-top: 0px">
                 <el-col :span="5" :offset="1" style="background: white;width: 150px;height: 80px;">
                   <div class="grid-content bg-purple" style="background: white">
                     <el-image
                       style="width: 120px; height: 80px"
-                      :src="item.shopid.shopimg"
+                      :src="item.shopid.shopid.shopimg"
                       fit="contain">
                     </el-image>
                   </div>
@@ -21,11 +21,16 @@
                 <el-col :span="8" style="background: white;width: 200px;height: 80px;">
                   <div class="grid-content bg-purple" style="background: white">
                     <div style="margin-top: 0px">
-                      <span style="font-size: 20px">{{ item.shopid.shopname }}</span><br>
-                      <del style="color: #28a745;font-size:13px;">￥1.20斤</del>
-                      <span style="color: #6c757d;font-size:13px;">￥{{ item.shopid.shopprice }}斤</span><br>
+                      <span style="font-size: 20px">{{ item.shopid.shopid.shopname }}</span><br>
+                      <del style="color: #28a745;font-size: 13px;">￥{{ item.shopid.shopputprice }}
+                      </del>
+                      <span
+                        style="color: #6c757d;font-size:13px;">￥ {{ chenNum(item.shopid.shopputprice, (item.shopid.shopzhe / 10)) }} /{{
+                          item.shopid.shopdanwei
+                        }}
+                        /{{ item.shopid.shopid.shopdanwei }}</span><br>
                       <div style="font-size:20px;margin-top: 8px">￥{{
-                          chenNum(item.number, item.shopid.shopprice)
+                          chenNum(item.number, (chenNum(item.shopid.shopputprice, (item.shopid.shopzhe / 10))))
                         }}
                       </div>
                       <br><br>
@@ -36,9 +41,13 @@
                   <div class="grid-content bg-purple" style="background: white">
                     <div class="jia-div-btn" style="width: 100px;height: 40px;background: #F7F7F8;text-align: center;">
                       <div style="margin-top: 52px;padding-top: 4px">
-                        <el-button size="mini" icon="el-icon-minus" circle></el-button>
+                        <el-button
+                          @click="downNumber(item.shopgwid,1,chenNum(item.shopid.shopputprice,(item.shopid.shopzhe/10)),item.number)"
+                          size="mini" icon="el-icon-minus" circle></el-button>
                         <span style="padding-top: 2px">{{ item.number }}</span>
-                        <el-button size="mini" icon="el-icon-plus" circle></el-button>
+                        <el-button
+                          @click="upNumber(item.shopgwid,1,chenNum(item.shopid.shopputprice,(item.shopid.shopzhe/10)),item.number)"
+                          size="mini" icon="el-icon-plus" circle></el-button>
                       </div>
                     </div>
                   </div>
@@ -49,22 +58,25 @@
           </div>
         </div>
         <div>
-          <div id="jiesuan-body-btn" class="jiesuan-body-div-off" @click="openAndClosebody"><span style="margin-left: 319px">订单地址</span><a class="addr-edit-a"><i class="el-icon-circle-plus el-icon--left"></i>添加新的收货地址</a>
+          <div id="jiesuan-body-btn" class="jiesuan-body-div-off" @click="openAndClosebody"><span
+            style="margin-left: 319px">订单地址</span><a class="addr-edit-a"><i
+            class="el-icon-circle-plus el-icon--left"></i>添加新的收货地址</a>
           </div>
           <div id="jiesuan-body-box" class="jiesuan-body-box-off">
-            <div v-for="addr of address" :key="addr">
+            <div v-for="addr of address">
               <el-row :gutter="20">
-                <el-col :span="10":offset="1">
+                <el-col :span="10" :offset="1">
                   <el-card style="border: 1px solid #28A745;" :body-style="{ padding: '0px' }" shadow="hover">
                     <div style="padding: 14px;">
-                      <div class="font-class">地址备注：{{addr.nicheng}}
-                        <el-tag size="mini" style="margin-left: 84px" type="success">默认<i class="el-icon-success"></i></el-tag>
+                      <div class="font-class">地址备注：{{ addr.nicheng }}
+                        <el-tag size="mini" style="margin-left: 84px" type="success">默认<i class="el-icon-success"></i>
+                        </el-tag>
                       </div>
                       <div class="bottom clearfix">
 
-                        <div style="margin-top: 15px" class="font-class">提货地址：{{addr.shid.storename}}</div>
-                        <div style="margin-top: 15px" class="font-class">联系电话：{{addr.telephone}}</div>
-                        <a style="margin-top: 3px;margin-left: 225px" class="addr-edit" >编辑</a>
+                        <div style="margin-top: 15px" class="font-class">提货地址：{{ addr.shid.storename }}</div>
+                        <div style="margin-top: 15px" class="font-class">联系电话：{{ addr.telephone }}</div>
+                        <a style="margin-top: 3px;margin-left: 225px" class="addr-edit">编辑</a>
                       </div>
                     </div>
                   </el-card>
@@ -133,6 +145,8 @@ export default {
       huiyuan: sessionStorage.getItem('hyname'),
       huiyuanzhekou: sessionStorage.getItem('hyzhekou'),
       items: [],
+      iprice: 0,
+      priceitems: [],
       address: [],
       numberprice: 0,
       sumprice: 0,
@@ -148,6 +162,7 @@ export default {
         _this.items = result.data;
         for (let item of _this.items) {
           _this.numberprice = _this.addNum(_this.numberprice, item.price);
+
         }
         console.log(_this.items)
       }).catch(function (error) {
@@ -199,7 +214,6 @@ export default {
         }, 500);
       }
     },
-
 
     openAndClosebody() {
       let divheight = 153;
@@ -287,9 +301,47 @@ export default {
       return (curr - next) / m;
     },
 
-    editblur(){
+    editblur() {
       alert(1)
     },
+
+    upNumber(id, number, price,index) {//增加商品数量
+      let _this = this;
+      if (index == 100){
+        _this.$message("最少一件商品");
+      }else if (index>1){
+        var params = new URLSearchParams();
+        params.append("shopgwid", id);
+        params.append("number", number)
+        params.append("price", price)
+        this.$axios.post("shopcard/upNumer.action", params).then(function (result) {
+          //_this.$message(result.data.msg);
+          _this.numberprice=0;
+          _this.getData()
+        }).catch(function (error) {
+          alert(error)
+        });
+      }
+
+    },
+    downNumber(id, number, price,index) {//扣除商品数量
+      let _this = this;
+      if (index == 1){
+        _this.$message("最少一件商品");
+      }else if (index>1){
+        var params = new URLSearchParams();
+        params.append("shopgwid", id);
+        params.append("number", number)
+        params.append("price", price)
+        this.$axios.post("shopcard/downNumer.action", params).then(function (result) {
+          //_this.$message(result.data.msg);
+          _this.numberprice=0;
+          _this.getData()
+        }).catch(function (error) {
+          alert(error)
+        });
+      }
+    }
   },
   created() {
     this.getData();
@@ -403,17 +455,18 @@ export default {
   border-bottom-left-radius: 20px;
 }
 
-.font-class{
+.font-class {
   color: #28A745;
   font-size: 16px;
 }
+
 .addr-edit {
   color: #62ABD1;
   font-size: 12px;
   cursor: pointer;
 }
 
-.addr-edit:hover{
+.addr-edit:hover {
   color: #0F0808;
   font-size: 12px;
 }
@@ -425,12 +478,12 @@ export default {
   cursor: pointer;
 }
 
-.addr-edit-a:hover{
+.addr-edit-a:hover {
   color: #19692C;
   font-size: 14px;
 }
 
-.jiesuan-bottem-div-off{
+.jiesuan-bottem-div-off {
   margin-top: 10px;
   padding-top: 20px;
   border-top-left-radius: 20px;

@@ -49,7 +49,7 @@
     <el-col :span="7" style="margin-top: 20px;">
       <div class="block">
         <el-carousel trigger="click" height="200px" >
-          <el-carousel-item v-for="item in img" :key="item">
+          <el-carousel-item v-for="item in img" >
            <el-image :src="item.img1"></el-image>
           </el-carousel-item>
         </el-carousel>
@@ -58,7 +58,7 @@
     <el-col :span="7" style="margin-left:25px;margin-top: 20px;">
       <div class="block">
         <el-carousel trigger="click" height="200px" >
-          <el-carousel-item v-for="item in img2" :key="item">
+          <el-carousel-item v-for="item in img2" >
             <el-image :src="item.imgz"></el-image>
           </el-carousel-item>
         </el-carousel>
@@ -67,7 +67,7 @@
     <el-col :span="7" style="margin-left:25px;margin-top: 20px;">
       <div class="block">
         <el-carousel trigger="click" height="200px" >
-          <el-carousel-item v-for="item in img3" :key="item">
+          <el-carousel-item v-for="item in img3" >
             <el-image :src="item.imgx"></el-image>
           </el-carousel-item>
         </el-carousel>
@@ -139,31 +139,6 @@ export default {
     HooperNavigation
   },
   methods: {
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
-    handleDelete(index, row) {
-      console.log(index, row);
-    },
-
-    handleClose(done) {
-      if (this.loading) {
-        return;
-      }
-      this.$confirm('确定要提交表单吗？')
-        .then(_ => {
-          this.loading = true;
-          this.timer = setTimeout(() => {
-            done();
-            // 动画关闭需要一定的时间
-            setTimeout(() => {
-              this.loading = false;
-            }, 400);
-          }, 2000);
-        })
-        .catch(_ => {});
-    },
-
     cancelForm() {
       this.loading = false;
       this.dialog = false;

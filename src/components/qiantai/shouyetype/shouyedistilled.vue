@@ -2,9 +2,9 @@
   <el-row :gutter="24">
     <el-col :span="24" :offset="1" >
       <div>
-        <div v-for="item of items" :key="item">
+        <div v-for="item of items">
           <el-col :span="5" style="background-color: white;margin-left: 10px;margin-top: 20px;margin-bottom: 20px">
-            <div @click="getDescribe(item.shopid.shopid)">
+            <div class="distilled-div" @click="getDescribe(item.shopid.shopid)">
               <img
                 class="main_body_commodityImg"
                 style="width: 223px; height: 168px;margin-top: 10px;"
@@ -12,8 +12,8 @@
               >
               <br>
               {{ item.shopid.shopname }}<br><br>
-              <a style="color: red;font-size: 22px;">￥ {{ item.shopid.shopprice }} /{{ item.shopid.shopdanwei }}</a>
-              <del style="color: #999999;font-size: 14px;">￥ {{ item.shopid.shopprice + 0.5 }}
+              <a style="color: red;font-size: 22px;">￥{{chenNum(item.shopputprice,(item.shopzhe/10))}} /{{ item.shopid.shopdanwei }}</a>
+              <del style="color: #999999;font-size: 14px;">￥ {{ item.shopputprice}}
                 /{{ item.shopid.shopdanwei }}
               </del>
               <br> <br>
@@ -54,6 +54,18 @@ export default {
         alert(error)
       });
     },
+    chenNum(curr, next) {
+      let m = 0, s1 = curr.toString(), s2 = next.toString();
+      try {
+        m += s1.split(".")[1].length
+      } catch (e) {
+      }
+      try {
+        m += s2.split(".")[1].length
+      } catch (e) {
+      }
+      return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+    },
 
   },
   created: function () {
@@ -64,6 +76,13 @@ export default {
 </script>
 
 <style scoped>
+
+.distilled-div{
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
 
 .main_body_commodityImg {
   transition: all 0.5s; /*鼠标经过图片放大*/

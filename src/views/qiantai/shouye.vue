@@ -37,7 +37,7 @@
           </el-dropdown-menu>
         </el-dropdown>
         <el-button size="mini" circle style="background-color: #F8F9FA; "><i class="el-icon-bell"></i></el-button>
-        <el-button size="mini" circle style="background-color: #F8F9FA; "><i class="el-icon-shopping-cart-2"></i>
+        <el-button @click="oppencard" size="mini" circle style="background-color: #F8F9FA; "><i class="el-icon-shopping-cart-2"></i>
         </el-button>
       </el-menu-item>
     </el-menu>
@@ -276,9 +276,11 @@ export default {
         this.path = msg;
       }
     },
+    /*打开登录*/
     denglu1() {
       this.path = 'denglu';
     },
+    /*打开注册*/
     zuche1() {
       this.path = 'zuche';
     },
@@ -330,7 +332,10 @@ export default {
       this.dialog = false;
       clearTimeout(this.timer);
     },
-
+    /*打开购物车*/
+    oppencard(){
+      this.$router.push("shopcard")
+    },
 
   },
   created() {
@@ -338,12 +343,12 @@ export default {
     this.asdasd2()
    // localStorage.getItem('state') && this.$store.replaceState(JSON.parse(localStorage.getItem('state')));
   },
-  watch:{
+ /* watch:{
     shouyeusername:function (newVal,oldVal) {
        this.asdasd2();
 
     }
-  }
+  }*/
 
 
 

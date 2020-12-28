@@ -50,16 +50,19 @@ export default {
       if (this.loading) {
         return;
       }
-      this.$confirm('确定要提交表单吗？')
-        .then(_ => {
           this.loading = true;
           this.$axios.post("user/login.action",params).then(function(result) {
-            alert(result.data.msg)
-            if (result.data.code=0){
-              alert(result.data.msg);
+            if (result.data.code=0 || result.data.msg == '密码错误,请重新输入'){
+              _this.$message(result.data.msg);
+              _this.loginform.userpass="";
+              return
+            }
+            else if(result.data.code=0 || result.data.msg == '账号不存在,请重新输入'){
+              _this.$message(result.data.msg);
               _this.loginform.userpass="";
               return
             }else {
+              _this.$message(result.data.msg);
               //将登录成功的用户名存入store中
               sessionStorage.setItem("yonghuname",result.data.username);
               //将登录成功的用户id存入store中
@@ -88,30 +91,10 @@ export default {
               this.loading = false;
             }, 400);
           }, 2000);
-        })
-        .catch(_ => {
-            alert(123)
-        });
+        }
+
     },
-    handleClose(done) {
-      if (this.loading) {
-        return;
-      }
-      this.$confirm('确定要提交表单吗？')
-        .then(_ => {
-          this.loading = true;
-          this.timer = setTimeout(() => {
-            done();
-            // 动画关闭需要一定的时间
-            setTimeout(() => {
-              this.falodchild = false ;
-            }, 400);
-          }, 2000);
-        })
-        .catch(_ => {
-        });
-    },
-  }
+
 }
 </script>
 

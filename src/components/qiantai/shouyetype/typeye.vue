@@ -6,49 +6,49 @@
         <div style="margin-left: 0px">
           <hooper :itemsToShow="8" :infiniteScroll="true">
             <slide >
-              <el-button style="width: 105px;height: 98px;text-align: center;">
+              <el-button @click="getDescribe(20)" style="width: 105px;height: 98px;text-align: center;">
                 <i class="el-icon-my-haixian" style="font-size: 40px"> </i><br>
                 海鲜
               </el-button>
             </slide>
             <slide >
-              <el-button style="width: 105px;height: 98px;text-align: center;">
+              <el-button  @click="getDescribe(2)" style="width: 105px;height: 98px;text-align: center;">
                 <i class="el-icon-my-rou" style="font-size: 40px"> </i><br>
                 肉类
               </el-button>
             </slide>
             <slide >
-              <el-button style="width: 105px;height: 98px;text-align: center;">
+              <el-button @click="getDescribe(1)" style="width: 105px;height: 98px;text-align: center;">
                 <i class="el-icon-my-shucai" style="font-size: 40px"> </i><br>
                 蔬菜
               </el-button>
             </slide>
             <slide >
-              <el-button style="width: 105px;height: 98px;text-align: center;">
+              <el-button @click="getDescribe(3)" style="width: 105px;height: 98px;text-align: center;">
                 <i class="el-icon-my-naishiping" style="font-size: 40px"> </i><br>
                 奶制品
               </el-button>
             </slide>
             <slide >
-              <el-button style="width: 105px;height: 98px;text-align: center;">
+              <el-button @click="getDescribe(5)" style="width: 105px;height: 98px;text-align: center;">
                 <i class="el-icon-my-mianbao" style="font-size: 40px"> </i><br>
                 面包
               </el-button>
             </slide>
             <slide >
-              <el-button style="width: 105px;height: 98px;text-align: center;">
+              <el-button @click="getDescribe(7)" style="width: 105px;height: 98px;text-align: center;">
                 <i class="el-icon-my-yingliao" style="font-size: 40px"> </i><br>
                 酒水饮料
               </el-button>
             </slide>
             <slide >
-              <el-button style="width: 105px;height: 98px;text-align: center;">
+              <el-button @click="getDescribe(6)" style="width: 105px;height: 98px;text-align: center;">
                 <i class="el-icon-my-lingshi" style="font-size: 40px"> </i><br>
                 休闲零食
               </el-button>
             </slide>
             <slide >
-              <el-button style="width: 105px;height: 98px;text-align: center;"  >
+              <el-button @click="getDescribe(4)" style="width: 105px;height: 98px;text-align: center;"  >
                 <i class="el-icon-my-shuigou" style="font-size: 40px"> </i><br>
                 水果
               </el-button>
@@ -78,6 +78,15 @@ export default {
   methods: {
     al() {
       alert(1)
+    },
+    getDescribe(id) {
+      //直接调用$router.push 实现携带参数的跳转
+      this.$router.push({
+        path: '/shouyequery',
+        query: {
+          id: id
+        }
+      })
     },
   },
   components: {

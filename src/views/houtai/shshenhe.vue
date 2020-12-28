@@ -90,7 +90,7 @@
         var params = new URLSearchParams();
         params.append("page", this.page);
         params.append("rows", 6);
-        this.$axios.post("user/queryshshenhe.action", params).then(function (result) {
+        this.$axios.post("user/queryshshenhe.action",params).then(function (result) {
           _this.tableData = result.data.rows;
           _this.total = result.data.total;
           func && func();

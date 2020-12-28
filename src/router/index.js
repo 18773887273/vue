@@ -29,6 +29,7 @@ import  Role from '../views/houtai/rolelist'
 import Xbbaobiao from "../views/houtai/xbbaobiao";
 import Caiwubaobiao from "../views/houtai/caiwubaobiao";
 import Churukubaobiao from "../views/houtai/churukubaobiao";
+import Shshenhe from "../views/houtai/shshenhe";
 
 import  Shoptype from '../views/houtai/shoptylist.vue'
 import  Addshopty from '../components/houtai/shopty/addshopty'
@@ -60,6 +61,7 @@ import Peisongzhong from '../views/houtai/peiszorder.vue'
 import Yipeisong from '../views/houtai/yipsorder.vue'
 import Shopcard from "../components/qiantai/shouyetype/jiezhangliucheng/shopcard";
 import Jiesuan from "../components/qiantai/shouyetype/jiezhangliucheng/jiesuan";
+import Shouyequery from "../components/qiantai/shouyetype/shouyequery";
 import Shshenhe from "../views/houtai/shshenhe";
 import Mendianweihu from "../components/shanghu/maintain/mendianweihu";
 /**
@@ -124,6 +126,10 @@ const routes = [
       {path:'/shanghulist',
         component: Shanghulist
       },
+      {
+        path: '/shshenhe',
+        component: Shshenhe
+      },
       {path:'/xbbaobiao',
         component: Xbbaobiao
       },{
@@ -183,6 +189,10 @@ const routes = [
       {
         path: '/Jiesuan',
         component: Jiesuan
+      },
+      {
+        path: '/shouyequery',
+        component: Shouyequery
       },
       {
         path: '/mys',

@@ -79,10 +79,7 @@
           addemploydialogFormVisible: false,
           tableData:{
             names:"",
-            userID:{
-              idCard: [{ required: true, message: '身份证不能为空·', trigger: 'blur' },
-                { validator: this.isCardID, trigger: 'blur' }]
-            },
+            userID:"",
             storename:'',
             storenumber:'',
             shaddress:''
@@ -103,13 +100,17 @@
            // alert(result.data.shname)
             //alert(result.data.useard)
             if(result.data.shstate==2){
+              //alert(111)
+             // alert(result.data.usercard)
               _this.tableData.names = result.data.shname
-              _this.tableData.userID = result.data.usercard
+              _this.tableData.userID = result.data.usercard.usercard
               _this.tableData.storename = result.data.storename
               _this.tableData.storenumber = result.data.storenumber
               _this.tableData.shaddress = result.data.shaddress
               _this.flag=true
             }else{
+              //alert(2222)
+              alert(result.data.usercard)
               _this.tableData.names = result.data.shname
               _this.tableData.userID = result.data.usercard
               _this.tableData.storename = result.data.storename
