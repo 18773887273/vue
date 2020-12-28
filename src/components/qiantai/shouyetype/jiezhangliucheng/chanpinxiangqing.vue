@@ -113,9 +113,9 @@ export default {
     checkgouwu(){
       var _this = this;
       var params = new URLSearchParams();
-      var shopid = _this.items.shopid.shopid;
+      var shopid = _this.items.shopputid;
       var userid = sessionStorage.getItem("yonghuid");
-      params.append("shopputid.shopid.shopid", shopid);
+      params.append("shopid.shopputid", shopid);
       params.append("userid.userid", userid);
       if (userid == '' || userid == null){
         this.$message('请先登录');
@@ -123,10 +123,13 @@ export default {
       }
       this.$axios.post("shopcard/query.action", params).then(function (result) {
         if (result.data[0] != null){
+          _this.$message("成功加入购物车")
           _this.editgouwu(result.data[0].shopgwid);
 
         }else {
-         _this.addgouwu();
+          _this.$message("已加入购物车")
+          _this.addgouwu();
+
         }
 
 
@@ -149,7 +152,6 @@ export default {
       params.append("number", number)
       params.append("price", price)
       this.$axios.post("shopcard/addshopgouwu.action", params).then(function (result) {
-        alert(result.data.msg)
         // alert(result.data[0].shopputid)
         _this.$router.push("shopcard")
       }).catch(function (error) {
@@ -167,7 +169,6 @@ export default {
       params.append("number", number)
       params.append("price", price)
       this.$axios.post("shopcard/editshopgouwu.action", params).then(function (result) {
-        alert(result.data.msg)
         // alert(result.data[0].shopputid)
         _this.$router.push("shopcard")
       }).catch(function (error) {
