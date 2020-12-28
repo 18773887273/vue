@@ -8,7 +8,7 @@
         <div>{{user.shmoney}}￥</div>
       </div>
       <ul class="social-icons"><i class="fa fa-instagram"></i></ul>
-      <button class="btn draw-border">
+      <button @click="tx()" class="btn draw-border">
         提现
       </button>
     </div>
@@ -77,7 +77,7 @@
       </div>
     </el-dialog>
 
-    <el-dialog :visible.sync="editpassdialogFormVisible" :before-close="editpasshandleClose">
+    <el-dialog :visible.sync="passdialogFormVisible" :before-close="editpasshandleClose">
       <div slot="title" class="dialog-title">
         <i class="el-icon-edit-outline"></i>
         <span class="title-text">修改登录密码</span>
@@ -87,8 +87,22 @@
       </div>
       <editpass ref="editpasschild"></editpass>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="editpassdialogFormVisible = false">取 消</el-button>
+        <el-button @click="passdialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="passsave()">修改</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog :visible.sync="shtxdialogFormVisible" :before-close="editshtxhandleClose">
+      <div slot="title" class="dialog-title">
+        <i class="el-icon-edit-outline"></i>
+        <span class="title-text">提现</span>
+        <div class="button-right">
+          <span class="title-close"></span>
+        </div>
+      </div>
+      <shtx ref="shtxchild"></shtx>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="shtxdialogFormVisible = false">取消</el-button>
+        <el-button type="primary" @click="qdtx()">确定提现</el-button>
       </div>
     </el-dialog>
   </div>
@@ -98,14 +112,16 @@
   import Editpersonal from "./editpersonal"
   import Editstorenumber from "./editstorenumber"
   import Editpass from "./editpass"
+  import Shtx from "./shtx"
 
   export default {
     name: "personal",
     data() {
       return {
-        editpassdialogFormVisible:false,
+        passdialogFormVisible:false,
         editstorenumberdialogFormVisible: false,
         editpersonaldialogFormVisible: false,
+        shtxdialogFormVisible:false,
         shid: sessionStorage.getItem("shid"),
         user: []
       };
@@ -122,11 +138,21 @@
           alert(error)
         });
       },
+      tx() {
+        var _this = this;
+        setTimeout(() => {
+          this.$refs.shtxchild.shyhcard = this.user.shyhcard;
+          this.$refs.shtxchild.shmoney = this.user.shmoney;
+        }, 1)
+        _this.shtxdialogFormVisible = true;
+      },
       editpersonal1() {
         var _this = this;
         setTimeout(() => {
           this.$refs.editpersonalchild.imageUrl = this.user.userimg;
           this.$refs.editpersonalchild.shname = this.user.shname;
+          this.$refs.editpersonalchild.shaddress=this.user.shaddress;
+          this.$refs.editpersonalchild.storename=this.user.storename;
         }, 1)
         _this.editpersonaldialogFormVisible = true;
       },
@@ -141,13 +167,17 @@
       personalsave() {
         var _this = this;
         var shname = this.$refs.editpersonalchild.shname;
+        var storename=this.$refs.editpersonalchild.storename;
+        var shaddress=this.$refs.editpersonalchild.shaddress;
         var userimg = this.$refs.editpersonalchild.imageUrl;
         var user = new URLSearchParams();
         user.append("shname", shname);
+        user.append("storename", storename);
+        user.append("shaddress", shaddress);
         user.append("userimg", userimg);
         user.append("userid", this.shid)
 
-        _this.$axios.post("user/edituser1.action", user).then(function (result) {
+        _this.$axios.post("user/editsh.action", user).then(function (result) {
           _this.getdata(() => {
             _this.$message({
               message: result.data.msg,
@@ -178,6 +208,30 @@
           .catch(_ => {
           });
       },
+      qdtx() {
+        var _this = this;
+        var shmoney = this.$refs.shtxchild.num;
+        var user = new URLSearchParams();
+        alert(this.user.shname)
+        user.append("shmoney", shmoney);
+        user.append("userid", this.shid)
+        user.append("shname", this.user.shname)
+        _this.$axios.post("user/qdtx.action", user).then(function (result) {
+          _this.getdata(() => {
+            _this.$message({
+              message: result.data.msg,
+              type: 'success'
+            });
+          })
+            .catch(function (error) {
+              _this.$message({
+                message: '提现失败',
+                type: 'error'
+              });
+            })
+        })
+        _this.editstorenumberdialogFormVisible = false;
+      },
       storenumbersave() {
         var _this = this;
         var storenumber = this.$refs.editstorenumberchild.storenumber;
@@ -203,7 +257,7 @@
       },
       editpass() {
         var _this = this;
-        _this.editpassdialogFormVisible = true;
+        _this.passdialogFormVisible = true;
       },
       editpasshandleClose(done) {
         this.$confirm('确认关闭？')
@@ -255,7 +309,7 @@
             _this.$refs.editpasschild.newpass='';
             _this.$refs.editpasschild.newpass1='';
             _this.$refs.editpasschild.oldpass='';
-            _this.editpassdialogFormVisible = false;
+            _this.passdialogFormVisible = false;
           }
         }.bind(this)).
         catch(function(error) {
@@ -269,7 +323,8 @@
       components: {
         editpersonal: Editpersonal,
         editstorenumber: Editstorenumber,
-        editpass: Editpass
+        editpass: Editpass,
+        shtx: Shtx,
       }
     }
 

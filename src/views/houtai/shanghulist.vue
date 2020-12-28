@@ -52,8 +52,8 @@
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button type="success" @click="edituser(scope.row)" circle plain size="small">编辑</el-button>
-                <el-button v-if="scope.row.isdelete==1" type="danger" slot="reference" circle plain size="small" @click="open(scope.row)">冻结</el-button>
-                <el-button v-if="scope.row.isdelete==0" type="success" slot="reference" circle plain size="small" @click="open1(scope.row)">解冻</el-button>
+                <el-button v-if="scope.row.shstate!=5" type="danger" slot="reference" circle plain size="small" @click="open(scope.row)">冻结</el-button>
+                <el-button v-if="scope.row.shstate==5" type="success" slot="reference" circle plain size="small" @click="open1(scope.row)">解冻</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -185,7 +185,7 @@
         //异步获取数据
         var params = new URLSearchParams();
         params.append("userid", row.userid);
-        params.append("isdelete", row.isdelete);
+        params.append("shstate", row.shstate);
         this.$axios.post("user/shdj.action", params).then(function (result) {
           _this.getData(() => {
             _this.$message({

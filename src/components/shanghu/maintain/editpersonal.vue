@@ -5,6 +5,14 @@
         <el-input v-model="shname" autocomplete="off" placeholder="请输入商户名"></el-input>
       </el-form-item>
 
+      <el-form-item label="门店名">
+        <el-input v-model="storename" autocomplete="off" placeholder="请输入门店名"></el-input>
+      </el-form-item>
+
+      <el-form-item label="门店地址">
+        <el-input v-model="shaddress" autocomplete="off" placeholder="请输入门店地址"></el-input>
+      </el-form-item>
+
       <el-form-item label="头像">
         <el-upload
           class="avatar-uploader"
@@ -12,7 +20,7 @@
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar" style="height: 500px;width: 500px">
+          <img v-if="imageUrl" :src="imageUrl" class="avatar" style="height: 250px;width: 250px">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -26,6 +34,8 @@
       data(){
           return{
             shname: '',
+            storename:'',
+            shaddress:'',
             imageUrl: ''
           }
       },

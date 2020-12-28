@@ -10,13 +10,9 @@
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b">
-      <el-submenu index="1">
-        <template slot="title"><i class="el-icon-postcard"></i>资料维护</template>
-        <router-link to="personal"><el-menu-item index="personal">个人资料维护</el-menu-item></router-link>
-        <el-menu-item to="mendianweihu" index="mendianweihu">门店资料维护</el-menu-item>
-      </el-submenu>
+      <router-link to="personal"><el-menu-item index="personal" style="float: left"><i class="el-icon-postcard"></i>资料维护</el-menu-item></router-link>
       <router-link to="orders"><el-menu-item index="orders" style="float: left"><i class="el-icon-sell"></i>订单管理</el-menu-item></router-link>
-      <el-menu-item index="3"><i class="el-icon-s-data"></i>统计营收</el-menu-item>
+      <router-link to="shbaobiao"><el-menu-item index="shbaobiao" style="float: left"><i class="el-icon-s-data"></i>统计营收</el-menu-item></router-link>
       <el-menu-item index="4"><i class="el-icon-chat-dot-square"></i>消息中心</el-menu-item>
       <el-col :span="8" style="float: right;margin-top: 10px">
         <div id="clock">
@@ -37,13 +33,13 @@
 <script>
     import Personal from '../../components/shanghu/maintain/personal'
     import Orders from '../../components/shanghu/orders/orders'
-    import Mendianweihu from "../../components/shanghu/maintain/mendianweihu";
+    import Shbaobiao from "../../components/shanghu/shbaobiao/shbaobiao";
     export default {
         name: "shmenu.vue",
       comments:{
           personal:Personal,
           orders:Orders,
-          mendianweihu:Mendianweihu
+          shbaobiao:Shbaobiao
       },
       data() {
         return {
@@ -89,9 +85,9 @@
         }
       },
       created() {   //钩子函数  组件创建好后，去浏览器获取登录成功的用户名，如果没有，跳转登录页面
-        var shname = sessionStorage.getItem("shname");
-        console.log(shname)
-        if (shname == undefined || shname == null || shname == '') {
+        var shid = sessionStorage.getItem("shid");
+        console.log(shid)
+        if (shid == undefined || shid == null || shid == '') {
           this.$router.push("/login2");
         }
 

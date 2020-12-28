@@ -99,9 +99,8 @@
                 })
                 setTimeout(function () {
                   if(result.data.code=="1") {
+                    sessionStorage.setItem("shname",result.data.shname)
                     sessionStorage.setItem("shid",result.data.id)
-                    sessionStorage.setItem("shlat",result.data.shlat)
-                    sessionStorage.setItem("shlng",result.data.shlng)
                     _this.$router.push({path: '/shshouye'})
                     //document.getElementById("date").style.display = "none";
                   }
