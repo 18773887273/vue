@@ -9,7 +9,7 @@
           <el-input placeholder="输入用户名" size="small" v-model="loginform.username" autocomplete="off" style="width: 285px;"></el-input>
         </el-form-item>
         <el-form-item style="margin-top: -20px" label="密码" >
-          <el-input placeholder="输入密码" size="small" v-model="loginform.userpass" autocomplete="off" style="width: 285px;"></el-input>
+          <el-input type="password" placeholder="输入密码" size="small" v-model="loginform.userpass" autocomplete="off" style="width: 285px;"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="success" @click="denglu" :loading="loading" style="width: 285px;">{{ loading ? '提交中 ...' : '登 录' }}</el-button>
