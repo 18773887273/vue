@@ -8,10 +8,10 @@
             <el-input type="text" placeholder="输入用户名" size="small" v-model="zhuceform.username" autocomplete="off" style="width: 285px;"></el-input>
           </el-form-item>
           <el-form-item prop="pass" style="margin-top: -20px" label="密码" >
-            <el-input placeholder="输入密码"  size="small" v-model="zhuceform.userpass" autocomplete="off" style="width: 285px;"></el-input>
+            <el-input type="password" placeholder="输入密码"  size="small" v-model="zhuceform.userpass" autocomplete="off" style="width: 285px;"></el-input>
           </el-form-item>
           <el-form-item prop="checkPass"  label="确认密码" >
-            <el-input placeholder="确认密码" size="small" v-model="zhuceform.checkuserpass" autocomplete="off" style="width: 285px;"></el-input>
+            <el-input type="password" placeholder="确认密码" size="small" v-model="zhuceform.checkuserpass" autocomplete="off" style="width: 285px;"></el-input>
           </el-form-item>
 
           <el-form-item>

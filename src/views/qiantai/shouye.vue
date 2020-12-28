@@ -46,7 +46,7 @@
         <el-row :gutter="10">
 
           <el-col :span="1" style="margin-left: 89px;">
-            <el-link :underline="false" style="color: #FFFAE8;"><router-link to="/back">家</router-link></el-link>
+            <el-link :underline="false" style="color: #FFFAE8;"><router-link to="/back" class="shouye-luyou">家</router-link></el-link>
           </el-col>
           <el-col :span="2" style="margin-left: -10px;">
             <el-dropdown>
@@ -334,7 +334,15 @@ export default {
     },
     /*打开购物车*/
     oppencard(){
-      this.$router.push("shopcard")
+      let name = sessionStorage.getItem("yonghuname");
+      if (name != null){
+        this.$router.push("shopcard");
+      }else {
+        this.$message("请先登录")
+        setTimeout(() => {
+          this.dialog = true;
+        }, 700);
+      }
     },
 
   },
@@ -474,5 +482,10 @@ a {
 
 .el-carousel__item:nth-child(2n+1) {
   background-color: #e5e9f2;
+}
+
+.shouye-luyou{
+  text-decoration:none;
+  color: #FFFAE8;
 }
 </style>

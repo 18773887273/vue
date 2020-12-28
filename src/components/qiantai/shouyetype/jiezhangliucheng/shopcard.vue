@@ -25,10 +25,12 @@
                       <del style="color: #28a745;font-size: 13px;">￥{{ item.shopid.shopputprice }}
                       </del>
                       <span
-                        style="color: #6c757d;font-size:13px;">￥ {{ chenNum(item.shopid.shopputprice, (item.shopid.shopzhe / 10)) }} /{{
+                        style="color: #6c757d;font-size:13px;">￥ {{
+                          chenNum(item.shopid.shopputprice, (item.shopid.shopzhe / 10))
+                        }} /{{
                           item.shopid.shopdanwei
                         }}
-                        /{{ item.shopid.shopid.shopdanwei }}</span><br>
+                        {{ item.shopid.shopid.shopdanwei }}</span><br>
                       <div style="font-size:20px;margin-top: 8px">￥{{
                           chenNum(item.number, (chenNum(item.shopid.shopputprice, (item.shopid.shopzhe / 10))))
                         }}
@@ -59,7 +61,7 @@
         </div>
         <div>
           <div id="jiesuan-body-btn" class="jiesuan-body-div-off" @click="openAndClosebody"><span
-            style="margin-left: 319px">订单地址</span><a class="addr-edit-a"><i
+            style="margin-left: 319px">订单地址</span><a v-on:click="addAddress()" class="addr-edit-a"><i
             class="el-icon-circle-plus el-icon--left"></i>添加新的收货地址</a>
           </div>
           <div id="jiesuan-body-box" class="jiesuan-body-box-off">
@@ -131,7 +133,33 @@
         </div>
         <el-button @click="jiesuan" style="margin-top: 12px;width: 308px" type="success" round>结算</el-button>
       </el-col>
-
+      <el-dialog
+        title="添加收货地址"
+        :visible.sync="centerDialogVisible"
+        width="30%"
+      >
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+          <el-form-item label="交货地址" prop="dizhi">
+            <el-select v-model="ruleForm.dizhi" placeholder="请选择活动区域">
+              <el-option v-for="item in stroename" :label="item.storename" :value="item.userid">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="联系电话" prop="telephone">
+            <el-input v-model="ruleForm.telephone"></el-input>
+          </el-form-item>
+          <el-form-item label="地址备注" prop="beizhu">
+            <el-input v-model="ruleForm.beizhu"></el-input>
+          </el-form-item>
+          <el-form-item label="昵称" prop="nicheng">
+            <el-input v-model="ruleForm.nicheng"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+            <el-button @click="resetForm('ruleForm')">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
     </el-row>
 
 
@@ -142,6 +170,7 @@
 export default {
   data() {
     return {
+      centerDialogVisible: false,
       huiyuan: sessionStorage.getItem('hyname'),
       huiyuanzhekou: sessionStorage.getItem('hyzhekou'),
       items: [],
@@ -150,6 +179,32 @@ export default {
       address: [],
       numberprice: 0,
       sumprice: 0,
+      stroename:[],
+      ruleForm: {
+        dizhi: '',
+        telephone:'',
+        beizhu: '',
+        delivery: false,
+        nicheng: ''
+      },
+      rules: {
+        telephone: [
+          { required: true, message: '请输入联系电话', trigger: 'blur' },
+          { min: 11, max: 11, message: '请输入联系电话', trigger: 'blur' }
+        ],
+        beizhu: [
+          { required: true, message: '请填写备注信息', trigger: 'blur' },
+        ],
+        dizhi: [
+          { required: true, message: '请选择配送地址', trigger: 'change' }
+        ],
+        nicheng: [
+          { required: true, message: '请选择昵称', trigger: 'blur' },
+          { min: 1, max: 8, message: '昵称 1 到 8 个文字', trigger: 'blur' }
+        ],
+
+      }
+
     };
   },
   methods: {
@@ -166,7 +221,6 @@ export default {
         }
         console.log(_this.items)
       }).catch(function (error) {
-        alert(error)
       });
     },
     getAddress() {
@@ -190,7 +244,7 @@ export default {
       let divheight = 153;
       let as = 0;
       if (this.items.length > 1) {
-        as = (divheight * this.items.length) - 75;
+        as = (divheight * this.items.length);
       } else if (this.items.length == 1) {
         as = divheight * this.items.length;
       }
@@ -305,18 +359,18 @@ export default {
       alert(1)
     },
 
-    upNumber(id, number, price,index) {//增加商品数量
+    upNumber(id, number, price, index) {//增加商品数量
       let _this = this;
-      if (index == 100){
+      if (index == 100) {
         _this.$message("最少一件商品");
-      }else if (index>1){
+      } else if (index < 99) {
         var params = new URLSearchParams();
         params.append("shopgwid", id);
         params.append("number", number)
         params.append("price", price)
         this.$axios.post("shopcard/upNumer.action", params).then(function (result) {
           //_this.$message(result.data.msg);
-          _this.numberprice=0;
+          _this.numberprice = 0;
           _this.getData()
         }).catch(function (error) {
           alert(error)
@@ -324,23 +378,52 @@ export default {
       }
 
     },
-    downNumber(id, number, price,index) {//扣除商品数量
+    downNumber(id, number, price, index) {//扣除商品数量
       let _this = this;
-      if (index == 1){
+      if (index == 1) {
         _this.$message("最少一件商品");
-      }else if (index>1){
+      } else if (index > 1) {
         var params = new URLSearchParams();
         params.append("shopgwid", id);
         params.append("number", number)
         params.append("price", price)
         this.$axios.post("shopcard/downNumer.action", params).then(function (result) {
           //_this.$message(result.data.msg);
-          _this.numberprice=0;
+          _this.numberprice = 0;
           _this.getData()
         }).catch(function (error) {
           alert(error)
         });
       }
+    },
+
+    addAddress() {
+      this.$message("打开")
+      this.centerDialogVisible = true;
+      this.getStroename();
+    },
+    getStroename(func) { //获取数据方法
+      var _this = this;
+      this.$axios.post("user/querylike2.action").then(function (result) {
+        _this.stroename = result.data.rows;
+
+        func && func();
+      }).catch(function (error) {
+        alert(error)
+      });
+    },
+    submitForm(formName) {//添加收货地址
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!');
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
   },
   created() {
