@@ -79,7 +79,7 @@
             this.$axios.post("/user/queryuser.action", params, {
               emulateJSON: true
             }).then(function (result) {
-              if (result.data.usercard == null) {
+              if (result.data.usercard == null || result.data.usercard=="") {
                 _this.$message({
                   showClose: true,
                   message: '请您先实名认证！！'

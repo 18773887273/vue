@@ -1,9 +1,6 @@
 <template>
   <div id="app" style="margin-top: -15px;">
     <el-form :model="addemploy"  label-width="100px">
-      <el-form-item label="用户名">
-        <el-input v-model="addemploy.username" autocomplete="off"></el-input>
-      </el-form-item>
       <el-form-item label="旧密码">
         <el-input v-model="addemploy.orldpass" autocomplete="off"></el-input>
       </el-form-item>

@@ -67,6 +67,8 @@ export default {
               sessionStorage.setItem("yonghuname",result.data.username);
               //将登录成功的用户id存入store中
               sessionStorage.setItem("yonghuid",result.data.userid);
+              //将登录成功的用户mima存入store中
+              sessionStorage.setItem("yonghupass",_this.loginform.userpass);
               //将登录成功的用户会员存入store中
               sessionStorage.setItem("hyname",result.data.hyname);
               //将登录成功的用户id存入store中

@@ -1,7 +1,7 @@
 <template>
   <div id="shangjiashen">
     <!--未认证-->
-    <div v-if="!flag">
+    <div v-if="wflag">
     <el-col :span="24" style="margin-top: 5px">
       <div class="grid-content bg-purple-dark"><h2>商家认证</h2></div>
     </el-col>
@@ -52,17 +52,53 @@
         </el-col>
         <el-col :span="12" style="margin-top: 5px">
           <el-form-item label="门店名">
-            <el-input v-model="tableData.storename"></el-input>
+            <el-input v-model="tableData.storename"  readonly="readonly"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12" style="margin-top: 5px">
           <el-form-item label="门店联系方式">
-            <el-input v-model="tableData.storenumber"></el-input>
+            <el-input v-model="tableData.storenumber"  readonly="readonly"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="24" style="margin-top: 5px">
           <el-form-item label="门店地址">
-            <el-input v-model="tableData.shaddress"></el-input>
+            <el-input v-model="tableData.shaddress"  readonly="readonly"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-button type="success" round  class="but1" size="medium"  isabled>申请中</el-button>
+      </el-form>
+    </div>
+
+
+    <!--申请成功-->
+    <div v-if="xflag">
+      <el-col :span="24" style="margin-top: 5px">
+        <div class="grid-content bg-purple-dark"><h2>商家认证</h2></div>
+      </el-col>
+      <el-form>
+        <el-col :span="12" style="margin-top: 5px">
+          <el-form-item label="姓名">
+            <el-input v-model="tableData.names" readonly="readonly"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12" style="margin-top: 5px">
+          <el-form-item label="身份证号码">
+            <el-input v-model="tableData.userID" readonly="readonly"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12" style="margin-top: 5px">
+          <el-form-item label="门店名">
+            <el-input v-model="tableData.storename"  readonly="readonly"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12" style="margin-top: 5px">
+          <el-form-item label="门店联系方式">
+            <el-input v-model="tableData.storenumber"  readonly="readonly"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24" style="margin-top: 5px">
+          <el-form-item label="门店地址">
+            <el-input v-model="tableData.shaddress"  readonly="readonly"></el-input>
           </el-form-item>
         </el-col>
         <el-button type="success" round  class="but1" size="medium"  isabled>申请中</el-button>
@@ -85,8 +121,12 @@
             shaddress:''
           },
           yonghuname: sessionStorage.getItem('yonghuname'),
-          flag:false
-
+          /*未申请中*/
+          wflag:false,
+          /*申请中*/
+          flag:false,
+          /*申请成功*/
+          xflag:false
         }
       },
       methods: {
@@ -108,14 +148,28 @@
               _this.tableData.storenumber = result.data.storenumber
               _this.tableData.shaddress = result.data.shaddress
               _this.flag=true
-            }else{
-              //alert(2222)
-              alert(result.data.usercard)
+              _this.width=false
+              _this.xflag=false
+            }else if(result.data.shstate==2) {
               _this.tableData.names = result.data.shname
-              _this.tableData.userID = result.data.usercard
+              _this.tableData.userID = result.data.usercard.usercard
               _this.tableData.storename = result.data.storename
               _this.tableData.storenumber = result.data.storenumber
               _this.tableData.shaddress = result.data.shaddress
+              _this.flag=false
+              _this.width=false
+              _this.xflag=true
+            }else {
+              //alert(2222)
+              //alert(result.data.usercard)
+              _this.tableData.names =result.data.shname
+              _this.tableData.userID =result.data.usercard
+              _this.tableData.storename = result.data.storename
+              _this.tableData.storenumber =result.data.storenumber
+              _this.tableData.shaddress =result.data.shaddress
+              _this.flag=false
+              _this.width=true
+              _this.xflag=false
 
             }
 
@@ -142,6 +196,7 @@
                 showClose: true,
                 message: '申请成功，待管理员审核！！'
               });
+              _this.flag=true
             }else{
               _this.$message({
                 showClose: true,
@@ -152,41 +207,6 @@
             alert(error)
           });
         },
-/*/*********************************************************************************************************************/
-        // 身份证验证
-        isCardID (rule, value, callback) {
-          console.log(value)
-          if (!/(^\d{15}$)|(^\d{17}(\d|X|x)$)/.test(value)) {
-            callback(new Error('你输入的身份证长度或格式错误'))
-          }
-          //身份证城市
-          var aCity = { 11: "北京", 12: "天津", 13: "河北", 14: "山西", 15: "内蒙古", 21: "辽宁", 22: "吉林", 23: "黑龙江", 31: "上海", 32: "江苏", 33: "浙江", 34: "安徽", 35: "福建", 36: "江西", 37: "山东", 41: "河南", 42: "湖北", 43: "湖南", 44: "广东", 45: "广西", 46: "海南", 50: "重庆", 51: "四川", 52: "贵州", 53: "云南", 54: "西藏", 61: "陕西", 62: "甘肃", 63: "青海", 64: "宁夏", 65: "新疆", 71: "台湾", 81: "香港", 82: "澳门", 91: "国外" };
-          if (!aCity[parseInt(value.substr(0, 2))]) {
-            callback(new Error('你的身份证地区非法'))
-          }
-
-          // 出生日期验证
-          var sBirthday = (value.substr(6, 4) + "-" + Number(value.substr(10, 2)) + "-" + Number(value.substr(12, 2))).replace(/-/g, "/"),
-            d = new Date(sBirthday)
-          if (sBirthday != (d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate())) {
-            callback(new Error('身份证上的出生日期非法'))
-          }
-
-          // 身份证号码校验
-          var sum = 0,
-            weights = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2],
-            codes = "10X98765432"
-          for (var i = 0; i < value.length - 1; i++) {
-            sum += value[i] * weights[i];
-          }
-          var last = codes[sum % 11]; //计算出来的最后一位身份证号码
-          if (value[value.length - 1] != last) {
-            callback(new Error('你输入的身份证号非法'))
-          }
-
-          callback()
-        }
-        /****************************************************************************************/
 
       },
       created() {

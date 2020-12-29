@@ -76,12 +76,6 @@ export default {
             max: 8,
             message: '长度在 2 到 8 个字符'
           },
-          {
-
-          },
-          {
-
-          }
         ],
         checkPass: [
           { validator: validatePass2, trigger: 'blur' }
