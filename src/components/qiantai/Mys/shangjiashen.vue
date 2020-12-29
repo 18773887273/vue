@@ -169,7 +169,7 @@
               _this.tableData.storenumber =result.data.storenumber
               _this.tableData.shaddress =result.data.shaddress
               _this.flag=false
-              _this.width=true
+              _this.wflag=true
               _this.xflag=false
 
             }
@@ -198,7 +198,7 @@
                 message: '申请成功，待管理员审核！！'
               });
               _this.flag=true
-              _this.width=false
+              _this.wflag=false
               _this.xflag=false
             }else{
               _this.$message({
