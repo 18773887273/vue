@@ -2,7 +2,7 @@
   <div>
     <div>
       提现金额<br>
-      <el-input-number v-model="num" @change="handleChange" :min="0" :max=shmoney label="描述文字"></el-input-number><button style="margin-left: 10px" @click="qbu()">全部</button><br>
+      <el-input-number v-model="num" @change="handleChange" :min="1" :max=shmoney label="描述文字"></el-input-number><button style="margin-left: 10px" @click="qbu()">全部</button><br>
     </div>
     <div style="margin-top: 20px">
       <el-radio-group @change="agreeChange" v-model="radioTreaty">
