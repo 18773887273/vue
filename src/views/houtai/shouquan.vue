@@ -1,13 +1,13 @@
 <template>
 	<div id="app">
-		<el-form label-width="100px">
-			<el-form-item label="角色名:">
-				<el-input v-model="queryrname" placeholder="请输入要查询的角色"></el-input>
-			</el-form-item>
-			<el-button type="info" plain>查询</el-button>
-			<el-button type="primary" plain @click="shouquan">授权</el-button>
-		</el-form>
     <el-col :span="11">
+      <el-form>
+        <el-form-item label="角色名:">
+          <el-input v-model="queryrname" style="width: 200px" placeholder="请输入要查询的角色"  size="small"></el-input>
+          <el-button type="info" plain  size="small">查询</el-button>
+          <el-button type="primary" plain @click="shouquan"  size="small">授权</el-button>
+        </el-form-item>
+      </el-form>
 		<el-table max-height="600" :data="roletableData" ref="multipleTable"
               @selection-change="rolechange"
               border
@@ -20,9 +20,6 @@
 			</el-table-column>
 		</el-table>
     </el-col>
-
-
-
     <el-col :span="2" class="el-col-offset-2">
       <hr
         style="float: left;height: 510px;margin-top:10px;margin-bottom:10px;margin-right: 30px;border: 1px solid #aaa;">

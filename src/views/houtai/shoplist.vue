@@ -4,19 +4,19 @@
       <div id="app">
         <el-form :inline="true" class="demo-form-inline" style="margin-top: 0px">
           <el-form-item label="商品名">
-            <el-input v-model="queryshopname" style="width: 200px;"></el-input>
+            <el-input v-model="queryshopname" size="small"  style="width: 200px;"></el-input>
           </el-form-item>
           <el-form-item label="商品类型">
             <el-select v-model="queryshoptyid"
-                       style="width: 200px;">
+                       style="width: 200px;" size="small" >
               <el-option :key="0" :label="suoyou" :value="0"></el-option>
               <el-option v-for="item in shoptypelist" :key="item.shoptyid" :label="item.shoptyname"
                          :value="item.shoptyid">
               </el-option>
             </el-select>
+            <el-button type="primary" plain @click="getData()" size="small" >查询</el-button>
+            <el-button type="success" plain @click="addshop()" size="small" >添加</el-button>
           </el-form-item>
-          <el-button type="primary" plain @click="getData()">查询</el-button>
-          <el-button type="success" plain @click="addshop()">添加</el-button>
         </el-form>
         <el-table :data="tableData" stripe style="width: 100%" border
                   :header-cell-style="headClass" :cell-style="rowClass" :row-class-name="tableRowClassName">
@@ -39,9 +39,9 @@
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button type="success" @click="editshop(scope.row)" plain circle>编辑</el-button>
+              <el-button type="success" @click="editshop(scope.row)" size="small"  plain circle>编辑</el-button>
               <el-popconfirm title="确定删除该商品吗？" @confirm="delshop(scope.row)">
-                <el-button type="danger" slot="reference" plain circle>删除</el-button>
+                <el-button type="danger" slot="reference" size="small"  plain circle>删除</el-button>
               </el-popconfirm>
             </template>
           </el-table-column>

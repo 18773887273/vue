@@ -4,9 +4,9 @@
       <div id="shoptylist">
         <el-form :inline="true" class="demo-form-inline">
           <el-form-item label="类型名">
-            <el-input v-model="queryshoptyname" style="width: 400px;"></el-input>
-            <el-button type="primary" plain @click="getData()" >查询</el-button>
-            <el-button type="success" plain @click="addshopty()">添加</el-button>
+            <el-input v-model="queryshoptyname" size="small" style="width: 400px;"></el-input>
+            <el-button type="primary" size="small"  plain @click="getData()" >查询</el-button>
+            <el-button type="success" size="small"  plain @click="addshopty()">添加</el-button>
           </el-form-item>
         </el-form>
         <el-table :data="tableData" stripe style="width: 100%" border
@@ -21,9 +21,9 @@
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button type="success" @click="editshopty(scope.row)" plain circle>编辑</el-button>
+              <el-button type="success" @click="editshopty(scope.row)" plain circle size="small" >编辑</el-button>
               <el-popconfirm title="确定删除这条记录吗？" @confirm="delshopty(scope.row)">
-                <el-button type="danger" slot="reference" plain circle>删除</el-button>
+                <el-button type="danger" slot="reference" plain circle size="small" >删除</el-button>
               </el-popconfirm>
 
             </template>

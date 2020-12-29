@@ -4,14 +4,14 @@
       <div id="app">
         <el-form :inline="true" class="demo-form-inline" :model="query">
           <el-form-item label="订单编号:">
-            <el-input v-model="query.orderbianhao" style="width: 400px;"></el-input>
+            <el-input v-model="query.orderbianhao" style="width: 400px;"  size="small"></el-input>
           </el-form-item>
           <el-form-item label="订单时间:">
             <div class="block">
               <el-date-picker
                 v-model="query.time"
                 type="daterange"
-                align="right"
+                align="right"  size="small"
                 unlink-panels
                 range-separator="至"
                 start-placeholder="开始日期"
@@ -20,7 +20,7 @@
               </el-date-picker>
             </div>
           </el-form-item>
-          <el-button type="primary" plain @click="getData()">查询</el-button>
+          <el-button type="primary" plain @click="getData()"  size="small">查询</el-button>
         </el-form>
         <!-- 数据展示 -->
         <!--订单编号 orderbianhao  订单时间 ordertime  订单总金额 ordermoney 商户名 shid.shname 商户地址 shid.shaddress 客户姓名 consigneename
