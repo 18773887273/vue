@@ -101,7 +101,7 @@
             <el-input v-model="tableData.shaddress"  readonly="readonly"></el-input>
           </el-form-item>
         </el-col>
-        <el-button type="success" round  class="but1" size="medium"  isabled>申请中</el-button>
+        <el-button type="success" round  class="but1" size="medium"  isabled>申请成功</el-button>
       </el-form>
     </div>
   </div>
@@ -122,7 +122,7 @@
           },
           yonghuname: sessionStorage.getItem('yonghuname'),
           /*未申请中*/
-          wflag:false,
+          wflag:true,
           /*申请中*/
           flag:false,
           /*申请成功*/
@@ -139,25 +139,26 @@
           }).then(function (result) {
            // alert(result.data.shname)
             //alert(result.data.useard)
-            if(result.data.shstate==2){
+            alert(result.data.shstate)
+            if(result.data.shstate===2){
               //alert(111)
              // alert(result.data.usercard)
               _this.tableData.names = result.data.shname
-              _this.tableData.userID = result.data.usercard.usercard
+              _this.tableData.userID = result.data.usercard
               _this.tableData.storename = result.data.storename
               _this.tableData.storenumber = result.data.storenumber
               _this.tableData.shaddress = result.data.shaddress
               _this.flag=true
-              _this.width=false
+              _this.wflag=false
               _this.xflag=false
-            }else if(result.data.shstate==2) {
+            }else if(result.data.shstate===3) {
               _this.tableData.names = result.data.shname
-              _this.tableData.userID = result.data.usercard.usercard
+              _this.tableData.userID = result.data.usercard
               _this.tableData.storename = result.data.storename
               _this.tableData.storenumber = result.data.storenumber
               _this.tableData.shaddress = result.data.shaddress
               _this.flag=false
-              _this.width=false
+              _this.wflag=false
               _this.xflag=true
             }else {
               //alert(2222)
@@ -197,6 +198,8 @@
                 message: '申请成功，待管理员审核！！'
               });
               _this.flag=true
+              _this.width=false
+              _this.xflag=false
             }else{
               _this.$message({
                 showClose: true,
