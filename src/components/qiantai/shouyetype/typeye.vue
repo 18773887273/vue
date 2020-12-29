@@ -84,7 +84,8 @@ export default {
       this.$router.push({
         path: '/shouyequery',
         query: {
-          id: id
+          id: id,
+          qf: 2
         }
       })
     },

@@ -8,7 +8,7 @@
         <el-row :gutter="24">
           <div v-for="item of items">
             <el-col :span="6" >
-              <div class="lx-div-for" v-on:click="getDescribe(item.shopputid)">
+              <div class="lx-div-for" v-on:click="getDescribes(item.shopputid)">
                 <div>
                   <el-tag size="medium" class="query-tag" type="success">{{ (10-item.shopzhe)*10}}%</el-tag>
                   <el-image class="main_body_queryImg" :src="item.shopid.shopimg">
@@ -37,10 +37,11 @@ export default {
   data() {
     return {
       items: [],
+      shopnamequery:'',
     }
   },
   methods: {
-    getDescribe(id) {
+    getDescribes(id) {
       //直接调用$router.push 实现携带参数的跳转
       this.$router.push({
         path: '/xiangqing',
@@ -50,10 +51,23 @@ export default {
       })
     },
     getData(func) { //获取数据方法
+      this.items = [];
       var _this = this;
       var params = new URLSearchParams();
-      var shoptyid = _this.$route.query.id;
-      params.append("shopid.shoptyid.shoptyid", shoptyid);
+      var shoptyid = '';
+      let qf = _this.$route.query.qf;
+
+      if (qf == 1){
+        this.shopnamequery = _this.$route.query.queryname;
+      } else if(qf == 2){
+        shoptyid = _this.$route.query.id;
+      }
+      if (shoptyid != ''){
+        params.append("shopid.shoptyid.shoptyid", shoptyid);
+      }
+      if (this.shopnamequery != ''){
+        params.append("shopid.shopname",this.shopnamequery)
+      }
       this.$axios.post("shopput/querylike.action", params).then(function (result) {
         _this.items = result.data;
         console.log(result.data)

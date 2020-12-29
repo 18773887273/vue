@@ -62,7 +62,10 @@ export default {
               _this.loginform.userpass="";
               return
             }else {
-              _this.$message(result.data.msg);
+              _this.$message({
+                message: result.data.msg,
+                type: 'success'
+              });
               //将登录成功的用户名存入store中
               sessionStorage.setItem("yonghuname",result.data.username);
               //将登录成功的用户id存入store中

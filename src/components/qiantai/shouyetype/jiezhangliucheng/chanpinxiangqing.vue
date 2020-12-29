@@ -129,11 +129,17 @@ export default {
       }
       this.$axios.post("shopcard/query.action", params).then(function (result) {
         if (result.data[0] != null){
-          _this.$message("成功加入购物车")
+          _this.$message({
+            message:"已加入购物车",
+            type: 'success'
+          });
           _this.editgouwu(result.data[0].shopgwid);
 
         }else {
-          _this.$message("已加入购物车")
+          _this.$message({
+            message:"成功加入购物车",
+            type: 'success'
+          });
           _this.addgouwu();
 
         }
@@ -152,7 +158,6 @@ export default {
       var userid = sessionStorage.getItem("yonghuid");
       var number = 1;
       var price = _this.chenNum(_this.items.shopputprice,(_this.items.shopzhe/10));
-      alert(shopid)
       params.append("shopid.shopputid", shopid);
       params.append("userid.userid", userid)
       params.append("number", number)

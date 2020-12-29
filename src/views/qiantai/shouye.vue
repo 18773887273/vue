@@ -12,9 +12,9 @@
       </el-menu-item>
       <el-menu-item style="width: 40px"></el-menu-item>
       <el-menu-item>
-        <el-input size="small" style="width: 428px;" placeholder="请输入内容">
+        <el-input size="small" style="width: 428px;" placeholder="请输入内容" v-model="shouyequeryname">
         </el-input>
-        <el-button type="success" style="margin-left: -4px;margin-top: 3px; background-color: #28A745;height: 33px;"
+        <el-button @click="shouyequery" type="success" style="margin-left: -4px;margin-top: 3px; background-color: #28A745;height: 33px;"
                    size="mini">
           <i class="el-icon-search" style="color: white;"></i>
         </el-button>
@@ -29,10 +29,12 @@
           <el-avatar v-if="touxian"> user</el-avatar>
           <el-dropdown-menu slot="dropdown" v-if="touxian">
             <el-dropdown-item>
-              <router-link to="/mys">我的账号</router-link>
+              <router-link to="/mys" class="shouye-luyou-title">我的账号</router-link>
             </el-dropdown-item>
             <el-dropdown-item>我的地址</el-dropdown-item>
-            <el-dropdown-item><router-link to="/personal">商户中心</router-link></el-dropdown-item>
+            <el-dropdown-item>
+              <router-link class="shouye-luyou-title" to="/personal">商户中心</router-link>
+            </el-dropdown-item>
             <el-dropdown-item><div @click="tuichu()">登出</div></el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -228,6 +230,7 @@ export default {
   name: 'app',
   data() {
     return {
+      shouyequeryname:'',
       image1: require("../../images/qianduan/mxt.png"),
       shouyeusername: sessionStorage.getItem("yonghuname"),
       coldiv1: {borderBottom: "2px #42b983 solid"},
@@ -343,6 +346,16 @@ export default {
           this.dialog = true;
         }, 700);
       }
+    },
+    shouyequery(id) {
+      //直接调用$router.push 实现携带参数的跳转
+      this.$router.push({
+        path: '/shouyequery',
+        query: {
+          queryname: this.shouyequeryname,
+          qf:1
+        }
+      })
     },
 
   },
@@ -487,5 +500,10 @@ a {
 .shouye-luyou{
   text-decoration:none;
   color: #FFFAE8;
+}
+
+.shouye-luyou-title{
+  text-decoration:none;
+  color: #333333;
 }
 </style>

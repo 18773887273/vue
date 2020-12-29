@@ -40,9 +40,10 @@
                   </div>
                 </el-col>
                 <el-col :span="2" style="margin-left:209px;background: white;width: 150px;height: 80px;">
-                  <div class="grid-content bg-purple" style="background: white">
+                  <div style="background: white">
+                    <i class="el-icon-delete jia-div-body" v-on:click="quedin(item.shopgwid)"></i>
                     <div class="jia-div-btn" style="width: 100px;height: 40px;background: #F7F7F8;text-align: center;">
-                      <div style="margin-top: 52px;padding-top: 4px">
+                      <div style="margin-top: 30px;padding-top: 4px">
                         <el-button
                           @click="downNumber(item.shopgwid,1,chenNum(item.shopid.shopputprice,(item.shopid.shopzhe/10)),item.number)"
                           size="mini" icon="el-icon-minus" circle></el-button>
@@ -242,6 +243,7 @@ export default {
 
       },
       tradeno: "",
+      gwclength:0,
       price: "",
       tradename: "",
       dialogFormVisible: false,
@@ -257,6 +259,7 @@ export default {
         consigneeaddress: '',
         youhuiprice: 0
       },
+      sfxzdizhi:false,
     };
   },
   methods: {
@@ -275,6 +278,7 @@ export default {
       }).catch(function (error) {
       });
     },
+
     getAddress() {
       var _this = this;
       var params = new URLSearchParams();
@@ -288,11 +292,12 @@ export default {
             _this.zhifus.consigneename = addrs.nicheng;
             _this.zhifus.consigneenumber = addrs.telephone;
             _this.zhifus.consigneeaddress = addrs.beizhu;
+            _this.sfxzdizhi = true;
           }
 
         }
-        console.log(_this.zhifus)
-        console.log(_this.address)
+        //console.log(_this.zhifus)
+        //console.log(_this.address)
       }).catch(function (error) {
         alert(error)
       });
@@ -300,7 +305,7 @@ export default {
 
     openAndClose() {
       let divheight = 153;
-      let as = 0;
+      let as = this.gwclength;
       if (this.items.length > 1) {
         as = (divheight * this.items.length);
       } else if (this.items.length == 1) {
@@ -386,6 +391,7 @@ export default {
 
       }
     },
+
     addNum(n1, n2) {
       let s1, s2, m;
       try {
@@ -401,6 +407,7 @@ export default {
       m = Math.pow(10, Math.max(s1, s2));
       return (n1 * m + n2 * m) / m;
     },
+
     chenNum(curr, next) {
       let m = 0, s1 = curr.toString(), s2 = next.toString();
       try {
@@ -413,6 +420,7 @@ export default {
       }
       return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
     },
+
     accSub(curr, next) {
       var curr_l, next_l, m, c;
       try {
@@ -466,6 +474,7 @@ export default {
       }
 
     },
+
     downNumber(id, number, price, index) {//扣除商品数量
       let _this = this;
       if (index == 1) {
@@ -489,6 +498,7 @@ export default {
       this.centerDialogVisible = true;
       this.getStroename();
     },
+
     getStroename(func) { //获取数据方法
       var _this = this;
       this.$axios.post("user/querylike2.action").then(function (result) {
@@ -499,6 +509,7 @@ export default {
         alert(error)
       });
     },
+
     submitForm(formName) {//添加收货地址
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -519,6 +530,7 @@ export default {
               message: result.data.msg,
               type: 'success'
             });
+            _this.centerDialogVisible = false;
             _this.getAddress()
 
           }).catch(function (error) {
@@ -531,9 +543,11 @@ export default {
         }
       });
     },
+
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
+
     clearDel(addrid) {
       let _this = this;
       let params = new URLSearchParams();
@@ -551,6 +565,7 @@ export default {
         alert("错误信息：" + error)
       });
     },
+
     setDel(addressida) {
       let _this = this;
       let params = new URLSearchParams();
@@ -568,29 +583,47 @@ export default {
         alert("错误信息：" + error)
       });
     },
+
     addrClick(addrid) {
       this.clearDel(addrid);
     },
+
     pay() {
-      this.zhifu()
-      var params = new URLSearchParams();
-      params.append("tradeno", this.tradeno);  //订单号
-      params.append("price", this.zhifus.ordermoney);    //价格
-      params.append("tradename", this.tradename);  //订单名字
+      if (this.sfxzdizhi == false){
+        this.$message({
+          message:"请选择地址",
+          type: 'warning'
+        });
+        return ;
+      }else {
+        this.zhifu()
+        var params = new URLSearchParams();
+        params.append("tradeno", this.tradeno);  //订单号
+        params.append("price", this.zhifus.ordermoney);    //价格
+        params.append("tradename", this.tradename);  //订单名字
 
-      this.$axios.post("orders/pay.action", params).then(function (result) {
+        this.$axios.post("orders/pay.action", params).then(function (result) {
 
-        var bodystr = result.data;  //后端返回的支付页面代码
-        console.log(bodystr)
-        bodystr = bodystr.substr(0, bodystr.indexOf("<script>"));
-        console.log(bodystr)
-        document.getElementById("mydiv").innerHTML = bodystr;
-        document.forms[0].submit();   //返回代码中需要表单提交得到真实的支付页面
+          var bodystr = result.data;  //后端返回的支付页面代码
 
-      }).catch();
+          console.log(bodystr)
 
-      this.dialogFormVisible = true;
+          bodystr = bodystr.substr(0, bodystr.indexOf("<script>"));
+
+          console.log(bodystr)
+
+          document.getElementById("mydiv").innerHTML = bodystr;
+
+          document.forms[0].submit();   //返回代码中需要表单提交得到真实的支付页面
+
+        }).catch();
+
+        this.dialogFormVisible = true;
+
+      }
+
     },
+
     zhifu() {
       let _this = this;
       let params = new URLSearchParams();
@@ -602,22 +635,31 @@ export default {
       params.append("consigneename", this.zhifus.consigneename);
       params.append("consigneenumber", this.zhifus.consigneenumber);
       params.append("consigneeaddress", this.zhifus.consigneeaddress);
-
+      console.log(this.zhifus)
       this.$axios.post("orders/createOrder.action", params).then(function (result) {
-        //_this.$message(result.data.msg);
+        _this.$message({
+          message:result.data.msg,
+          type: 'success'
+        });
+        if (result.data.msg =="创建成功"){
+          _this.zhifujieguo();
+        }
+      }).catch(function (error) {
+        alert(error)
+      });
+    },
+
+    zhifujieguo(){//用户提交订单后删除购物车
+      let _this = this;
+      let params = new URLSearchParams();
+      params.append("userid", this.zhifus.userid);
+      this.$axios.post("shopcard/deletebyuserid.action",params).then(function (result) {
 
       }).catch(function (error) {
         alert(error)
       });
     },
-    /*zhifujieguo(){
-      this.$axios.post("orders/returnUrl.action").then(function (result) {
-        //_this.$message(result.data.msg);
 
-      }).catch(function (error) {
-        alert(error)
-      });
-    },*/
     createNumber() {
       var code = "";
       for (var i = 1; i <= 6; i++) {
@@ -626,6 +668,7 @@ export default {
       }
       this.tradeno = "1905JA"+code;
     },
+
     createName() {
       var code = "";
       for (var i = 1; i <= 6; i++) {
@@ -634,15 +677,45 @@ export default {
       }
       this.tradename = "1905JAVue"+code+"E";
     },
+
+    quedin(id){
+      this.$confirm('此操作将删除此商品, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.shanchusp(id)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
+    },
+
+    shanchusp(id){
+      let _this = this;
+      let params = new URLSearchParams();
+      params.append("id", id);
+      this.$axios.post("shopcard/delById.action",params).then(function (result) {
+        _this.$message({
+          message:result.data.msg,
+          type: 'success'
+        });
+
+        _this.getData();
+        _this.openAndClose()
+      }).catch(function (error) {
+        alert(error)
+      });
+    }
   },
   watch: {
     tradeno: function (val) {
-      this.zhifus.ordercount = val;
+      this.zhifus.orderbianhao = val;
     },
-    /*tradename:function (val) {
-      this.
-    }*/
   },
+
   created() {
     this.getData();
     this.getAddress();
@@ -685,6 +758,10 @@ export default {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
+}
+
+.jia-div-body{
+  margin-left: 41px;
 }
 
 .card-left-div {

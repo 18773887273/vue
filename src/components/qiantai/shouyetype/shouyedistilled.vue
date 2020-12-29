@@ -31,7 +31,6 @@ export default {
   data() {
     return {
       items: [],
-      imagesrc: '../../../images/shop/',
     }
   },
   methods: {
