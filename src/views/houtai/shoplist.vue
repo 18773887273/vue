@@ -22,11 +22,17 @@
                   :header-cell-style="headClass" :cell-style="rowClass" :row-class-name="tableRowClassName">
           <el-table-column prop="shopid" label="ID">
           </el-table-column>
-          <el-table-column prop="shopname" label="商品名">
+          <el-table-column label="商品名">
+            <template slot-scope="scope">
+              <el-popover trigger="hover" placement="top">
+                <p>商品描述:{{scope.row.shopmiaoshu}}</p><br>
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium">{{ scope.row.shopname }}</el-tag>
+                </div>
+              </el-popover>
+            </template>
           </el-table-column>
           <el-table-column prop="shoptyid.shoptyname" label="类型">
-          </el-table-column>
-          <el-table-column prop="shopmiaoshu" label="描述">
           </el-table-column>
           <el-table-column prop="shopprice" label="价格">
           </el-table-column>

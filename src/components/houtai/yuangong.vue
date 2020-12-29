@@ -5,11 +5,8 @@
         <div>
           <!--用户查询-->
           <el-form :inline="true" class="demo-form-inline" style="margin-top: 0px">
-            <el-form-item label="姓名">
+            <el-form-item label="用户名">
               <el-input v-model="queryusername" placeholder="" size="small"></el-input>
-            </el-form-item>
-            <el-form-item label="手机号">
-              <el-input v-model="querynumber" placeholder="" size="small"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="queryuser()" plain size="small">查询</el-button>
@@ -40,7 +37,7 @@
             <el-table-column label="操作">
               <template slot-scope="scope">
                 <el-button v-if="scope.row.isdelete==1" type="danger" slot="reference" circle plain size="small" @click="open(scope.row)">冻结</el-button>
-                <el-button v-if="scope.row.isdelete==2" type="success" slot="reference" circle plain size="small" @click="open1(scope.row)">解冻</el-button>
+                <el-button v-if="scope.row.isdelete==0" type="success" slot="reference" circle plain size="small" @click="open1(scope.row)">解冻</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -99,35 +96,6 @@
         //根据pageindex  获取数据
         this.getdata();
       },
-      /*deluser(row) {
-        //alert(row)
-        alert(row.userid);
-        var _this = this;
-        var params = new URLSearchParams();
-        params.append("userid", row.userid);
-        this.$axios.post("user/deluser.action", params,{
-        emulateJSON:true
-        }).
-        then(function(result) {
-
-          if(result.data.msg == "1") {
-            //alert('删除成功');
-            const h = _this.$createElement;
-            _this.$notify({
-              title: '消息',
-              message: h('i', { style: 'color: teal' }, '删除成功'),
-              type: 'success',
-              position: 'bottom-right'
-            });
-            this.getdata();
-          } else {
-            alert('删除失败');
-          }
-        }.bind(this)).
-        catch(function(error) {
-          alert(error)
-        });
-      },*/
       open(row) {
         var _this=this
         this.$confirm('此操作将冻结该用户, 是否继续?', '提示', {
@@ -149,7 +117,7 @@
         var params = new URLSearchParams();
         params.append("userid", row.userid);
         params.append("isdelete", row.isdelete);
-        this.$axios.post("user/deluser.action", params).then(function (result) {
+        this.$axios.post("user/deluser1.action", params).then(function (result) {
           _this.getdata(() => {
             _this.$message({
               message: result.data.msg,

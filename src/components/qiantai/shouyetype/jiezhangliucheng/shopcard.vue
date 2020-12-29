@@ -634,6 +634,7 @@ export default {
       params.append("consigneename", this.zhifus.consigneename);
       params.append("consigneenumber", this.zhifus.consigneenumber);
       params.append("consigneeaddress", this.zhifus.consigneeaddress);
+      params.append("youhuiprice", this.zhifus.youhuiprice);
       console.log(this.zhifus)
       this.$axios.post("orders/createOrder.action", params).then(function (result) {
         _this.$message({
