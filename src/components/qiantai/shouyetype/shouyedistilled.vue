@@ -3,11 +3,11 @@
     <el-col :span="24" :offset="1" >
       <div>
         <div v-for="item of items">
-          <el-col :span="5" style="background-color: white;margin-left: 10px;margin-top: 20px;margin-bottom: 20px">
+          <el-col :span="5" style="background-color: white;margin-left: 20px;margin-top: 20px;margin-bottom: 20px">
             <div class="distilled-div" @click="getDescribe(item.shopid.shopid)">
               <img
                 class="main_body_commodityImg"
-                style="width: 223px; height: 168px;margin-top: 10px;"
+                style="width: 223px; height: 168px;margin-top: 10px;margin-left: 28px"
                 :src="item.shopid.shopimg"
               >
               <br>
@@ -47,7 +47,7 @@ export default {
       var _this = this;
       this.$axios.post("shopput/querydistilled.action").then(function (result) {
         _this.items = result.data;
-
+        console.log(_this.items)
         func && func();
       }).catch(function (error) {
         alert(error)

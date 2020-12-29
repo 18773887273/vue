@@ -15,13 +15,13 @@
           </el-popover>
         </template>
       </el-table-column>-->
-      <el-table-column prop="ordertime" label="创建时间" width="300px">
+      <el-table-column prop="ordertime" label="创建时间" width="220px">
       </el-table-column>
-      <el-table-column prop="ordercount" label="总数量" width="140px">
+      <el-table-column prop="ordercount" label="总数量" width="130px">
       </el-table-column>
-      <el-table-column prop="ordermoney" label="总金额" width="140px">
+      <el-table-column prop="ordermoney" label="总金额" width="130px">
       </el-table-column>
-      <el-table-column prop="orderstate" label="订单状态" width="140px">
+      <el-table-column prop="orderstate" label="订单状态" width="130px">
         <template slot-scope="scope">
           <span v-if="scope.row.orderstate==1">待付款</span>
           <span v-if="scope.row.orderstate==2">发货中</span>
@@ -31,13 +31,6 @@
           <span v-if="scope.row.orderstate==6">已完成</span>
         </template>
       </el-table-column>
-      <!--<el-table-column
-        prop="img"
-        label="图片">
-        <template slot-scope="scope">
-          <img  :src="scope.row.img" style="width: 30px"/>
-        </template>
-      </el-table-column>-->
       <el-table-column label="操作" fixed="right" width="140px">
         <template slot-scope="scope">
           <el-button type="success" @click="xiangqing(scope.row)" circle plain size="small">查看详情</el-button>
@@ -46,11 +39,15 @@
     </el-table>
     <br>
     <!--分页显示  -->
-    <el-pagination @current-change="pagechange"
-                   :page-size="rows"
-                   layout="total, prev, pager, next, jumper"
-                   :total="total">
-    </el-pagination>
+    <el-row>
+      <el-col :offset="8">
+        <el-pagination @current-change="pagechange"
+                       :page-size="rows"
+                       layout="total, prev, pager, next, jumper"
+                       :total="total">
+        </el-pagination>
+      </el-col>
+    </el-row>
 
 
 

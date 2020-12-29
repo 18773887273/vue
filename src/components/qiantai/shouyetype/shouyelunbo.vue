@@ -1,26 +1,26 @@
 <template>
   <el-row :gutter="24">
-    <el-col :span="21"  :offset="1">
+    <el-col :span="24"  :offset="1">
       <div id="banner">
-        <div style="width:1093px;margin-left: 0px ">
+        <div style="width:1270px;margin-left: 0px ">
           <hooper :itemsToShow="3" :infiniteScroll="true">
             <slide>
-              <img class="main_body_commodityImg" :src="image1" width="344px" height="168px"/>
+              <img class="main_body_commodityImg" :src="image1" width="500px" height="168px"/>
             </slide>
             <slide>
-              <img class="main_body_commodityImg" :src="image2" width="344px" height="168px"/>
+              <img class="main_body_commodityImg" :src="image2" width="500px" height="168px"/>
             </slide>
             <slide>
-              <img class="main_body_commodityImg" :src="image3" width="344px" height="168px"/>
+              <img class="main_body_commodityImg" :src="image3" width="500px" height="168px"/>
             </slide>
             <slide>
-              <img class="main_body_commodityImg" :src="image4" width="344px" height="168px"/>
+              <img class="main_body_commodityImg" :src="image4" width="500px" height="168px"/>
             </slide>
             <slide>
-              <img class="main_body_commodityImg" :src="image5" width="344px" height="168px"/>
+              <img class="main_body_commodityImg" :src="image5" width="500px" height="168px"/>
             </slide>
             <slide>
-              <img class="main_body_commodityImg" :src="image6" width="344px" height="168px"/>
+              <img class="main_body_commodityImg" :src="image6" width="500px" height="168px"/>
             </slide>
 
           </hooper>

@@ -2,30 +2,28 @@
   <div>
     <a style="margin-left:110px;font-size: 15px;color: #2c3e50">产品详情</a>
     <div style="margin-top: 20px">
-
-
-      <el-row :gutter="23">
-        <el-col :span="10" :offset="2">
+      <el-row :gutter="24">
+        <el-col :span="12" :offset="2">
           <div class="grid-content bg-purple">
-            <hooper style="height: 350px" :progress="true" :autoPlay="true" :playSpeed="2000">
+            <hooper style="height: 440px" :progress="true" :autoPlay="true" :playSpeed="2000">
               <slide>
-                <img :src="images[0]" width="547px" height="350px"/>
+                <img :src="images[0]" width="720px" height="440px"/>
               </slide>
               <slide>
-                <img :src="images[1]" width="547px" height="350px"/>
+                <img :src="images[1]" width="720px" height="440px"/>
               </slide>
               <slide>
-                <img :src="images[2]" width="547px" height="350px"/>
+                <img :src="images[2]" width="720px" height="440px"/>
               </slide>
               <hooper-pagination slot="hooper-addons"></hooper-pagination>
             </hooper>
           </div>
           <el-button type="success" @click="checkgouwu"
-                     style="margin-top:20px;margin-left:160px;width: 200px;height:70px;background: #28A745"><i
+                     style="margin-top:20px;margin-left:160px;width: 400px;height:70px;background: #28A745"><i
             class="el-icon-shopping-cart-2 el-icon--left"></i>加入购物车
           </el-button>
         </el-col>
-        <el-col :span="9" style="">
+        <el-col :span="9" style="margin-left: 20px">
           <div style="background: white;width: 521px;height: 440px">
             <el-col>
               <div style="margin-top: 20px;margin-left: 20px">

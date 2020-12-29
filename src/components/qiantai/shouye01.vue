@@ -1,9 +1,9 @@
 <template>
   <div id="shouye01">
   <el-row :gutter="20">
-    <el-col :span="24" style="margin-left:105px;margin-top: 46px;">
+    <el-col :span="24" style="margin-left:100px;margin-top: 46px;">
       <span>你在找什么?</span>
-      <el-button size="small" type="success" plain style="margin-left: 871px;">查看更多</el-button>
+      <el-button size="small" type="success" plain style="margin-left: 1088px;">查看更多</el-button>
     </el-col>
   </el-row>
   <el-row :gutter="22" style="margin-top: 26px;">
@@ -17,9 +17,9 @@
   </el-row>
 
   <el-row :gutter="20">
-    <el-col :span="24" style="margin-left: 105px; margin-top:0px;">
+    <el-col :span="24" style="margin-left:100px; margin-top:0px;">
       <span>促销给你</span>
-      <el-button size="small" type="success" plain style="margin-left: 901px;">查看更多</el-button>
+      <el-button size="small" type="success" plain style="margin-left: 1112px;">查看更多</el-button>
     </el-col>
   </el-row>
   <el-row :gutter="22" style="margin-top: 26px;">
@@ -29,12 +29,12 @@
   </el-row>
 
   <el-row :gutter="20">
-    <el-col :span="20" style="margin-left: 105px;">
+    <el-col :span="24" style="margin-left: 105px;margin-top: 50px">
       <span>今日精选</span>
-      <el-button size="small" type="success" plain style="margin-left: 901px;">查看更多</el-button>
+      <el-button size="small" type="success" plain style="margin-left: 1107px;">查看更多</el-button>
     </el-col>
   </el-row>
-  <el-row :gutter="24" style="margin-left: 25px;">
+  <el-row :gutter="24" style="margin-left: 25px;margin-top: 20px">
     <distilled></distilled>
   </el-row>
 
@@ -42,10 +42,10 @@
   <el-row :gutter="24">
     <el-col :span="24" style="margin-left: 105px; margin-top:50px;">
       <span>为你推荐</span>
-      <el-button size="small" type="success" plain style="margin-left: 901px;">查看更多</el-button>
+      <el-button size="small" type="success" plain style="margin-left: 1107px;">查看更多</el-button>
     </el-col>
   </el-row>
-  <el-row :gutter="24" style="margin-left: 75px;margin-bottom: 30px;">
+  <el-row :gutter="24" style="margin-left: 95px;margin-bottom: 30px;">
     <el-col :span="7" style="margin-top: 20px;">
       <div class="block">
         <el-carousel trigger="click" height="200px" >
@@ -55,7 +55,7 @@
         </el-carousel>
       </div>
     </el-col>
-    <el-col :span="7" style="margin-left:25px;margin-top: 20px;">
+    <el-col :span="7" style="margin-left:40px;margin-top: 20px;">
       <div class="block">
         <el-carousel trigger="click" height="200px" >
           <el-carousel-item v-for="item in img2" >
@@ -64,7 +64,7 @@
         </el-carousel>
       </div>
     </el-col>
-    <el-col :span="7" style="margin-left:25px;margin-top: 20px;">
+    <el-col :span="7" style="margin-left:40px;margin-top: 20px;">
       <div class="block">
         <el-carousel trigger="click" height="200px" >
           <el-carousel-item v-for="item in img3" >

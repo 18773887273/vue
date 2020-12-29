@@ -11,7 +11,7 @@
               <div class="lx-div-for" v-on:click="getDescribes(item.shopputid)">
                 <div>
                   <el-tag size="medium" class="query-tag" type="success">{{ (10-item.shopzhe)*10}}%</el-tag>
-                  <el-image class="main_body_queryImg" :src="item.shopid.shopimg">
+                  <el-image style="width: 210px;height: 180px" class="main_body_queryImg" :src="item.shopid.shopimg">
 
                   </el-image>
                 </div>
@@ -128,7 +128,7 @@ export default {
 
 .lx-div-for{
   background-color: white;
-  height: 230px;
+  height: 310px;
   margin-top: 20px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;

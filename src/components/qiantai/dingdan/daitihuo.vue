@@ -41,11 +41,15 @@
     </el-table>
     <br>
     <!--分页显示  -->
-    <el-pagination @current-change="pagechange"
-                   :page-size="rows"
-                   layout="total, prev, pager, next, jumper"
-                   :total="total">
-    </el-pagination>
+    <el-row>
+      <el-col :offset="8">
+        <el-pagination @current-change="pagechange"
+                       :page-size="rows"
+                       layout="total, prev, pager, next, jumper"
+                       :total="total">
+        </el-pagination>
+      </el-col>
+    </el-row>
 
 
 

@@ -6,11 +6,7 @@
       <el-menu-item>
         <el-image style="width: 100px; height: 50px" :src="image1"></el-image>
       </el-menu-item>
-      <el-menu-item>
-        <el-button size="mini" circle><i class="el-icon-location-outline"></i></el-button>
-
-      </el-menu-item>
-      <el-menu-item style="width: 40px"></el-menu-item>
+      <el-menu-item style="width: 285px"></el-menu-item>
       <el-menu-item>
         <el-input size="small" style="width: 428px;" placeholder="请输入内容" v-model="shouyequeryname">
         </el-input>
@@ -19,7 +15,7 @@
           <i class="el-icon-search" style="color: white;"></i>
         </el-button>
       </el-menu-item>
-      <el-menu-item style="width: 120px;">
+      <el-menu-item style="width: 230px;">
 
       </el-menu-item>
       <el-menu-item>
@@ -38,8 +34,8 @@
             <el-dropdown-item><div @click="tuichu()">登出</div></el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <el-button size="mini" circle style="background-color: #F8F9FA; "><i class="el-icon-bell"></i></el-button>
-        <el-button @click="oppencard" size="mini" circle style="background-color: #F8F9FA; "><i class="el-icon-shopping-cart-2"></i>
+
+        <el-button @click="oppencard" size="mini" circle style="background-color: #F8F9FA; margin-left: 10px"><i class="el-icon-shopping-cart-2"></i>
         </el-button>
       </el-menu-item>
     </el-menu>
@@ -83,14 +79,14 @@
       </el-main>
       <el-footer>
         <el-row :gutter="20">
-          <el-col :span="20" style="margin-left: 98px; margin-top:30px;">
+          <el-col :span="24" style="margin-left: 105px; margin-top:30px;">
             <span>促销给你</span>
-            <el-button size="small" type="success" plain style="margin-left: 908px;">查看更多</el-button>
+            <el-button size="small" type="success" plain style="margin-left: 1125px;">查看更多</el-button>
           </el-col>
         </el-row>
         <el-divider></el-divider>
         <el-row style="margin-bottom: 35px;">
-          <el-col :span="4" style="margin-left: 98px; margin-top:30px;">
+          <el-col :span="4" style="margin-left: 105px; margin-top:30px;">
             <span>产品展示</span><br/>
             <el-link class="el-linka" :underline="false">清单</el-link>
             <br/>
@@ -103,7 +99,7 @@
             <el-link class="el-linka" :underline="false">最受欢迎的</el-link>
             <br/>
           </el-col>
-          <el-col :span="4" style="margin-left: 20px; margin-top:30px;">
+          <el-col :span="4" style="margin-left: 30px; margin-top:30px;">
             <span>结帐流程</span><br/>
             <el-link class="el-linka" :underline="false">购物车</el-link>
             <br/>
@@ -118,7 +114,7 @@
             <el-link class="el-linka" :underline="false">成功的</el-link>
             <br/>
           </el-col>
-          <el-col :span="4" style="margin-left: 20px; margin-top:30px;">
+          <el-col :span="4" style="margin-left: 30px; margin-top:30px;">
             <span>我的订单</span><br/>
             <el-link class="el-linka" :underline="false">我的订单</el-link>
             <br/>
@@ -132,7 +128,7 @@
             <br/>
 
           </el-col>
-          <el-col :span="4" style="margin-left: 20px; margin-top:30px;">
+          <el-col :span="4" style="margin-left: 30px; margin-top:30px;">
             <span>我的帐户</span><br/>
             <el-link class="el-linka" :underline="false">我的帐户</el-link>
             <br/>
@@ -149,7 +145,7 @@
             <el-link class="el-linka" :underline="false">等出</el-link>
             <br/>
           </el-col>
-          <el-col :span="4" style="margin-left: 20px; margin-top:30px;">
+          <el-col :span="4" style="margin-left: 30px; margin-top:30px;">
             <span>额外页面</span><br/>
             <el-link class="el-linka" :underline="false">促销详情</el-link>
             <br/>

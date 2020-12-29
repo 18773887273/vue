@@ -81,7 +81,6 @@
 
                         <div style="margin-top: 15px" class="font-class">提货地址：{{ addr.shid.storename }}</div>
                         <div style="margin-top: 15px" class="font-class">联系电话：{{ addr.telephone }}</div>
-                        <a style="margin-top: 3px;margin-left: 225px" class="addr-edit">编辑</a>
                       </div>
                     </div>
                   </el-card>
@@ -119,8 +118,8 @@
 
               <!-- 添加模态框-->
               <el-dialog id="paydialog" title="支付" :visible.sync="dialogFormVisible">
-                <div id="mydiv">
-
+                <div id="mydiv" style="text-align: center">
+                  <div style="margin-top: 6px;font-size: 19px">訂單支付中,請稍後. . .</div>
                 </div>
               </el-dialog>
 
