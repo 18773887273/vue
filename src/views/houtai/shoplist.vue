@@ -224,6 +224,8 @@
           this.selectDate = {
             ...row
           }
+          this.$refs.editshopchild.fileList = [];
+          this.$refs.editshopchild.imageUrl = '';
           for (var i=0;i<this.selectDate.shopxqs.length;i++){
             _this.$refs.editshopchild.fileList.push({url:this.selectDate.shopxqs[i].shopimg})
           }
