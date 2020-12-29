@@ -1,19 +1,19 @@
 <template>
-  <div id="app">
-    <div style="height:200px; width: 200px" id="date">
+  <div id="app" style="background: url('./src/images/shanghu/444.jpg');width: 100%;height: 100vh">
+    <div style="height:400px; width: 300px;background: url('./src/images/shanghu/loginback.png')" id="date">
       <el-form label-width="80px">
         <el-form-item>
-          <h1>用户登录</h1>
+          <h1 style="margin-left: 40px">登录</h1>
         </el-form-item>
         <el-form-item label="用户名">
-          <el-input  v-model="username"></el-input>
+          <el-input  v-model="username" placeholder="用户名" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input  v-model="userpass"></el-input>
+          <el-input  v-model="userpass" placeholder="密码" style="width: 200px"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="denglu()">
-            登陆
+          <el-button type="primary" @click="denglu()" style="margin-left: 40px">
+            登录
           </el-button>
         </el-form-item>
       </el-form>
@@ -77,5 +77,12 @@
 </script>
 
 <style>
-
+  #date{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
 </style>

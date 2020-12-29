@@ -13,7 +13,7 @@
       <router-link to="personal"><el-menu-item index="personal" style="float: left"><i class="el-icon-postcard"></i>资料维护</el-menu-item></router-link>
       <router-link to="orders"><el-menu-item index="orders" style="float: left"><i class="el-icon-sell"></i>订单管理</el-menu-item></router-link>
       <router-link to="shbaobiao"><el-menu-item index="shbaobiao" style="float: left"><i class="el-icon-s-data"></i>统计营收</el-menu-item></router-link>
-      <el-menu-item index="4"><i class="el-icon-chat-dot-square"></i>消息中心</el-menu-item>
+      <el-menu-item @click="tuichu()" style="float: left"><i class="el-icon-back"></i>返回首页</el-menu-item>
       <el-col :span="8" style="float: right;margin-top: 10px">
         <div id="clock">
           <p class="date">{{ date }}</p>
@@ -61,6 +61,10 @@
       methods: {
         handleSelect(key, keyPath) {
           console.log(key, keyPath);
+        },
+        tuichu(){
+          var _this=this;
+          _this.$router.push({path: '/back'})
         },
         //更新时间的方法
         updateTime:function () {
