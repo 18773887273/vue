@@ -33,6 +33,7 @@ import Churukubaobiao from "../views/houtai/churukubaobiao";
 import  Shoptype from '../views/houtai/shoptylist.vue'
 import  Addshopty from '../components/houtai/shopty/addshopty'
 import  Caigou from '../views/houtai/caigou.vue'
+import  Shopputlist from '../views/houtai/shopputlist.vue'
 /*用户订单*/
 import Alldingdan from "../components/qiantai/dingdan/alldingdan";
 import Daifukuan from "../components/qiantai/dingdan/daifukuan";
@@ -138,6 +139,10 @@ const routes = [
       {
         path: '/churukubaobiao',
         component: Churukubaobiao
+      },
+      {
+        path: '/shopput',
+        component: Shopputlist
       }
     ]
   },

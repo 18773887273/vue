@@ -1,36 +1,55 @@
 <template>
   <div>
-
     <el-row :gutter="20">
       <el-col :span="20" :offset="2">
         <div>
-          <el-table border :data="tableData" :row-class-name="tableRowClassName">
+          <!--用户查询-->
+          <el-form :inline="true" class="demo-form-inline" style="margin-top: 0px">
+            <el-form-item label="姓名">
+              <el-input v-model="queryusername" placeholder="" size="small"></el-input>
+            </el-form-item>
+            <el-form-item label="手机号">
+              <el-input v-model="querynumber" placeholder="" size="small"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="queryuser()" plain size="small">查询</el-button>
+            </el-form-item>
+          </el-form>
+
+          <el-table border :data="tableData" :row-class-name="tableRowClassName"   :header-cell-style="headClass" :cell-style="rowClass">
             <el-table-column prop="userid" label="ID" width="180">
             </el-table-column>
             <el-table-column prop="zhucetime" label="注册时间" width="180">
             </el-table-column>
-            <el-table-column prop="shname" label="姓名" width="180">
-            </el-table-column>
-            <el-table-column prop="sex" label="性别">
+            <el-table-column prop="username" label="用户名" width="180">
               <template slot-scope="scope">
-              <span v-if="scope.row.sex==0">女</span>
-              <span v-if="scope.row.sex==1">男</span>
+                <el-popover trigger="hover" placement="top">
+                  <span v-if="scope.row.sex==0"> <p>性别:女</p></span>
+                  <span v-if="scope.row.sex==1"> <p>性别:男</p></span><br>
+                  <p>会员: {{scope.row.hyid.hyname}}</p>
+                  <div slot="reference" class="name-wrapper">
+                    <el-tag size="medium">{{ scope.row.username }}</el-tag>
+                  </div>
+                </el-popover>
               </template>
             </el-table-column>
-            <el-table-column prop="usernumber" label="电话">
+            <el-table-column prop="usernumber" label="电话" width="180">
             </el-table-column>
-            <el-table-column prop="usercard" label="省份证号码">
-            </el-table-column>
-            <el-table-column prop="hyid.hyname" label="会员">
+            <el-table-column prop="usercard" label="身份证" width="200">
             </el-table-column>
             <el-table-column label="操作">
               <template slot-scope="scope">
-                <el-popconfirm title="这是一段内容确定删除吗？" @confirm="deluser(scope.row)">
-                  <el-button slot="reference" type="danger" icon="el-icon-delete" circle></el-button>
-                </el-popconfirm>
+                <el-button v-if="scope.row.isdelete==1" type="danger" slot="reference" circle plain size="small" @click="open(scope.row)">冻结</el-button>
+                <el-button v-if="scope.row.isdelete==2" type="success" slot="reference" circle plain size="small" @click="open1(scope.row)">解冻</el-button>
               </template>
             </el-table-column>
           </el-table>
+          <!--分页显示  -->
+          <el-pagination @current-change="pagechange"
+                         :page-size="rows"
+                         layout="total, prev, pager, next, jumper"
+                         :total="total">
+          </el-pagination>
         </div>
       </el-col>
     </el-row>
@@ -56,7 +75,12 @@
         editid: "",
         editname: "",
         editbirthday: "",
-        editsalary: ""
+        editsalary: "",
+        queryusername:"",
+        querynumber:"",
+        total: 1,
+        page: 1,
+        rows: 8
       }
     },
     methods: {
@@ -68,7 +92,14 @@
         }
         return '';
       },
-      deluser(row) {
+      pagechange(pageindex) {
+        //页码变更时
+        //console.log(pageindex)
+        this.page = pageindex;
+        //根据pageindex  获取数据
+        this.getdata();
+      },
+      /*deluser(row) {
         //alert(row)
         alert(row.userid);
         var _this = this;
@@ -92,28 +123,86 @@
           } else {
             alert('删除失败');
           }
-
         }.bind(this)).
         catch(function(error) {
           alert(error)
         });
+      },*/
+      open(row) {
+        var _this=this
+        this.$confirm('此操作将冻结该用户, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.dj(row)
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
       },
-      getdata() {
-        //alert(1111)
+      dj(row) {
         var _this = this;
+        //异步获取数据
+        var params = new URLSearchParams();
+        params.append("userid", row.userid);
+        params.append("isdelete", row.isdelete);
+        this.$axios.post("user/deluser.action", params).then(function (result) {
+          _this.getdata(() => {
+            _this.$message({
+              message: result.data.msg,
+              type: 'success'
+            });
+          });
+        })
+          .catch(function (error) {
+            alert(error)
+          });
+      },
+      open1(row) {
+        var _this=this
+        this.$confirm('此操作将解冻该用户, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.dj(row)
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },
+      queryuser(){this.getdata()},
+      getdata(func) {
+        var _this = this;
+        var params = new URLSearchParams();
+        params.append("username", _this.queryusername);
+        params.append("usernumber", _this.querynumber);
+        params.append("page", this.page);
+        params.append("rows", this.rows);
         this.$axios
-          .post('/user/querylike.action').
+          .post('/user/querylike.action',params).
         then(function(result) {
-
           _this.tableData = result.data.rows;
-         // alert(55555)
+          _this.total = result.data.total;
+          func && func();
         }).
         catch(function(error) {
           alert(error)
         });
       },
+      headClass() {
+        //表头居中显示
+        return "text-align:center"
+      },
+      rowClass() { //表格数据居中显示
+        return "text-align:center"
+      }
     },
-
     created() {
       this.getdata();
     }

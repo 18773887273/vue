@@ -55,13 +55,6 @@
             </template>
           </el-table-column>
         </el-table>
-        <el-pagination @current-change="pagechange"
-                       :page-size="rows"
-                       layout="total, prev, pager, next, jumper"
-                       :total="total">
-        </el-pagination>
-
-
         <el-dialog title="添加页面" :visible.sync="addshopdialogFormVisible">
 
           <addshop ref="addshopchild"></addshop>
