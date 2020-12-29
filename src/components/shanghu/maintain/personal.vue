@@ -239,7 +239,7 @@
         user.append("storenumber", storenumber);
         user.append("userid", this.shid)
 
-        _this.$axios.post("user/edituser1.action", user).then(function (result) {
+        _this.$axios.post("user/editsh.action", user).then(function (result) {
           _this.getdata(() => {
             _this.$message({
               message: result.data.msg,

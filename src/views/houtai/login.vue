@@ -9,6 +9,7 @@
           <el-input  v-model="username" placeholder="用户名" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="密码">
+
           <el-input  v-model="userpass" placeholder="密码" style="width: 200px"></el-input>
         </el-form-item>
         <el-form-item>
