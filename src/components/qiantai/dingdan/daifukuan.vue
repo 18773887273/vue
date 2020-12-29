@@ -36,6 +36,7 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="success" @click="xiangqing(scope.row)" circle plain size="small">查看详情</el-button>
+          <el-button type="success" @click="" circle plain size="small">支付</el-button>
         </template>
       </el-table-column>
     </el-table>

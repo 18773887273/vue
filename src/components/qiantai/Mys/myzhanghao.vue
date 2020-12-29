@@ -6,7 +6,7 @@
       <el-form>
         <el-col :span="24" style="margin-top: 5px">
         <el-form-item label="用户名"><br/>
-          <el-input v-model="tableData.username"></el-input>
+          <el-input v-model="tableData.username" readonly="readonly"></el-input>
         </el-form-item>
       </el-col>
         <el-col :span="24" style="margin-top: 5px">

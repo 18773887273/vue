@@ -116,31 +116,78 @@
               names:[
                 { required: true, validator:xingmingss , trigger: 'blur' }
               ]
-            }
+            },
+            houtaiid:[],
         }
       },
       methods:{
         shiming(){
           var _this = this;
           if(this.falf&&this.xflag) {
-            var params = new URLSearchParams();
-            params.append("username", this.yonghuname)
-            params.append("shname", this.yonghu.names);
-            params.append("usercard", this.yonghu.userID)
-            this.$axios.post("/user/updatayonghu.action", params, {
+
+            var paramss = new URLSearchParams();
+           // alert(this.yonghu.names)
+            paramss.append("shname", this.yonghu.names);
+            this.$axios.post("/user/getnamesfh.action", paramss, {
               emulateJSON: true
             }).then(function (result) {
-              if (result.data == 1) {
-                alert("实名成功")
-                _this.flag = false;
+             // alert(result.data)
+             // alert(result.data.length)
+              _this.houtaiid = result.data
+            //  alert(_this.houtaiid)
+
+
+             // alert(_this.houtaiid.length)
+              if (_this.houtaiid.length == 0) {
+                var params = new URLSearchParams();
+                params.append("username", _this.yonghuname)
+                params.append("shname", _this.yonghu.names);
+                params.append("usercard", _this.yonghu.userID)
+                _this.$axios.post("/user/updatayonghu.action", params, {
+                  emulateJSON: true
+                }).then(function (result) {
+                  if (result.data == 1) {
+                    alert("实名成功")
+                    _this.flag = false;
+                  } else {
+                  }
+                }).catch(function (error) {
+                  alert(error)
+                });
               } else {
+                for (var i = 0; i < _this.houtaiid.length; i++) {
+                  //alert(_this.houtaiid)
+                  if (_this.yonghu.userID == _this.houtaiid) {
+                    alert("实名信息已存在")
+                    _this.yonghu.userID = ""
+                  } else {
+                    //alert(_this.yonghu.names)
+                    var params = new URLSearchParams();
+                    params.append("username", _this.yonghuname);
+                    params.append("shname", _this.yonghu.names);
+                    params.append("usercard", _this.yonghu.userID)
+                    _this.$axios.post("/user/updatayonghu.action", params, {
+                      emulateJSON: true
+                    }).then(function (result) {
+                      if (result.data == 1) {
+                        alert("实名成功")
+                        _this.flag = false;
+                      } else {
+                      }
+                    }).catch(function (error) {
+                      alert(error)
+                    });
+                  }
+                  return
+                }
               }
             }).catch(function (error) {
               alert(error)
             });
-          }else {
-          alert("请提交正确信息")
+          }else{
+            alert("请提交正确信息")
           }
+
         },
         yesno(){
           var _this = this;
@@ -162,7 +209,7 @@
           catch(function(error) {
             alert(error)
           });
-        }
+        },
 
       },created() {
           this.yesno()

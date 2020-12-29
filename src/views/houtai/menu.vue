@@ -4,8 +4,27 @@
     <el-container>
       <!-- 头部区域 -->
       <el-header>
-        <span>欢迎{{username}}登陆</span>
+        <el-row>
+        <el-col :span="3">
+          <el-image :src="image1"  style="width: 100px; height: 50px"></el-image>
+        </el-col>
 
+        <el-col :span="3">
+          <span>欢迎{{username}}登陆</span>
+        </el-col>
+        <el-col :span="2" class="grid-content bg-purple">
+          <div  class="grid-content bg-purple"></div>
+        </el-col>
+        <el-col :span="8">
+          <h1>小跳购后台管理系统</h1>
+        </el-col>
+        <el-col :span="6" >
+          <div class="grid-content bg-purple"></div>
+        </el-col>
+        <el-col :span="2">
+          <i class="el-icon-switch-button" style="color: red;">退出</i>
+        </el-col>
+        </el-row>
       </el-header>
       <el-container>
         <!-- 左边区域 -->
@@ -120,6 +139,7 @@
           content: "首页",
 
         }],
+        image1:require("../../images/qianduan/mxt.png"),
       }
     },
     /*,*/
@@ -235,5 +255,34 @@
   }
   .el-aside {
     color: #333;
+  }
+
+  .el-row {
+    margin-bottom: 20px;
+  &:last-child {
+     margin-bottom: 0;
+   }
+  }
+
+
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: white;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
   }
 </style>

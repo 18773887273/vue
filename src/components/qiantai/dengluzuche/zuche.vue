@@ -113,7 +113,7 @@ export default {
         return;
       }
       if (this.flag){
-        this.$confirm('确定要提交表单吗？')
+        this.$confirm('确定注册吗？')
           .then(_ => {
             this.loading = true;
             if (_this.checkname == _this.zhuceform.username){
