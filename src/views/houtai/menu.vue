@@ -22,7 +22,9 @@
           <div class="grid-content bg-purple"></div>
         </el-col>
         <el-col :span="2">
-          <i class="el-icon-switch-button" style="color: red;">退出</i>
+          <div  v-on:click="tuchu">
+          <i class="el-icon-switch-button" style="color: red;" >退出</i>
+          </div>
         </el-col>
         </el-row>
       </el-header>
@@ -219,6 +221,11 @@
         }
         this.editableTabsValue = activeName;
         this.editableTabs = tabs.filter((tab) => tab.name !== targetName);
+      },
+      tuchu(){
+        //alert(111)
+        sessionStorage.clear();
+        this.$router.push({path:'/'})
       }
     },
     created() {

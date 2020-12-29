@@ -10,7 +10,7 @@
         </el-form-item>
         <el-form-item label="密码">
 
-          <el-input  v-model="userpass" placeholder="密码" style="width: 200px"></el-input>
+          <el-input  v-model="userpass" placeholder="密码" style="width: 200px" type="password"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="denglu()" style="margin-left: 40px">

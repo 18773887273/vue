@@ -5,10 +5,10 @@
         <div class="grid-content bg-purple-dark"><h2>我的账号</h2></div>
       </el-col>
     </el-row>
-    <el-form>
+    <el-form :model="tableData" :rules="rules" ref="ruleForm" class="demo-ruleForm">
       <el-col :span="24" style="margin-top: 5px">
         <el-form-item label="用户名"><br/>
-          <el-input v-model="tableData.username" readonly="readonly"></el-input>
+          <el-input type="text" v-model="tableData.username" readonly></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="24" style="margin-top: 5px">
@@ -20,20 +20,17 @@
         </el-form-item>
       </el-col>
       <el-col :span="24" style="margin-top: 5px">
-        <el-form-item label="电话">
-          <el-input v-model="tableData.usernumber"></el-input>
+        <el-form-item label="电话" prop="usernumber">
+          <el-input v-model="tableData.usernumber" placeholder="请输入"></el-input>
         </el-form-item>
       </el-col>
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <el-button type="success"  class="but1" @click="xiugai()" size="medium">修改信息</el-button>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20" style="margin-top: 50px">
-        <el-col>
-          <el-button type="warning"  class="but2" @click="addemploys" size="medium">更改密码</el-button>
-        </el-col>
-      </el-row>
+      <el-col :span="12">
+        <el-button type="success" class="but1" @click="xiugai()" size="medium">修改信息</el-button>
+      </el-col>
+      <el-col style="margin-top: 50px">
+        <el-button type="warning" class="but2" @click="addemploys" size="medium">更改密码</el-button>
+      </el-col>
+
 
     </el-form>
 
@@ -97,7 +94,11 @@
 
       return {
         addemploydialogFormVisible: false,
-        tableData: [],
+        tableData: {
+          username: '',
+          sex: '',
+          usernumber: ''
+        },
         yonghuname: sessionStorage.getItem('yonghuname'),
         yonghupass: sessionStorage.getItem('yonghupass'),
         sexs: [
@@ -112,6 +113,14 @@
         flag: false,
         falf: false,
         rules: {
+          usernumber: [
+            {required: true, message: '请输入电话', trigger: 'blur'},
+            { min: 11, max: 11, message: '请输入电话', trigger: 'blur' },
+            {
+              pattern: /^[0-9]{11}$/,
+              message: '请输入电话'
+            }
+          ],
           orldpass: [
             {required: true, validator: orldpasssss, trigger: 'blur'}
           ],

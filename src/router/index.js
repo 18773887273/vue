@@ -74,6 +74,7 @@ const routes = [
   {
     path: '/caidan',
     component: Houtaishouye,
+    redirect: '/caiwubaobiao',
     children: [
       {
         path: '/yonghu',

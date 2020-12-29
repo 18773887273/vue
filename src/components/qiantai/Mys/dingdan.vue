@@ -2,7 +2,7 @@
   <div id="dingdan">
     <el-row>
       <el-col>
-        <el-tabs type="card" v-model="activeName" @tab-click="tiao(tab)">
+        <el-tabs type="card" v-model="activeName">
           <router-link to="/alldingdan">
             <el-tag class="tag-size" type="success">全部订单</el-tag>
           </router-link>
@@ -56,10 +56,6 @@
       }
     },
     methods: {
-      tiao(tab) {
-        alert(tab.name)
-        this.$router.push({path: "'" + tab.name + "'"});
-      }
     }
   }
 </script>

@@ -26,9 +26,14 @@
           <el-input v-model="tableData.storenumber"></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="24" style="margin-top: 5px">
+      <el-col :span="12" style="margin-top: 5px">
         <el-form-item label="门店地址">
           <el-input v-model="tableData.shaddress"></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="12" style="margin-top: 5px">
+        <el-form-item label="银行卡号">
+          <el-input v-model="tableData.shyhcard"></el-input>
         </el-form-item>
       </el-col>
       <el-button type="success" round  class="but1"  @click="shenqing()"   size="medium">确认申请</el-button>
@@ -60,10 +65,15 @@
             <el-input v-model="tableData.storenumber"  readonly="readonly"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="24" style="margin-top: 5px">
+        <el-col :span="12" style="margin-top: 5px">
           <el-form-item label="门店地址">
             <el-input v-model="tableData.shaddress"  readonly="readonly"></el-input>
           </el-form-item>
+        </el-col>
+        <el-col :span="12" style="margin-top: 5px">
+        <el-form-item label="银行卡号">
+          <el-input v-model="tableData.shyhcard"  readonly="readonly"></el-input>
+        </el-form-item>
         </el-col>
         <el-button type="success" round  class="but1" size="medium"  isabled>申请中</el-button>
       </el-form>
@@ -96,9 +106,15 @@
             <el-input v-model="tableData.storenumber"  readonly="readonly"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="24" style="margin-top: 5px">
+        <el-col :span="12" style="margin-top: 5px">
           <el-form-item label="门店地址">
             <el-input v-model="tableData.shaddress"  readonly="readonly"></el-input>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="12" style="margin-top: 5px">
+          <el-form-item label="银行卡号">
+            <el-input v-model="tableData.shyhcard"  readonly="readonly"></el-input>
           </el-form-item>
         </el-col>
         <el-button type="success" round  class="but1" size="medium"  isabled>申请成功</el-button>
@@ -118,7 +134,8 @@
             userID:"",
             storename:'',
             storenumber:'',
-            shaddress:''
+            shaddress:'',
+            shyhcard:""
           },
           yonghuname: sessionStorage.getItem('yonghuname'),
           /*未申请中*/
@@ -139,7 +156,7 @@
           }).then(function (result) {
            // alert(result.data.shname)
             //alert(result.data.useard)
-            alert(result.data.shstate)
+            //alert(result.data.shstate)
             if(result.data.shstate===2){
               //alert(111)
              // alert(result.data.usercard)
@@ -148,6 +165,7 @@
               _this.tableData.storename = result.data.storename
               _this.tableData.storenumber = result.data.storenumber
               _this.tableData.shaddress = result.data.shaddress
+              _this.tableData.shyhcard = result.data.shyhcard
               _this.flag=true
               _this.wflag=false
               _this.xflag=false
@@ -157,6 +175,7 @@
               _this.tableData.storename = result.data.storename
               _this.tableData.storenumber = result.data.storenumber
               _this.tableData.shaddress = result.data.shaddress
+              _this.tableData.shyhcard = result.data.shyhcard
               _this.flag=false
               _this.wflag=false
               _this.xflag=true
@@ -168,6 +187,7 @@
               _this.tableData.storename = result.data.storename
               _this.tableData.storenumber =result.data.storenumber
               _this.tableData.shaddress =result.data.shaddress
+              _this.tableData.shyhcard = result.data.shyhcard
               _this.flag=false
               _this.wflag=true
               _this.xflag=false
@@ -187,6 +207,7 @@
           params.append("storename",this.tableData.storename)
           params.append("storenumber",this.tableData.storenumber)
           params.append("shaddress",this.tableData.shaddress)
+          params.append("shyhcard",this.tableData.shyhcard)
           this.$axios.post("/user/shengqingsh.action", params, {
             emulateJSON: true
           }).then(function (result) {
