@@ -6,9 +6,9 @@
       </el-col>
       <el-col :span="20" :offset="2" class="el-row-body">
         <el-row :gutter="24">
-          <div v-for="item of items" :key="item">
+          <div v-for="item of items">
             <el-col :span="6" >
-              <div class="lx-div-for">
+              <div class="lx-div-for" v-on:click="getDescribe(item.shopputid)">
                 <div>
                   <el-tag size="medium" class="query-tag" type="success">{{ (10-item.shopzhe)*10}}%</el-tag>
                   <el-image class="main_body_queryImg" :src="item.shopid.shopimg">
@@ -40,6 +40,15 @@ export default {
     }
   },
   methods: {
+    getDescribe(id) {
+      //直接调用$router.push 实现携带参数的跳转
+      this.$router.push({
+        path: '/xiangqing',
+        query: {
+          id: id
+        }
+      })
+    },
     getData(func) { //获取数据方法
       var _this = this;
       var params = new URLSearchParams();
