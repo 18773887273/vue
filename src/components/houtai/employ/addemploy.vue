@@ -1,8 +1,8 @@
 <template>
   <div id="app" style="margin-top: -15px;">
-    <el-form :model="editemploy" :inline="true" class="demo-form-inline">
+    <el-form :model="editemploy" status-icon :inline="true"  :rules="rules" class="demo-form-inline">
       <el-form-item label="姓名:">
-        <el-input v-model="addemploy.empname" autocomplete="off" style="width: 200px" placeholder="请输入员工姓名"></el-input>
+        <el-input v-model="addemploy.empname" maxlength="8" minlength="2" autocomplete="off" style="width: 200px" placeholder="请输入员工姓名"></el-input>
       </el-form-item>
       <el-form-item label="性别:">
         <el-select v-model="addemploy.empsex" autocomplete="off" style="width:200px;" filterable>
@@ -13,7 +13,7 @@
       <el-form-item label="用户名:" >
         <el-input v-model="addemploy.username" autocomplete="off" placeholder="请输入员工用户名"></el-input>
       </el-form-item>
-      <el-form-item label="密码:" style="width:200px;">
+      <el-form-item label="密码:" >
         <el-input v-model="addemploy.password" autocomplete="off" placeholder="请输入用户名登录密码"></el-input>
       </el-form-item>
       <el-form-item label="手机号:">
@@ -51,13 +51,21 @@
           username: '',
           password: ''
         },
+        queryaddemploy:[],
         sexs: [
           {id: 1, name: "男"},
           {id: 0, name: "女"}
-        ]
+        ],
       }
     },
-    methods: {}
+    methods: {
+      zhuceemp(){
+
+      },
+    },
+    created() {
+      //this.queryname();
+    }
   }
 </script>
 

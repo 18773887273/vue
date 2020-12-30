@@ -11,7 +11,7 @@
         </el-form>
         <el-table :data="tableData" stripe style="width: 100%" border
                   :header-cell-style="headClass" :cell-style="rowClass" :row-class-name="tableRowClassName" border ref="multipleTable"
-                  @selection-change="changeFun"
+                  @selection-change="changeFun" max-height="500px"
         >
           <el-table-column
             type="selection" ref="multipleTable"
@@ -21,7 +21,7 @@
           <el-table-column label="商品名">
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">
-                <p><img :src="scope.row.shopimg" min-width="100"  height="100"/></p><br>
+                <p>商品描述: {{ scope.row.shopmiaoshu }}</p>
                 <div slot="reference" class="name-wrapper">
                   <el-tag size="medium">{{ scope.row.shopname }}</el-tag>
                 </div>
@@ -30,7 +30,10 @@
           </el-table-column>
           <el-table-column prop="shoptyid.shoptyname" label="类型">
           </el-table-column>
-          <el-table-column prop="shopmiaoshu" label="描述">
+          <el-table-column prop="shopmiaoshu" label="图片">
+            <template slot-scope="scope">
+              <p><img :src="scope.row.shopimg" min-width="70"  height="70"/></p>
+            </template>
           </el-table-column>
           <el-table-column prop="shopprice" label="价格">
           </el-table-column>
@@ -82,7 +85,7 @@
         addshopdialogFormVisible: false,
         total: 1,
         page: 1,
-        rows:8,
+        rows:1000,
         minprice: 0,
         maxprice: 1000000,
         multipleSelection:"",

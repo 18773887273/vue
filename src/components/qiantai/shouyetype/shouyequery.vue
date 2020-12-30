@@ -8,7 +8,7 @@
         <el-row :gutter="24">
           <div v-for="item of items">
             <el-col :span="6" >
-              <div class="lx-div-for" v-on:click="getDescribes(item.shopputid)">
+              <div class="lx-div-for" v-on:click="getDescribes(item.shopid.shopid)">
                 <div>
                   <el-tag size="medium" class="query-tag" type="success">{{ (10-item.shopzhe)*10}}%</el-tag>
                   <el-image style="width: 210px;height: 180px" class="main_body_queryImg" :src="item.shopid.shopimg">
@@ -50,7 +50,7 @@ export default {
         }
       })
     },
-    getData(func) { //获取数据方法
+    getData() { //获取数据方法
       this.items = [];
       var _this = this;
       var params = new URLSearchParams();
@@ -71,7 +71,6 @@ export default {
       this.$axios.post("shopput/querylike.action", params).then(function (result) {
         _this.items = result.data;
         console.log(result.data)
-        func && func();
       }).catch(function (error) {
         alert(error)
       });

@@ -74,6 +74,8 @@
             <el-button type="primary" @click="employsave()">确 定</el-button>
           </div>
         </el-dialog>
+
+
         <el-dialog :visible.sync="addemploydialogFormVisible" :before-close="addemployhandleClose">
           <div slot="title" class="dialog-title">
             <i class="el-icon-circle-plus-outline"></i>
@@ -88,6 +90,8 @@
             <el-button type="primary" @click="employadd()">添加</el-button>
           </div>
         </el-dialog>
+
+
         <!-- 员工授权角色 -->
         <el-dialog :visible.sync="employroledialogTableVisible" style="width:1700px;margin-left: -100px">
           <div slot="title" class="dialog-title">
@@ -150,7 +154,10 @@
         selectDate: {},
         queryempname: "",
         queryaddress: "",
-        employid: ""
+        employid: "",
+        yanzhenname:"",
+        yanzhennumber:"",
+        yanzhencard:"",
       }
     },
     methods: {
@@ -296,10 +303,44 @@
         this.addemploydialogFormVisible = false;
         this.$refs.addemploychild.addemploy = {};
       },
+      //查询员工
+      queryempcard(empcard){
+        let _this=this;
+        let params = new URLSearchParams();
+        params.append("addemploy.empcard",empcard);
+        this.$axios.post("employ/query.action",params).then(function(result) {
+          if(result.data.length!=0){
+            _this.yanzhencard=true;
+          }else {
+            _this.yanzhencard=false;
+          }
+        })
+          .catch(function(error) {
+            alert(error)
+          });
+      },
+      //查询员工
+      queryempnumber(empnumber){
+        let _this=this;
+        let params = new URLSearchParams();
+        params.append("addemploy.empnumber",empnumber);
+        this.$axios.post("employ/query.action",params).then(function(result) {
+          if(result.data.length!=0){
+            _this.yanzhennumber=true;
+          }else {
+            _this.yanzhennumber=false;
+          }
+        })
+          .catch(function(error) {
+            alert(error)
+          });
+      },
       //添加员工去后台
       employadd() {
-        var addemploy = this.$refs.addemploychild.addemploy;
         var _this = this;
+        var addemploy= this.$refs.addemploychild.addemploy;
+        /*验证*/
+        /*------------------------------------------------------------*/
         var employs = new URLSearchParams();
         employs.append("empaddress", addemploy.empaddress);
         employs.append("empname", addemploy.empname);

@@ -181,6 +181,9 @@
                 <el-table-column prop="shopid.shopdanwei" label="单位">
                 </el-table-column>
                 <el-table-column prop="shopid.shopimg " label="图片">
+                  <template slot-scope="scope">
+                    <img :src="scope.row.shopid.shopimg" min-width="70"  height="70"/>
+                  </template>
                 </el-table-column>
                 <el-table-column prop="shopcount" label="库存">
                 </el-table-column>

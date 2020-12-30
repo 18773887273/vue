@@ -99,6 +99,30 @@
             value: '把',
             label: '把'
           },
+          {
+            value: '箱',
+            label: '箱'
+          },
+          {
+            value: '只',
+            label: '只'
+          },
+          {
+            value: '罐',
+            label: '罐'
+          },
+          {
+            value: '桶',
+            label: '桶'
+          },
+          {
+            value: '条',
+            label: '条'
+          },
+          {
+            value: '瓶',
+            label: '瓶'
+          }
         ],
         value: '',
         editshop: {
